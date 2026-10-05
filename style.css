@@ -1295,7 +1295,10 @@ body.splash-active {
     color: rgba(255, 255, 255, 0.65);
 }
 
+.app-tile-badge--ver,
 .app-tile-badge--v2 {
+    left: 10px;
+    right: auto;
     width: 40px;
     height: 40px;
     padding: 0;
@@ -1309,6 +1312,41 @@ body.splash-active {
         0 0 8px rgba(240, 208, 96, 0.7),
         0 0 20px rgba(232, 196, 74, 0.35),
         inset 0 1px 0 rgba(255, 236, 180, 0.55);
+}
+
+.app-tile-langs {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    pointer-events: none;
+}
+
+.app-tile-badge--flag {
+    position: relative;
+    top: auto;
+    right: auto;
+    width: 40px;
+    height: 40px;
+    padding: 3px;
+    gap: 0;
+    overflow: hidden;
+    color: #ffe27a;
+    background: linear-gradient(180deg, #6a5210 0%, #2a1e04 100%);
+    border-color: #f0d060;
+    box-shadow:
+        0 0 8px rgba(240, 208, 96, 0.7),
+        0 0 20px rgba(232, 196, 74, 0.35),
+        inset 0 1px 0 rgba(255, 236, 180, 0.55);
+}
+
+.app-tile-badge--flag svg {
+    display: block;
+    width: 100%;
+    height: 100%;
+    border-radius: 2px;
 }
 
 a.app-tile:hover {
@@ -1876,6 +1914,13 @@ body.no-scroll {
     padding: 10px 0;
     overflow: hidden;
     box-sizing: border-box;
+    min-height: calc(var(--merch-tile-h) * 2 + var(--merch-tile-gap) + 48px);
+    opacity: 0;
+}
+
+.merch-page .merch-marquee.is-ready {
+    opacity: 1;
+    transition: opacity 0.4s ease;
 }
 
 .merch-page .merch-marquee::before,
@@ -1919,6 +1964,7 @@ body.no-scroll {
     display: flex;
     width: max-content;
     will-change: transform;
+    animation-play-state: paused;
 }
 
 /* Duur wordt via JS gezet (~1 schermbreedte / 10s); fallback hieronder */
@@ -1928,6 +1974,10 @@ body.no-scroll {
 
 .merch-page .merch-marquee__track--rtl {
     animation: merch-marquee-scroll 40s linear infinite reverse;
+}
+
+.merch-page .merch-marquee.is-ready .merch-marquee__track {
+    animation-play-state: running;
 }
 
 .merch-page .merch-marquee__group {
@@ -2003,6 +2053,10 @@ body.no-scroll {
 
     .merch-page .merch-marquee__mobile {
         display: block;
+    }
+
+    .merch-page .merch-marquee {
+        min-height: calc(var(--merch-tile-h) + 44px);
     }
 }
 
