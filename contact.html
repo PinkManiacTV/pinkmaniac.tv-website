@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CONTACT - PinkManiacTV</title>
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pinkmaniac.tv/contact.html">
+    <meta property="og:title" content="CONTACT - PinkManiacTV">
+    <meta property="og:description" content="Get in touch with PinkManiacTV">
+    <meta property="og:image" content="https://pinkmaniac.tv/PMT logo round.png">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://pinkmaniac.tv/contact.html">
+    <meta name="twitter:title" content="CONTACT - PinkManiacTV">
+    <meta name="twitter:description" content="Get in touch with PinkManiacTV">
+    <meta name="twitter:image" content="https://pinkmaniac.tv/PMT logo round.png">
+    
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Sticky Navigation Header -->
+    <header class="header">
+        <a href="index.html" class="header-left">HOME</a>
+        <div class="header-center">
+            <a href="index.html">
+                <img src="2026 PM white pink on black.png" alt="PinkManiacTV" class="header-logo">
+            </a>
+        </div>
+        <div class="header-right">
+            <nav class="desktop-nav">
+                <a href="app/">APPS</a>
+                <a href="studio.html">STUDIO</a>
+                <a href="racing.html">RACING</a>
+                <a href="music.html">MUSIC</a>
+                <a href="merch.html">MERCH</a>
+                <a href="leagues.html">LEAGUES</a>
+            </nav>
+            <button class="hamburger-btn" id="mobileMenuBtn">
+                <svg viewBox="0 0 100 80" width="30" height="30" fill="#ffffff">
+                    <rect width="100" height="15" rx="8"></rect>
+                    <rect y="30" width="100" height="15" rx="8"></rect>
+                    <rect y="60" width="100" height="15" rx="8"></rect>
+                </svg>
+            </button>
+        </div>
+        <div class="mobile-nav-overlay" id="mobileNav">
+            <a href="app/">APPS</a>
+            <a href="studio.html">STUDIO</a>
+            <a href="racing.html">RACING</a>
+            <a href="music.html">MUSIC</a>
+            <a href="merch.html">MERCH</a>
+            <a href="leagues.html">LEAGUES</a>
+        </div>
+    </header>
+    
+    <main class="container">
+        <div class="contact-content">
+            <p class="contact-text">Contact page coming soon...</p>
+        </div>
+    </main>
+    
+    <script>
+        // Hamburger Menu Toggle
+        document.addEventListener('DOMContentLoaded', function() {
+            const btn = document.getElementById('mobileMenuBtn');
+            const menu = document.getElementById('mobileNav');
+            
+            if(btn && menu) {
+                btn.addEventListener('click', function() {
+                    menu.classList.toggle('active');
+                });
+            } else {
+                console.error("Menu elementen niet gevonden!");
+            }
+        });
+    </script>
+    
+    <div class="neon-divider"></div>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-top">
+            <div class="footer-brand">
+                <img src="2026-pmtv-group-logo.png" alt="PinkManiacTV Group Logo" class="footer-logo-pmtv2">
+                <div class="footer-brand-content">
+                    <span class="footer-brand-text">PINKMANIAC TV</span>
+                    <p class="footer-brand-note">© 2026 PinkManiac Group. All rights reserved. PMTV Socials, PinkManiac Music, the FOLLOW THE LIGHT clothing brand, and PMTV fashion are part of the PinkManiac Group.</p>
+                </div>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>NAVIGATE</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="app/">Webapps</a></li>
+                        <li><a href="studio.html">Studio</a></li>
+                        <li><a href="racing.html">Racing</a></li>
+                        <li><a href="music.html">Music</a></li>
+                        <li><a href="merch.html">Merch</a></li>
+                        <li><a href="leagues.html">Leagues</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>INFO</h4>
+                    <ul>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="legal.html">Legal</a></li>
+                    </ul>
+                </div>
+            </div>
+            </div>
+            <hr class="footer-divider">
+            <div class="footer-bottom">
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/pinkmaniactv/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.youtube.com/@PinkManiacTV" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.tiktok.com/@pinkmaniactv" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://x.com/PinkManiacTV" target="_blank" aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+                </div>
+                <p class="footer-copyright">© 2026 PinkManiacTV. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>
+

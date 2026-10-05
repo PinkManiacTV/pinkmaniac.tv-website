@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PMTV Racing | F1 Times & Tijden</title>
+    <meta name="description" content="Check the latest Formula 1 Schedule, F1 Times and F1 Tijden for the next Grand Prix. Official PMTV Racing updates.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pinkmaniac.tv/racing.html">
+    <meta property="og:title" content="RACING - PinkManiacTV">
+    <meta property="og:description" content="Formula One racing schedule and track content from PinkManiacTV">
+    <meta property="og:image" content="https://pinkmaniac.tv/PMT logo round.png">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://pinkmaniac.tv/racing.html">
+    <meta name="twitter:title" content="RACING - PinkManiacTV">
+    <meta name="twitter:description" content="Formula One racing schedule and track content from PinkManiacTV">
+    <meta name="twitter:image" content="https://pinkmaniac.tv/PMT logo round.png">
+    
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Sticky Navigation Header -->
+    <header class="header">
+        <a href="index.html" class="header-left">HOME</a>
+        <div class="header-center">
+            <a href="index.html">
+                <img src="2026 PM white pink on black.png" alt="PinkManiacTV" class="header-logo">
+            </a>
+        </div>
+        <div class="header-right">
+            <nav class="desktop-nav">
+                <a href="app/">APPS</a>
+                <a href="studio.html">STUDIO</a>
+                <a href="racing.html">RACING</a>
+                <a href="music.html">MUSIC</a>
+                <a href="merch.html">MERCH</a>
+                <a href="leagues.html">LEAGUES</a>
+            </nav>
+            <button class="hamburger-btn" id="mobileMenuBtn">
+                <svg viewBox="0 0 100 80" width="30" height="30" fill="#ffffff">
+                    <rect width="100" height="15" rx="8"></rect>
+                    <rect y="30" width="100" height="15" rx="8"></rect>
+                    <rect y="60" width="100" height="15" rx="8"></rect>
+                </svg>
+            </button>
+        </div>
+        <div class="mobile-nav-overlay" id="mobileNav">
+            <a href="app/">APPS</a>
+            <a href="studio.html">STUDIO</a>
+            <a href="racing.html">RACING</a>
+            <a href="music.html">MUSIC</a>
+            <a href="merch.html">MERCH</a>
+            <a href="leagues.html">LEAGUES</a>
+        </div>
+    </header>
+    
+    <main class="container">
+        <!-- Racing Logo -->
+        <header class="page-header">
+            <img src="racing.png" alt="PMTV Racing Logo" class="logo">
+        </header>
+        
+        <!-- Page Title -->
+        <h2 class="section-title">RACING</h2>
+        
+        <!-- Leagues CTA Block -->
+        <div class="racing-cta-block">
+            <h3>LEAGUES</h3>
+            <p>View public standings from finished championships or host your own custom series.</p>
+            <div class="leagues-cta-view">
+                <div class="leagues-cta-view-heading" role="presentation">VIEW PUBLIC LEAGUES</div>
+                <ul class="public-leagues-list" data-public-leagues-list aria-label="Public championships (view only)"></ul>
+            </div>
+            <div class="cta-button-row">
+                <a href="host-league.html" class="cta-button cta-button--secondary">HOST YOUR OWN LEAGUE</a>
+            </div>
+        </div>
+        
+        <!-- Blok 1: Formula One -->
+        <div class="neon-divider"></div>
+        <section class="studio-section">
+            <h3 class="studio-section-title">FORMULA ONE</h3>
+            <div class="f1-event-container">
+                <h3 class="next-race-title">NEXT GP & F1 TIMES</h3>
+                <h3 class="next-race-title f1-gp-country-title" id="f1-gp-title"></h3>
+                <p id="f1-race-subtitle" class="race-date-location">Loading schedule…</p>
+                <div class="table-wrapper">
+                    <table class="f1-schedule-table">
+                        <thead>
+                            <tr>
+                                <th>SESSION</th>
+                                <th>DAY</th>
+                                <th>TIME</th>
+                                <th>LOCAL TIME</th>
+                            </tr>
+                        </thead>
+                        <tbody id="f1-schedule-body">
+                            <tr>
+                                <td colspan="4" style="text-align:center;color:rgba(255,255,255,0.7);">Loading F1 schedule…</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <a id="f1-official-schedule-link" href="https://www.formula1.com/en/racing.html" target="_blank" rel="noopener noreferrer" class="official-schedule-link">CHECK OFFICIAL SCHEDULE ></a>
+            </div>
+        </section>
+        
+        <!-- Blok 2: Track Content -->
+        <div class="neon-divider"></div>
+        <section class="studio-section">
+            <h3 class="studio-section-title">TRACK CONTENT</h3>
+            <div class="studio-description">
+                <p>Coming soon...</p>
+            </div>
+        </section>
+        
+        <!-- Blok 3: PMTV Racing -->
+        <div class="neon-divider"></div>
+        <section class="studio-section">
+            <h3 class="studio-section-title">PMTV RACING</h3>
+            <div class="studio-description">
+                <p>Coming soon...</p>
+            </div>
+        </section>
+    </main>
+    
+    <script>
+(function () {
+    var JOLPICA = 'https://api.jolpi.ca/f1/alpha';
+    var GP_GRACE_MS = 3 * 60 * 60 * 1000;
+
+    var SESSION_LABELS = {
+        FP1: 'FP1',
+        FP2: 'FP2',
+        FP3: 'FP3',
+        Q: 'QUALIFYING',
+        SQ: 'SPRINT QUALIFYING',
+        SR: 'SPRINT',
+        R: 'GRAND PRIX'
+    };
+
+    function fetchJson(url, retriesLeft) {
+        if (retriesLeft === undefined) retriesLeft = 2;
+        return fetch(url, { mode: 'cors', credentials: 'omit', cache: 'no-store' })
+            .catch(function () {
+                return null;
+            })
+            .then(function (r) {
+                if (!r) return null;
+                if (r.status === 429 && retriesLeft > 0) {
+                    return new Promise(function (resolve) {
+                        setTimeout(resolve, 1500);
+                    }).then(function () {
+                        return fetchJson(url, retriesLeft - 1);
+                    });
+                }
+                if (!r.ok) return null;
+                return r.json().catch(function () {
+                    return null;
+                });
+            });
+    }
+
+    function pickNextEvent(events, nowMs) {
+        var eligible = events
+            .filter(function (ev) {
+                return ev.round && !ev.round.is_cancelled && ev.schedule && ev.schedule.length;
+            })
+            .sort(function (a, b) {
+                return new Date(a.schedule[0].timestamp) - new Date(b.schedule[0].timestamp);
+            });
+
+        var i;
+        for (i = 0; i < eligible.length; i++) {
+            var last = eligible[i].schedule[eligible[i].schedule.length - 1];
+            var endMs = new Date(last.timestamp).getTime() + GP_GRACE_MS;
+            if (nowMs < endMs) return eligible[i];
+        }
+        for (i = 0; i < eligible.length; i++) {
+            if (new Date(eligible[i].schedule[0].timestamp).getTime() > nowMs) return eligible[i];
+        }
+        return eligible.length ? eligible[eligible.length - 1] : null;
+    }
+
+    function resolveNextEvent() {
+        var nowMs = Date.now();
+        var year = new Date().getFullYear();
+
+        function loadYear(y) {
+            return fetchJson(JOLPICA + '/schedules/' + y + '/').then(function (payload) {
+                var events = payload && payload.data && payload.data.events ? payload.data.events : [];
+                return { year: y, events: events };
+            });
+        }
+
+        return loadYear(year).then(function (current) {
+            var picked = pickNextEvent(current.events, nowMs);
+            if (picked) return { seasonYear: current.year, event: picked };
+            return loadYear(year + 1).then(function (next) {
+                var nextPicked = pickNextEvent(next.events, nowMs);
+                if (nextPicked) return { seasonYear: next.year, event: nextPicked };
+                throw new Error('No upcoming F1 event found');
+            });
+        });
+    }
+
+    function parseLocalTime(localTimestamp) {
+        if (!localTimestamp) return 'n/a';
+        var match = String(localTimestamp).match(/(\d{2}):(\d{2})/);
+        return match ? match[1] + ':' + match[2] : 'n/a';
+    }
+
+    function sessionLabel(item) {
+        return SESSION_LABELS[item.code] || String(item.title || item.code || '').toUpperCase();
+    }
+
+    function rowHighlightClass(item) {
+        if (item.code === 'R') return 'race-highlight';
+        if (item.code === 'SR' || item.code === 'SQ' || item.code === 'Q') return 'session-highlight';
+        return '';
+    }
+
+    function getRaceSession(schedule) {
+        var i;
+        for (i = 0; i < schedule.length; i++) {
+            if (schedule[i].code === 'R') return schedule[i];
+        }
+        return schedule.length ? schedule[schedule.length - 1] : null;
+    }
+
+    function renderSessions(tbody, schedule) {
+        tbody.innerHTML = '';
+        schedule.forEach(function (item) {
+            var d = new Date(item.timestamp);
+            var cls = rowHighlightClass(item);
+            var label = sessionLabel(item);
+            var dateStr = d.toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' });
+            var userTime = d.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit', hour12: false });
+            var trackTime = parseLocalTime(item.local_timestamp);
+            var tr = document.createElement('tr');
+            [label, dateStr, userTime, trackTime].forEach(function (text, idx) {
+                var td = document.createElement('td');
+                td.textContent = text;
+                var parts = [];
+                if (cls) parts.push(cls);
+                if (idx === 2) parts.push('local-time-cell');
+                if (parts.length) td.className = parts.join(' ');
+                tr.appendChild(td);
+            });
+            tbody.appendChild(tr);
+        });
+    }
+
+    function applyScheduleResult(result, tbody, subtitle, linkEl) {
+        var event = result.event;
+        var seasonYear = result.seasonYear;
+        var schedule = event.schedule || [];
+        if (!schedule.length) throw new Error('No sessions in schedule');
+
+        var circuit = event.circuit || {};
+        var round = event.round || {};
+        var raceSession = getRaceSession(schedule);
+        var gpTitleEl = document.getElementById('f1-gp-title');
+
+        if (gpTitleEl) {
+            var country = circuit.country;
+            gpTitleEl.textContent = country ? country.toUpperCase() + ' GP' : String(round.name || '').toUpperCase();
+        }
+
+        if (subtitle) {
+            var raceDate = raceSession ? new Date(raceSession.timestamp) : new Date(schedule[0].timestamp);
+            subtitle.textContent =
+                (circuit.name || round.name || 'Circuit') +
+                ' | ' +
+                raceDate.toLocaleDateString('en-GB', { month: 'long', year: 'numeric' });
+        }
+
+        if (linkEl) {
+            linkEl.href = 'https://www.formula1.com/en/racing/' + seasonYear;
+        }
+
+        renderSessions(tbody, schedule);
+    }
+
+    function loadF1Schedule() {
+        var tbody = document.getElementById('f1-schedule-body');
+        var subtitle = document.getElementById('f1-race-subtitle');
+        var linkEl = document.getElementById('f1-official-schedule-link');
+        if (!tbody) return;
+
+        resolveNextEvent()
+            .then(function (result) {
+                applyScheduleResult(result, tbody, subtitle, linkEl);
+            })
+            .catch(function (err) {
+                console.error('F1 schedule load failed:', err);
+                var gpTitleErr = document.getElementById('f1-gp-title');
+                if (gpTitleErr) gpTitleErr.textContent = '';
+                if (subtitle) subtitle.textContent = 'Schedule unavailable. Try again later.';
+                tbody.innerHTML =
+                    '<tr><td colspan="4" style="text-align:center;color:#ff2961;">Could not load schedule. Check your connection or try again later.</td></tr>';
+            });
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        loadF1Schedule();
+        setInterval(loadF1Schedule, 5 * 60 * 1000);
+        document.addEventListener('visibilitychange', function () {
+            if (!document.hidden) loadF1Schedule();
+        });
+
+        var btn = document.getElementById('mobileMenuBtn');
+        var menu = document.getElementById('mobileNav');
+        if (btn && menu) {
+            btn.addEventListener('click', function () {
+                menu.classList.toggle('active');
+            });
+        }
+    });
+})();
+    </script>
+    
+    <div class="neon-divider"></div>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-top">
+            <div class="footer-brand">
+                <img src="2026-pmtv-group-logo.png" alt="PinkManiacTV Group Logo" class="footer-logo-pmtv2">
+                <div class="footer-brand-content">
+                    <span class="footer-brand-text">PINKMANIAC TV</span>
+                    <p class="footer-brand-note">© 2026 PinkManiac Group. All rights reserved. PMTV Socials, PinkManiac Music, the FOLLOW THE LIGHT clothing brand, and PMTV fashion are part of the PinkManiac Group.</p>
+                </div>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>NAVIGATE</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="app/">Webapps</a></li>
+                        <li><a href="studio.html">Studio</a></li>
+                        <li><a href="racing.html">Racing</a></li>
+                        <li><a href="music.html">Music</a></li>
+                        <li><a href="merch.html">Merch</a></li>
+                        <li><a href="leagues.html">Leagues</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>INFO</h4>
+                    <ul>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="legal.html">Legal</a></li>
+                    </ul>
+                </div>
+            </div>
+            </div>
+            <hr class="footer-divider">
+            <div class="footer-bottom">
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/pinkmaniactv/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.youtube.com/@PinkManiacTV" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.tiktok.com/@pinkmaniactv" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://x.com/PinkManiacTV" target="_blank" aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+                </div>
+                <p class="footer-copyright">© 2026 PinkManiacTV. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    <script src="public-leagues.js"></script>
+</body>
+</html>
+

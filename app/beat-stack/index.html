@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PM Beat Stack — PM APP</title>
+    <meta name="description" content="Build fun loops with a 32-step sequencer. Stack drums, bass, synth, piano, and guitar in the browser.">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="PM Beat Stack - PinkManiacTV">
+    <meta property="og:description" content="Build fun loops with a 32-step sequencer. Stack drums, bass, synth, piano, and guitar in the browser.">
+    <meta property="og:image" content="https://pinkmaniac.tv/PMT logo round.png">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="PM Beat Stack - PinkManiacTV">
+    <meta name="twitter:description" content="Build fun loops with a 32-step sequencer. Stack drums, bass, synth, piano, and guitar in the browser.">
+    <meta name="twitter:image" content="https://pinkmaniac.tv/PMT logo round.png">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png?v=2">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="beat-stack.css">
+</head>
+<body class="app-page beat-page">
+    <header class="header header--app">
+        <nav class="app-header-nav" aria-label="Site navigation">
+            <a href="https://pinkmaniac.tv/" class="app-header-link">PMTV HOME</a>
+            <span class="app-header-divider" aria-hidden="true"></span>
+            <a href="https://pinkmaniac.tv/app" class="app-header-link">PM APP HOME</a>
+        </nav>
+    </header>
+
+    <main class="beat-main">
+        <header class="beat-intro">
+            <p class="beat-kicker">PM APP</p>
+            <h1 class="beat-title">PM Beat Stack</h1>
+            <p class="beat-blurb">Tap steps, stack sounds, twist the BPM. Make a loop just for fun.</p>
+        </header>
+
+        <section class="beat-transport" aria-label="Transport">
+            <div class="beat-transport-left">
+                <button type="button" class="beat-btn beat-btn--primary" id="beat-play" aria-pressed="false">
+                    <i class="fa-solid fa-play" aria-hidden="true"></i>
+                    <span>Play</span>
+                </button>
+                <button type="button" class="beat-btn" id="beat-stop">
+                    <i class="fa-solid fa-stop" aria-hidden="true"></i>
+                    <span>Stop</span>
+                </button>
+                <button type="button" class="beat-btn" id="beat-clear" title="Clear all steps">
+                    <i class="fa-solid fa-eraser" aria-hidden="true"></i>
+                    <span>Clear</span>
+                </button>
+            </div>
+
+            <label class="beat-bpm">
+                <span class="beat-bpm-label">BPM</span>
+                <input type="range" class="beat-range" id="beat-bpm" min="60" max="180" value="120" step="1">
+                <span class="beat-bpm-value" id="beat-bpm-value">120</span>
+            </label>
+
+            <div class="beat-transport-right">
+                <button type="button" class="beat-btn" id="beat-expand-all" title="Expand all tracks">
+                    <i class="fa-solid fa-expand" aria-hidden="true"></i>
+                    <span>Expand All</span>
+                </button>
+                <button type="button" class="beat-btn" id="beat-collapse-all" title="Collapse all tracks">
+                    <i class="fa-solid fa-compress" aria-hidden="true"></i>
+                    <span>Collapse All</span>
+                </button>
+                <button type="button" class="beat-btn beat-btn--accent" id="beat-add" title="Add track (max 16)">
+                    <i class="fa-solid fa-plus" aria-hidden="true"></i>
+                    <span>Add Track</span>
+                </button>
+            </div>
+        </section>
+
+        <div class="beat-studio" aria-label="Sequencer">
+            <div class="beat-step-ruler" id="beat-step-ruler" aria-hidden="true"></div>
+            <div class="beat-tracks" id="beat-tracks"></div>
+        </div>
+
+        <p class="beat-hint" id="beat-hint">Expand a melody track to place chords and long notes. Drag to lengthen.</p>
+    </main>
+
+    <div class="beat-modal" id="beat-add-modal" hidden aria-hidden="true">
+        <div class="beat-modal-backdrop" id="beat-add-backdrop"></div>
+        <div class="beat-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="beat-add-title">
+            <header class="beat-modal-header">
+                <h2 class="beat-modal-title" id="beat-add-title">Add Track</h2>
+                <button type="button" class="beat-icon-btn" id="beat-add-close" aria-label="Close">
+                    <i class="fa-solid fa-xmark" aria-hidden="true"></i>
+                </button>
+            </header>
+            <div class="beat-modal-body" id="beat-add-options"></div>
+        </div>
+    </div>
+
+    <script src="beat-stack.js"></script>
+</body>
+</html>

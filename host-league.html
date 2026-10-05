@@ -1,0 +1,2344 @@
+<!DOCTYPE html>
+<html lang="nl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CUSTOM CHAMPIONSHIPS - PinkManiacTV</title>
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pinkmaniac.tv/host-league.html">
+    <meta property="og:title" content="CUSTOM CHAMPIONSHIPS - PinkManiacTV">
+    <meta property="og:description" content="Manage your own F1 leagues. Track points. You are in race control, vroom!">
+    <meta property="og:image" content="https://pinkmaniac.tv/PMT logo round.png">
+    
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:url" content="https://pinkmaniac.tv/host-league.html">
+    <meta name="twitter:title" content="CUSTOM CHAMPIONSHIPS - PinkManiacTV">
+    <meta name="twitter:description" content="Manage your own F1 leagues. Track points. You are in race control, vroom!">
+    <meta name="twitter:image" content="https://pinkmaniac.tv/PMT logo round.png">
+    
+    <link rel="icon" type="image/png" href="favicon.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <!-- Login Overlay -->
+    <div id="login-overlay" class="modal-overlay" style="display: flex; background: #000; z-index: 100000;">
+        <div class="login-card" style="text-align: center; max-width: 400px;">
+            <h1 class="neon-text-large">PINKMANIAC F1</h1>
+            <p style="color: #fff; margin-bottom: 30px;">Enter a League Code to view the standings</p>
+
+            <div id="login-form">
+                <input type="text" id="login-room" class="league-input" placeholder="LEAGUE CODE (e.g. MAX26)" style="text-align: center; margin-bottom: 10px; text-transform: uppercase;">
+                
+                <p id="login-error-msg" style="display: none; color: #ff2961; font-weight: bold; margin-bottom: 10px; text-transform: uppercase; margin-top: 10px;">LEAGUE NOT FOUND!</p>
+                
+                <button onclick="attemptLogin()" class="league-btn">ENTER LEAGUE</button>
+                
+                <div style="margin-top: 30px; border-top: 1px solid #333; padding-top: 20px;">
+                    <p style="color: #888; font-size: 12px;">New here?</p>
+                    <button onclick="showCreateMode()" class="league-btn secondary" style="font-size: 12px;">CREATE NEW LEAGUE</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Sticky Navigation Header -->
+    <header class="header">
+        <a href="index.html" class="header-left">HOME</a>
+        <div class="header-center">
+            <a href="index.html">
+                <img src="2026 PM white pink on black.png" alt="PinkManiacTV" class="header-logo">
+            </a>
+        </div>
+        <div class="header-right">
+            <nav class="desktop-nav">
+                <a href="app/">APPS</a>
+                <a href="studio.html">STUDIO</a>
+                <a href="racing.html">RACING</a>
+                <a href="music.html">MUSIC</a>
+                <a href="merch.html">MERCH</a>
+                <a href="leagues.html">LEAGUES</a>
+            </nav>
+            <button class="hamburger-btn" id="mobileMenuBtn">
+                <svg viewBox="0 0 100 80" width="30" height="30" fill="#ffffff">
+                    <rect width="100" height="15" rx="8"></rect>
+                    <rect y="30" width="100" height="15" rx="8"></rect>
+                    <rect y="60" width="100" height="15" rx="8"></rect>
+                </svg>
+            </button>
+        </div>
+        <div class="mobile-nav-overlay" id="mobileNav">
+            <a href="app/">APPS</a>
+            <a href="studio.html">STUDIO</a>
+            <a href="racing.html">RACING</a>
+            <a href="music.html">MUSIC</a>
+            <a href="merch.html">MERCH</a>
+            <a href="leagues.html">LEAGUES</a>
+        </div>
+    </header>
+    
+    <main class="container">
+        <!-- Page Title -->
+        <h1 class="league-page-title">CUSTOM CHAMPIONSHIPS</h1>
+        <p class="league-page-subtitle">Manage your own F1 leagues. Track points. You are in race control, vroom!</p>
+        
+        <!-- Login Card -->
+        <div class="league-card">
+            <!-- Tabs -->
+            <div class="league-tabs">
+                <button type="button" class="league-tab active" data-tab="enter">ENTER LEAGUE</button>
+                <button type="button" class="league-tab" data-tab="create">CREATE NEW</button>
+            </div>
+            
+            <!-- Tab Content: Enter League -->
+            <div class="league-tab-content active" id="tab-enter">
+                <div class="league-form">
+                    <input type="text" class="league-input" placeholder="Room Name" id="room-name-enter">
+                    <input type="password" class="league-input" placeholder="PIN Code" maxlength="4" id="pin-enter">
+                    <p id="tab-enter-error-msg" style="display: none; color: #ff2961; font-weight: bold; margin-top: 10px; text-transform: uppercase;">LEAGUE NOT FOUND!</p>
+                    <button class="league-btn" onclick="attemptLoginFromTab()">ENTER PADDOCK</button>
+                </div>
+            </div>
+            
+            <!-- Tab Content: Create New -->
+            <div class="league-tab-content" id="tab-create">
+                <div class="league-form">
+                    <input type="text" class="league-input" placeholder="Room Name" id="room-name-create">
+                    <input type="password" class="league-input" placeholder="Admin Key (required)" maxlength="4" id="pin-create">
+                    
+                    <button class="league-btn" id="next-drivers-btn" onclick="goToDriversStep()">NEXT: DRIVERS & TEAMS -></button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Drivers Section -->
+        <div class="drivers-section admin-only" id="drivers-section" style="display: none;">
+            <button type="button" class="league-btn secondary" onclick="goBackToLeagueChoice()" style="margin-bottom: 20px; display: inline-flex; align-items: center; gap: 8px;">
+                <i class="fas fa-arrow-left"></i> BACK
+            </button>
+            <div style="margin-bottom: 30px; padding: 20px; background: rgba(255, 41, 97, 0.1); border-radius: 8px; border: 1px solid #ff2961;">
+                <h3 style="color: #ff2961; margin-bottom: 15px; text-transform: uppercase;">League Setup</h3>
+                <input type="text" class="league-input" placeholder="League Name (required)" id="league-name-input" style="margin-bottom: 10px; width: 100%; max-width: 400px;">
+                <input type="password" class="league-input" placeholder="Admin Key (required)" maxlength="4" id="league-pin-input" style="width: 100%; max-width: 400px; margin-bottom: 6px;">
+                <p style="font-size: 0.8rem; color: rgba(255,255,255,0.6); margin: 0;">Without this key you cannot add drivers, edit results or change settings.</p>
+            </div>
+            <h2 class="drivers-section-title">ADD DRIVERS</h2>
+            
+            <div class="drivers-input-row">
+                <div class="country-input-wrapper" style="position: relative;">
+                    <select id="driver-country-input" class="league-input driver-country-select" style="display: none;"></select>
+                    <div id="country-select-display" class="league-input driver-country-select" style="cursor: pointer; display: flex; align-items: center; padding-left: 35px;">
+                        <span id="country-display-text">NED</span>
+                    </div>
+                    <ul id="country-dropdown" class="custom-dropdown" style="display: none; max-height: 300px; overflow-y: auto;"></ul>
+                </div>
+                <input type="text" class="driver-input" placeholder="Driver Name" id="driver-name-input">
+                <div class="team-input-wrapper">
+                    <input type="text" class="driver-input" placeholder="Team Name" id="team-name-input">
+                    <i class="fas fa-chevron-down dropdown-arrow" id="dropdown-arrow"></i>
+                    <ul class="custom-dropdown" id="team-dropdown"></ul>
+                </div>
+                <button class="driver-add-btn admin-only" id="add-driver-btn" onclick="addDriver()">
+                    <i class="fas fa-plus"></i> ADD
+                </button>
+            </div>
+            
+            <ul class="drivers-list" id="drivers-list"></ul>
+            
+            <button class="league-btn finish-btn" id="finish-btn" onclick="finishSetup()">FINISH & GO TO RACE TABLE</button>
+        </div>
+        
+        <!-- Dashboard Section -->
+        <div class="dashboard-section" id="dashboard-section" style="display: none;">
+            <div class="league-header-wrapper">
+                <h1 id="league-display-title" class="neon-text-large">LEAGUE NAME</h1>
+                <div style="display: flex; gap: 15px; align-items: center;">
+                    <div id="admin-edit-league-btn" onclick="openEditLeagueModal()" class="admin-lock-icon admin-only" title="Edit League Name" style="cursor: pointer;">
+                        <i class="fas fa-pen" style="color: #ff2961;"></i>
+                    </div>
+                    <div id="admin-lock-btn" onclick="toggleAdminMode()" class="admin-lock-icon" title="Admin Login">
+                        <i class="fas fa-lock"></i>
+                    </div>
+                </div>
+            </div>
+            <h2 class="dashboard-title">CHAMPIONSHIP STANDINGS</h2>
+            
+            <div class="standings-table-wrapper">
+                <table class="standings-table" id="standings-table">
+                    <thead>
+                        <tr>
+                            <th>POS</th>
+                            <th>DRIVER</th>
+                            <th>TEAM</th>
+                            <th>TOTAL POINTS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="standings-tbody">
+                        <!-- Rows will be generated by JavaScript -->
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Constructors Championship Section -->
+            <h2 class="section-title" style="margin-top: 40px;">CONSTRUCTORS CHAMPIONSHIP</h2>
+            <div class="standings-table-wrapper">
+                <table id="constructors-table" class="standings-table">
+                    <thead>
+                        <tr>
+                            <th>POS</th>
+                            <th>TEAM</th>
+                            <th>TOTAL POINTS</th>
+                        </tr>
+                    </thead>
+                    <tbody id="constructors-body">
+                    </tbody>
+                </table>
+            </div>
+            
+            <!-- Race Results Section -->
+            <div style="display: flex; align-items: center; justify-content: space-between; margin-bottom: 20px;">
+                <h2 class="section-title" style="margin: 0;">RACE RESULTS</h2>
+                <button id="fs-toggle-btn" class="fullscreen-toggle" onclick="toggleTableFullscreen()" style="position: relative; top: 0; right: 0;">
+                    <i class="fas fa-expand"></i>
+                </button>
+            </div>
+            <div class="matrix-wrapper">
+                <button id="fs-toggle-btn-fullscreen" class="fullscreen-toggle fullscreen-close-btn" onclick="toggleTableFullscreen()" style="display: none; position: fixed; top: 20px; right: 20px; z-index: 100000;">
+                    <i class="fas fa-compress"></i>
+                </button>
+                <table id="race-matrix-table" class="neon-table">
+                    <thead>
+                        <tr id="matrix-header-row">
+                            <th class="sticky-col">DRIVER</th>
+                        </tr>
+                    </thead>
+                    <tbody id="matrix-body">
+                    </tbody>
+                </table>
+            </div>
+            <button id="add-race-btn" class="league-btn admin-only" onclick="openRaceModal(-1)">+ ADD RACE ROUND</button>
+        </div>
+    </main>
+    
+    <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getDatabase, ref, set, onValue, update, get } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-database.js";
+
+    const firebaseConfig = {
+      apiKey: "AIzaSyCOuO4uKdWxsvnPARQBW7IaZ_HJm-2WMIA",
+      authDomain: "pinkmaniac-f1.firebaseapp.com",
+      projectId: "pinkmaniac-f1",
+      storageBucket: "pinkmaniac-f1.firebasestorage.app",
+      messagingSenderId: "371056856023",
+      appId: "1:371056856023:web:c86ee35325e2a5831a9992"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app, "https://pinkmaniac-f1-default-rtdb.europe-west1.firebasedatabase.app");
+
+    let currentLeagueId = null;
+    let isAdmin = false;
+    let editingColumnIndex = -1;
+    let localData = { leagueName: "", adminKey: "", drivers: [], races: [], points: {}, teamColors: {}, raceLabels: {} };
+    
+    // Standard color palette for teams (~30 colors)
+    // Helper function to convert hex to HSL for sorting
+    function hexToHsl(hex) {
+        const r = parseInt(hex.slice(1, 3), 16) / 255;
+        const g = parseInt(hex.slice(3, 5), 16) / 255;
+        const b = parseInt(hex.slice(5, 7), 16) / 255;
+        const max = Math.max(r, g, b);
+        const min = Math.min(r, g, b);
+        let h, s, l = (max + min) / 2;
+        if (max === min) {
+            h = s = 0;
+        } else {
+            const d = max - min;
+            s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+            switch (max) {
+                case r: h = ((g - b) / d + (g < b ? 6 : 0)) / 6; break;
+                case g: h = ((b - r) / d + 2) / 6; break;
+                case b: h = ((r - g) / d + 4) / 6; break;
+            }
+        }
+        return [h * 360, s * 100, l * 100];
+    }
+    
+    // Team colors sorted by hue (similar colors grouped together)
+    // Black and white added at the end
+    const TEAM_COLORS = [
+        // Reds/Pinks
+        "#FF0000", "#DC143C", "#FF2961", "#FF1493", "#FFC0CB", "#CD5C5C", "#A52A2A",
+        // Oranges/Yellows
+        "#FF4500", "#FFA500", "#FFD700", "#FFFF00", "#F0E68C",
+        // Greens
+        "#00FF00", "#32CD32", "#00FF7F", "#98FB98", "#808000", "#006400",
+        // Cyans/Teals
+        "#00FFFF", "#20B2AA", "#008080", "#4682B4",
+        // Blues
+        "#0000FF", "#1E90FF", "#000080",
+        // Purples/Magentas
+        "#800080", "#8B008B", "#FF00FF", "#DDA0DD",
+        // Grays
+        "#808080",
+        // Black and White
+        "#000000", "#FFFFFF"
+    ];
+
+    const F1_COUNTRIES = { "Bahrain": "bh", "Saudi Arabia": "sa", "Australia": "au", "Japan": "jp", "China": "cn", "Miami": "us", "Emilia Romagna": "it", "Monaco": "mc", "Canada": "ca", "Spain": "es", "Austria": "at", "Great Britain": "gb", "Hungary": "hu", "Belgium": "be", "Netherlands": "nl", "Italy": "it", "Azerbaijan": "az", "Singapore": "sg", "Austin": "us", "Mexico": "mx", "Brazil": "br", "Las Vegas": "us", "Qatar": "qa", "Abu Dhabi": "ae" };
+    const F1_CODES = { "Bahrain": "BHR", "Saudi Arabia": "SAU", "Australia": "AUS", "Japan": "JPN", "China": "CHN", "Miami": "MIA", "Emilia Romagna": "IMO", "Monaco": "MON", "Canada": "CAN", "Spain": "ESP", "Austria": "AUT", "Great Britain": "GBR", "Hungary": "HUN", "Belgium": "BEL", "Netherlands": "NED", "Italy": "ITA", "Azerbaijan": "AZE", "Singapore": "SIN", "Austin": "USA", "Mexico": "MEX", "Brazil": "BRA", "Las Vegas": "LVG", "Qatar": "QAT", "Abu Dhabi": "ABU" };
+    const WORLD_FLAGS = { 
+        "Netherlands": "nl", "Belgium": "be", "Germany": "de", "UK": "gb", "France": "fr", "Spain": "es", "Italy": "it", 
+        "USA": "us", "Mexico": "mx", "Brazil": "br", "Argentina": "ar", "Canada": "ca", "Australia": "au", "Japan": "jp", 
+        "China": "cn", "Finland": "fi", "Denmark": "dk", "Sweden": "se", "Norway": "no", "Poland": "pl", "Austria": "at", 
+        "Switzerland": "ch", "Portugal": "pt", "Turkey": "tr", "Thailand": "th", "Suriname": "sr", "Vietnam": "vn",
+        "Monaco": "mc", "Indonesia": "id", "India": "in", "South Korea": "kr", "Russia": "ru", "South Africa": "za",
+        "New Zealand": "nz", "Ireland": "ie", "Greece": "gr", "Czech Republic": "cz", "Hungary": "hu", "Romania": "ro",
+        "Croatia": "hr", "Serbia": "rs", "Bulgaria": "bg", "Slovakia": "sk", "Slovenia": "si", "Estonia": "ee", "Latvia": "lv",
+        "Lithuania": "lt", "Iceland": "is", "Malaysia": "my", "Singapore": "sg", "Philippines": "ph", "Bangladesh": "bd",
+        "Pakistan": "pk", "Saudi Arabia": "sa", "UAE": "ae", "Israel": "il", "Egypt": "eg", "Morocco": "ma", "Nigeria": "ng",
+        "Kenya": "ke", "Chile": "cl", "Colombia": "co", "Peru": "pe", "Venezuela": "ve", "Ecuador": "ec", "Uruguay": "uy"
+    };
+    const COUNTRY_CODES_3 = { 
+        "Netherlands": "NED", "Belgium": "BEL", "Germany": "GER", "UK": "GBR", "France": "FRA", "Spain": "ESP", "Italy": "ITA", 
+        "USA": "USA", "Mexico": "MEX", "Brazil": "BRA", "Argentina": "ARG", "Canada": "CAN", "Australia": "AUS", "Japan": "JPN", 
+        "China": "CHN", "Finland": "FIN", "Denmark": "DEN", "Sweden": "SWE", "Norway": "NOR", "Poland": "POL", "Austria": "AUT", 
+        "Switzerland": "SUI", "Portugal": "POR", "Turkey": "TUR", "Thailand": "THA", "Suriname": "SUR", "Vietnam": "VIE",
+        "Monaco": "MON", "Indonesia": "IDN", "India": "IND", "South Korea": "KOR", "Russia": "RUS", "South Africa": "RSA",
+        "New Zealand": "NZL", "Ireland": "IRL", "Greece": "GRE", "Czech Republic": "CZE", "Hungary": "HUN", "Romania": "ROU",
+        "Croatia": "CRO", "Serbia": "SRB", "Bulgaria": "BUL", "Slovakia": "SVK", "Slovenia": "SLO", "Estonia": "EST", "Latvia": "LVA",
+        "Lithuania": "LTU", "Iceland": "ISL", "Malaysia": "MAS", "Singapore": "SGP", "Philippines": "PHI", "Bangladesh": "BAN",
+        "Pakistan": "PAK", "Saudi Arabia": "SAU", "UAE": "ARE", "Israel": "ISR", "Egypt": "EGY", "Morocco": "MAR", "Nigeria": "NGA",
+        "Kenya": "KEN", "Chile": "CHI", "Colombia": "COL", "Peru": "PER", "Venezuela": "VEN", "Ecuador": "ECU", "Uruguay": "URU"
+    };
+
+    // --- NAVIGATIE FUNCTIES ---
+
+    // Error Modal Functions - ALWAYS WORKS
+    window.showErrorModal = function(message) {
+        let modal = document.getElementById('error-modal');
+        if(!modal) {
+            modal = document.createElement('div');
+            modal.id = 'error-modal';
+            modal.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 999999; display: flex; align-items: center; justify-content: center;';
+            modal.innerHTML = `
+                <div style="background: #000; border: 3px solid #ff2961; padding: 40px; border-radius: 10px; text-align: center; max-width: 500px;">
+                    <h2 style="color: #ff2961; font-size: 32px; margin-bottom: 20px; text-transform: uppercase;">ERROR</h2>
+                    <p style="color: #fff; font-size: 20px; margin-bottom: 30px; white-space: pre-line;">${message}</p>
+                    <button onclick="document.getElementById(\'error-modal\').remove()" style="background: #ff2961; color: #000; border: none; padding: 15px 40px; font-size: 18px; font-weight: bold; cursor: pointer; border-radius: 5px;">OK</button>
+                </div>
+            `;
+            document.body.appendChild(modal);
+        } else {
+            modal.style.display = 'flex';
+            const msgEl = modal.querySelector('p');
+            if(msgEl) msgEl.textContent = message;
+        }
+    }
+
+    window.showCreateMode = function() {
+        console.log("Starting Create Mode...");
+        // Hide login overlay and league card completely - NO DOUBLE MENU
+        document.getElementById('login-overlay').style.display = 'none';
+        const leagueCardMain = document.querySelector('main .league-card');
+        if (leagueCardMain) {
+            leagueCardMain.style.display = 'none';
+        }
+        
+        // Show drivers section directly - NO menu, NO tabs, DIRECT to drivers
+        const driversSection = document.getElementById('drivers-section');
+        if (driversSection) {
+            driversSection.style.display = 'block';
+        }
+
+        isAdmin = true;
+        document.body.classList.add('is-admin');
+        initDriverForm();
+    }
+
+    window.goBackToLeagueChoice = function() {
+        const leagueCardMain = document.querySelector('main .league-card');
+        const driversSection = document.getElementById('drivers-section');
+        if (leagueCardMain) leagueCardMain.style.display = 'block';
+        if (driversSection) driversSection.style.display = 'none';
+        // Switch to Create tab
+        document.querySelectorAll('.league-tab').forEach(t => t.classList.remove('active'));
+        document.querySelectorAll('.league-tab-content').forEach(c => { c.classList.remove('active'); c.style.display = 'none'; });
+        const createTab = document.querySelector('.league-tab[data-tab="create"]');
+        const createContent = document.getElementById('tab-create');
+        if (createTab) createTab.classList.add('active');
+        if (createContent) { createContent.classList.add('active'); createContent.style.display = 'block'; }
+    };
+
+    window.goToDriversStep = function() {
+        console.log("goToDriversStep called");
+        const nameInput = document.getElementById('room-name-create');
+        const pinInput = document.getElementById('pin-create');
+        
+        if(!nameInput || !nameInput.value || !nameInput.value.trim()) { 
+            alert("Please name your league!"); 
+            return; 
+        }
+        if(!pinInput || !pinInput.value || !pinInput.value.trim()) {
+            alert("Please set an Admin Key. You need this to edit your league later (add drivers, change results, etc.).");
+            return;
+        }
+
+        const leagueName = nameInput.value.trim().toUpperCase();
+        const pin = pinInput.value.trim();
+
+        localData.leagueName = leagueName;
+        localData.adminKey = pin;
+
+        // Ensure admin mode is active
+        isAdmin = true;
+        document.body.classList.add('is-admin');
+
+        // Hide league card and show drivers section
+        const leagueCardMain = document.querySelector('main .league-card');
+        const driversSection = document.getElementById('drivers-section');
+        
+        console.log("League card:", leagueCardMain);
+        console.log("Drivers section:", driversSection);
+        
+        if (leagueCardMain) {
+            leagueCardMain.style.display = 'none';
+            console.log("League card hidden");
+        }
+        
+        if (driversSection) {
+            driversSection.style.display = 'block';
+            console.log("Drivers section shown");
+            
+            // Fill league name input in drivers section
+            const leagueNameInput = document.getElementById('league-name-input');
+            const leaguePinInput = document.getElementById('league-pin-input');
+            if(leagueNameInput) leagueNameInput.value = leagueName;
+            if(leaguePinInput) leaguePinInput.value = pin;
+            
+            initDriverForm();
+        } else {
+            console.error("Drivers section not found!");
+            alert("Error: Drivers section not found!");
+        }
+    }
+
+    window.attemptLogin = function() {
+        const input = document.getElementById('login-room');
+        const code = input ? input.value.toUpperCase().trim() : '';
+        
+        if(!code) {
+            window.showErrorModal("PLEASE ENTER A LEAGUE CODE!");
+            return;
+        }
+
+        const leagueRef = ref(db, 'leagues/' + code);
+        get(leagueRef).then((snapshot) => {
+            if (snapshot.exists()) {
+                currentLeagueId = code;
+                const loginOverlay = document.getElementById('login-overlay');
+                if(loginOverlay) loginOverlay.style.display = 'none';
+                const leagueCardMain = document.querySelector('main .league-card');
+                if (leagueCardMain) leagueCardMain.style.display = 'none';
+                document.getElementById('dashboard-section').style.display = 'block';
+                listenToLeague(currentLeagueId);
+            } else {
+                window.showErrorModal("LEAGUE NOT FOUND!\n\nPlease check the league code and try again.");
+            }
+        }).catch((error) => {
+            console.error("Error checking league:", error);
+            window.showErrorModal("LEAGUE NOT FOUND!\n\nError: " + error.message);
+        });
+    }
+
+    window.attemptLoginFromTab = function() {
+        const input = document.getElementById('room-name-enter');
+        const code = input ? input.value.toUpperCase().trim() : '';
+        
+        if(!code) {
+            window.showErrorModal("PLEASE ENTER A LEAGUE CODE!");
+            return;
+        }
+
+        const leagueRef = ref(db, 'leagues/' + code);
+        get(leagueRef).then((snapshot) => {
+            if (snapshot.exists()) {
+                currentLeagueId = code;
+                const loginOverlay = document.getElementById('login-overlay');
+                if(loginOverlay) loginOverlay.style.display = 'none';
+                const leagueCardMain = document.querySelector('main .league-card');
+                if (leagueCardMain) leagueCardMain.style.display = 'none';
+                document.getElementById('dashboard-section').style.display = 'block';
+                listenToLeague(currentLeagueId);
+            } else {
+                window.showErrorModal("LEAGUE NOT FOUND!\n\nPlease check the league code and try again.");
+            }
+        }).catch((error) => {
+            console.error("Error checking league:", error);
+            window.showErrorModal("LEAGUE NOT FOUND!\n\nError: " + error.message);
+        });
+    }
+
+    window.finishSetup = function() {
+        console.log("=== FINISH SETUP CALLED ===");
+        
+        // Get league name and admin key from input fields
+        const leagueNameInput = document.getElementById('league-name-input');
+        const leaguePinInput = document.getElementById('league-pin-input');
+        
+        const leagueName = leagueNameInput ? leagueNameInput.value.trim().toUpperCase() : '';
+        const pin = leaguePinInput ? leaguePinInput.value.trim() : '';
+        
+        if (!leagueName) {
+            alert("ERROR: Please enter a league name first!");
+            if(leagueNameInput) leagueNameInput.focus();
+            return;
+        }
+        
+        if (!pin) {
+            alert("ERROR: Please set an Admin Key. You need this to edit your league later.");
+            if(leaguePinInput) leaguePinInput.focus();
+            return;
+        }
+        
+        if(!localData.drivers || localData.drivers.length === 0) {
+            alert("ERROR: Please add at least one driver before finishing!");
+            return;
+        }
+        
+        // Set league data
+        localData.leagueName = leagueName;
+        localData.adminKey = pin;
+        currentLeagueId = leagueName;
+        
+        if(!localData.races || localData.races.length === 0) {
+            localData.races = [{ country: "Bahrain", type: "GP" }];
+        }
+        
+        if(!localData.points) {
+            localData.points = {};
+        }
+        if(!localData.teamColors) {
+            localData.teamColors = {};
+        }
+        if(!localData.raceLabels) {
+            localData.raceLabels = {};
+        }
+
+        console.log("Saving to database:", currentLeagueId, localData);
+        
+        set(ref(db, 'leagues/' + currentLeagueId), localData)
+            .then(() => {
+                console.log("=== SUCCESSFULLY SAVED TO DATABASE ===");
+                
+                // FORCE hide ALL other sections
+                const loginOverlay = document.getElementById('login-overlay');
+                if(loginOverlay) loginOverlay.style.display = 'none';
+                
+                const leagueCardMain = document.querySelector('main .league-card');
+                if (leagueCardMain) leagueCardMain.style.display = 'none';
+                
+                const driversSection = document.getElementById('drivers-section');
+                if(driversSection) {
+                    driversSection.style.display = 'none';
+                    driversSection.style.visibility = 'hidden';
+                    console.log("Drivers section HIDDEN");
+                }
+                
+                // FORCE show dashboard section
+                const dashboardSection = document.getElementById('dashboard-section');
+                if(dashboardSection) {
+                    dashboardSection.style.display = 'block';
+                    dashboardSection.style.visibility = 'visible';
+                    dashboardSection.style.opacity = '1';
+                    console.log("Dashboard section SHOWN");
+                } else {
+                    console.error("Dashboard section element not found!");
+                    window.showErrorModal("ERROR: Dashboard section not found!");
+                    return;
+                }
+                
+                // Update league display title
+                const leagueDisplayTitle = document.getElementById('league-display-title');
+                if(leagueDisplayTitle) {
+                    leagueDisplayTitle.textContent = leagueName;
+                }
+                
+                // DIRECTLY render dashboard IMMEDIATELY - NO DELAY
+                console.log("=== RENDERING DASHBOARD ===");
+                console.log("localData:", localData);
+                
+                try {
+                    renderDashboard();
+                    console.log("=== DASHBOARD RENDERED SUCCESSFULLY ===");
+                } catch(e) {
+                    console.error("Error rendering dashboard:", e);
+                    window.showErrorModal("ERROR rendering dashboard: " + e.message);
+                }
+                
+                // Also set up listener for future updates
+                listenToLeague(currentLeagueId);
+            })
+            .catch(e => {
+                console.error("=== ERROR SAVING ===", e);
+                window.showErrorModal("Error saving league!\n\n" + e.message);
+            });
+    }
+
+    // --- SYNC & RENDER ---
+
+    function listenToLeague(id) {
+        onValue(ref(db, 'leagues/' + id), (snapshot) => {
+            const data = snapshot.val();
+            if (data) {
+                localData = data;
+                if (!localData.points) localData.points = {};
+                if (!localData.races) localData.races = [];
+                if (!localData.drivers) localData.drivers = [];
+                if (!localData.teamColors) localData.teamColors = {};
+                if (!localData.raceLabels) localData.raceLabels = {};
+                renderDashboard();
+            }
+        });
+    }
+
+    function pushUpdate() {
+        if (currentLeagueId) update(ref(db, 'leagues/' + currentLeagueId), localData);
+    }
+
+    function renderDashboard() {
+        console.log("renderDashboard called, localData:", localData);
+        const title = document.getElementById('league-display-title');
+        if(title) title.innerText = localData.leagueName || "LEAGUE NAME";
+        
+        // Render standings table
+        renderStandings();
+        
+        // Render matrix
+        renderMatrix();
+    }
+    
+    /** Numeric points for standings tie-break; DNF/DNS/DSQ / empty => unclassified (-1). */
+    function parsePointsForStanding(val) {
+        if (val == null || val === '') return -1;
+        const s = String(val).toUpperCase().trim();
+        if (['DNF', 'DNS', 'DSQ'].includes(s)) return -1;
+        const n = parseInt(String(val).trim(), 10);
+        return Number.isNaN(n) ? -1 : n;
+    }
+
+    function driverIdsEqual(a, b) {
+        return String(a) === String(b);
+    }
+
+    /**
+     * F1-style tie-break: per race, rank drivers by points in that round (desc).
+     * vec[0] = times finished "1st" in a round (tied top scores share that rank), vec[1] = P2 counts, …
+     */
+    function getTieBreakVector(driverId) {
+        const nDrivers = localData.drivers ? localData.drivers.length : 0;
+        const vec = new Array(Math.max(nDrivers, 1)).fill(0);
+        const numRaces = localData.races ? localData.races.length : 0;
+        for (let r = 0; r < numRaces; r++) {
+            const row = [];
+            for (const d of localData.drivers) {
+                const pts = parsePointsForStanding(localData.points[`${d.id}_${r}`]);
+                if (pts >= 0) row.push({ id: d.id, pts });
+            }
+            row.sort((x, y) => y.pts - x.pts);
+            if (row.length === 0) continue;
+            let i = 0;
+            let rank = 1;
+            while (i < row.length) {
+                const p = row[i].pts;
+                let j = i;
+                while (j < row.length && row[j].pts === p) j++;
+                for (let k = i; k < j; k++) {
+                    if (driverIdsEqual(row[k].id, driverId)) {
+                        const idx = rank - 1;
+                        if (idx < vec.length) vec[idx]++;
+                    }
+                }
+                rank += (j - i);
+                i = j;
+            }
+        }
+        return vec;
+    }
+
+    function compareStandingsRows(a, b) {
+        if (b.total !== a.total) return b.total - a.total;
+        const va = getTieBreakVector(a.id);
+        const vb = getTieBreakVector(b.id);
+        const len = Math.max(va.length, vb.length);
+        for (let i = 0; i < len; i++) {
+            const ca = va[i] || 0;
+            const cb = vb[i] || 0;
+            if (cb !== ca) return cb - ca;
+        }
+        return 0;
+    }
+
+    function renderStandings() {
+        console.log("renderStandings called");
+        if(!localData.drivers || localData.drivers.length === 0) {
+            console.log("No drivers to render");
+            return;
+        }
+        
+        const driverScores = localData.drivers.map(driver => {
+            let total = 0;
+            Object.keys(localData.points || {}).forEach(key => {
+                if(key.startsWith(driver.id + '_')) {
+                    const val = localData.points[key].toUpperCase().trim();
+                    if(!['DNF', 'DNS', 'DSQ'].includes(val)) {
+                        total += parseInt(val) || 0;
+                    }
+                }
+            });
+            return { ...driver, total };
+        });
+        
+        driverScores.sort(compareStandingsRows);
+        
+        const tbody = document.getElementById('standings-tbody');
+        if(tbody) {
+            tbody.innerHTML = '';
+            // Initialize team colors if needed
+            if (!localData.teamColors) localData.teamColors = {};
+            
+            driverScores.forEach((d, i) => {
+                // Get team color
+                let teamColor = localData.teamColors[d.team];
+                if (!teamColor) {
+                    const usedColors = Object.values(localData.teamColors);
+                    teamColor = TEAM_COLORS.find(c => !usedColors.includes(c)) || TEAM_COLORS[i % TEAM_COLORS.length];
+                    localData.teamColors[d.team] = teamColor;
+                }
+                
+                // Simple innerHTML approach - guaranteed to work
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td class="pos-cell">${i + 1}</td><td class="driver-cell"><img src="https://flagcdn.com/w20/${d.countryCode || 'nl'}.png" class="flag-img-small"> ${d.name} <i class="fas fa-pen edit-icon-small admin-only" data-driver-id="${d.id}" style="cursor: pointer; margin-left: 10px; color: #ff2961;"></i></td><td class="team-cell-with-color"><span class="team-color-dot" style="background-color: ${teamColor};"></span>${d.team}</td><td class="points-cell">${d.total}</td>`;
+                
+                // Add click listener for edit icon
+                const editIcon = tr.querySelector('.edit-icon-small');
+                if(editIcon) {
+                    editIcon.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const driverId = this.getAttribute('data-driver-id');
+                        if(driverId) {
+                            window.openDriverModal(driverId);
+                        }
+                    });
+                }
+                
+                tbody.appendChild(tr);
+            });
+        }
+        updateConstructorsStandings(driverScores);
+    }
+
+    function renderMatrix() {
+        const headerRow = document.getElementById('matrix-header-row');
+        const body = document.getElementById('matrix-body');
+        
+        while (headerRow.children.length > 1) { headerRow.removeChild(headerRow.lastChild); }
+        
+        localData.races.forEach((race, index) => {
+            const th = document.createElement('th');
+            const code = F1_COUNTRIES[race.country];
+            const shortCode = F1_CODES[race.country] || (race.country ? race.country.substring(0,3).toUpperCase() : "UNK");
+            
+            th.innerHTML = `
+            <div class="race-header" onclick="openRaceModal(${index})">
+                <span class="race-round-number">#${index + 1}</span>
+                <span class="race-flag">${getFlagImg(code)}</span>
+                <span class="race-code">${shortCode}</span>
+                <div class="race-meta-row">
+                    <span class="race-type ${race.type}">${race.type === 'GP' ? 'RACE' : race.type}</span>
+                    <i class="fas fa-pen edit-icon admin-only"></i>
+                </div>
+            </div>`;
+            headerRow.appendChild(th);
+        });
+
+        body.innerHTML = '';
+        
+        // Calculate driver totals and sort by points
+        const driverScores = localData.drivers.map(driver => {
+            let total = 0;
+            localData.races.forEach((race, raceIndex) => {
+                const key = `${driver.id}_${raceIndex}`;
+                const val = localData.points[key];
+                if (val && !['DNF','DNS','DSQ'].includes(val.toUpperCase())) {
+                    total += parseInt(val) || 0;
+                }
+            });
+            return { ...driver, total };
+        });
+        
+        // Sort by total points (highest first)
+        driverScores.sort(compareStandingsRows);
+        
+        // Render rows with ranking
+        driverScores.forEach((driver, index) => {
+            const rank = index + 1; // 1-24 ranking
+            const tr = document.createElement('tr');
+            
+            const tdName = document.createElement('td');
+            tdName.className = 'sticky-col';
+            // Get team color for this driver
+            if (!localData.teamColors) localData.teamColors = {};
+            let teamColor = localData.teamColors[driver.team];
+            if (!teamColor) {
+                const usedColors = Object.values(localData.teamColors);
+                teamColor = TEAM_COLORS.find(c => !usedColors.includes(c)) || TEAM_COLORS[0];
+                localData.teamColors[driver.team] = teamColor;
+            }
+            const colorDot = `<span class="team-color-dot" style="background-color: ${teamColor};"></span>`;
+            
+            tdName.innerHTML = `
+                <div class="driver-info driver-info-matrix">
+                    <div class="driver-line1">
+                        <span class="driver-rank">${rank}</span>
+                        <img src="https://flagcdn.com/w20/${driver.countryCode || 'nl'}.png" class="flag-img-small">
+                        <span class="driver-name-text">${driver.name}</span>
+                    </div>
+                    <div class="driver-line2">
+                        ${colorDot}
+                        <span class="driver-team-text">${driver.team}</span>
+                    </div>
+                </div>`;
+            tr.appendChild(tdName);
+
+            localData.races.forEach((race, raceIndex) => {
+                const td = document.createElement('td');
+                const key = `${driver.id}_${raceIndex}`;
+                const val = localData.points[key] || "";
+                
+                // Initialize raceLabels if needed
+                if (!localData.raceLabels) localData.raceLabels = {};
+                if (!localData.raceLabels[raceIndex]) localData.raceLabels[raceIndex] = {};
+                
+                // Get labels for this driver in this race
+                const raceLabels = localData.raceLabels[raceIndex] || {};
+                let labelClass = '';
+                let hasFastestLap = false;
+                
+                if (raceLabels.gold === driver.id) labelClass = 'label-gold';
+                else if (raceLabels.silver === driver.id) labelClass = 'label-silver';
+                else if (raceLabels.bronze === driver.id) labelClass = 'label-bronze';
+                
+                if (raceLabels.fastestLap === driver.id) hasFastestLap = true;
+                
+                if (isAdmin) {
+                    td.innerHTML = `
+                    <div class="points-cell-wrapper">
+                        <div class="custom-combobox">
+                            <input type="text" class="points-input ${labelClass} ${hasFastestLap ? 'label-fastest-lap' : ''}" value="${val}" 
+                                   onchange="updatePoint('${key}', this.value)"
+                                   onfocus="showCellDropdown(this)" onblur="hideCellDropdown(this)" placeholder="-">
+                            <ul class="cell-dropdown-list">
+                                <li onmousedown="selectStatus(this, 'DNF')">DNF</li>
+                                <li onmousedown="selectStatus(this, 'DNS')">DNS</li>
+                                <li onmousedown="selectStatus(this, 'DSQ')">DSQ</li>
+                            </ul>
+                        </div>
+                        <button class="label-edit-btn admin-only" onclick="openLabelModal(${raceIndex}, ${driver.id})" title="Edit Labels">
+                            <i class="fas fa-tag"></i>
+                        </button>
+                    </div>`;
+                } else {
+                    td.innerHTML = `
+                    <div class="points-cell-wrapper">
+                        <span class="points-display ${labelClass} ${hasFastestLap ? 'label-fastest-lap' : ''}">${val || '-'}</span>
+                    </div>`;
+                    td.style.textAlign = "center";
+                }
+                tr.appendChild(td);
+            });
+            body.appendChild(tr);
+        });
+
+        calculateAndUpdateStandings();
+    }
+
+    // --- CALCULATIONS ---
+
+    window.calculateAndUpdateStandings = function() {
+        const driverScores = localData.drivers.map(driver => {
+            let total = 0;
+            localData.races.forEach((_, rIndex) => {
+                const val = localData.points[`${driver.id}_${rIndex}`];
+                if (val && !['DNF','DNS','DSQ'].includes(val)) {
+                    total += parseInt(val) || 0;
+                }
+            });
+            return { ...driver, total };
+        });
+        
+        driverScores.sort(compareStandingsRows);
+        
+        const tbody = document.getElementById('standings-tbody');
+        if(tbody) {
+            tbody.innerHTML = '';
+            // Initialize team colors if needed
+            if (!localData.teamColors) localData.teamColors = {};
+            
+            driverScores.forEach((d, i) => {
+                // Get team color
+                let teamColor = localData.teamColors[d.team];
+                if (!teamColor) {
+                    const usedColors = Object.values(localData.teamColors);
+                    teamColor = TEAM_COLORS.find(c => !usedColors.includes(c)) || TEAM_COLORS[i % TEAM_COLORS.length];
+                    localData.teamColors[d.team] = teamColor;
+                }
+                
+                // Simple innerHTML approach - guaranteed to work
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td class="pos-cell">${i + 1}</td><td class="driver-cell"><img src="https://flagcdn.com/w20/${d.countryCode || 'nl'}.png" class="flag-img-small"> ${d.name} <i class="fas fa-pen edit-icon-small admin-only" data-driver-id="${d.id}" style="cursor: pointer; margin-left: 10px; color: #ff2961;"></i></td><td class="team-cell-with-color"><span class="team-color-dot" style="background-color: ${teamColor};"></span>${d.team}</td><td class="points-cell">${d.total}</td>`;
+                
+                // Add click listener for edit icon
+                const editIcon = tr.querySelector('.edit-icon-small');
+                if(editIcon) {
+                    editIcon.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const driverId = this.getAttribute('data-driver-id');
+                        if(driverId) {
+                            window.openDriverModal(driverId);
+                        }
+                    });
+                }
+                
+                tbody.appendChild(tr);
+            });
+        }
+        updateConstructorsStandings(driverScores);
+    }
+
+    function updateConstructorsStandings(driverScores) {
+        const teamScores = {};
+        driverScores.forEach(d => {
+            if(!teamScores[d.team]) teamScores[d.team] = 0;
+            teamScores[d.team] += d.total;
+        });
+        
+        // Initialize team colors if they don't exist
+        if (!localData.teamColors) localData.teamColors = {};
+        
+        const sorted = Object.entries(teamScores).sort((a,b) => b[1] - a[1]);
+        const tbody = document.getElementById('constructors-body');
+        if(tbody) {
+            tbody.innerHTML = '';
+            sorted.forEach((item, i) => {
+                const teamName = item[0];
+                // Get team color or assign default
+                let teamColor = localData.teamColors[teamName];
+                if (!teamColor) {
+                    // Assign first available color from palette
+                    const usedColors = Object.values(localData.teamColors);
+                    teamColor = TEAM_COLORS.find(c => !usedColors.includes(c)) || TEAM_COLORS[i % TEAM_COLORS.length];
+                    localData.teamColors[teamName] = teamColor;
+                    pushUpdate();
+                }
+                
+                const colorDot = `<span class="team-color-dot" style="background-color: ${teamColor};"></span>`;
+                
+                const tr = document.createElement('tr');
+                
+                const posCell = document.createElement('td');
+                posCell.className = 'pos-cell';
+                posCell.textContent = i + 1;
+                
+                const teamCell = document.createElement('td');
+                teamCell.className = 'team-cell-with-color';
+                teamCell.style.cssText = 'color:#ffffff;font-weight:bold;';
+                
+                const colorDotSpan = document.createElement('span');
+                colorDotSpan.className = 'team-color-dot';
+                colorDotSpan.style.cssText = `background-color: ${teamColor};`;
+                if(isAdmin) {
+                    colorDotSpan.style.cursor = 'pointer';
+                    colorDotSpan.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        window.openTeamColorModal(teamName);
+                    });
+                }
+                
+                const teamNameSpan = document.createElement('span');
+                teamNameSpan.textContent = teamName;
+                teamNameSpan.style.color = '#ffffff';
+                
+                teamCell.appendChild(colorDotSpan);
+                teamCell.appendChild(document.createTextNode(' '));
+                teamCell.appendChild(teamNameSpan);
+                
+                if(isAdmin) {
+                    const editIcon = document.createElement('i');
+                    editIcon.className = 'fas fa-pen edit-icon-small admin-only';
+                    editIcon.setAttribute('data-team-name', teamName);
+                    editIcon.style.cssText = 'cursor: pointer; margin-left: 10px; color: #ff2961;';
+                    editIcon.addEventListener('click', function(e) {
+                        e.stopPropagation();
+                        const teamNameAttr = this.getAttribute('data-team-name');
+                        if(teamNameAttr) {
+                            window.openTeamEditModal(teamNameAttr);
+                        }
+                    });
+                    teamCell.appendChild(editIcon);
+                }
+                
+                const pointsCell = document.createElement('td');
+                pointsCell.className = 'points-cell';
+                pointsCell.textContent = item[1];
+                
+                tr.appendChild(posCell);
+                tr.appendChild(teamCell);
+                tr.appendChild(pointsCell);
+                
+                tbody.appendChild(tr);
+            });
+        }
+    }
+
+    // --- HELPERS ---
+
+    // Team memory for dropdown
+    let knownTeams = new Set();
+    
+    window.updateTeamDropdown = function() {
+        const dropdown = document.getElementById('team-dropdown');
+        const teamInput = document.getElementById('team-name-input');
+        if(!dropdown || !teamInput) return;
+        
+        dropdown.innerHTML = '';
+        const inputValue = teamInput.value.toLowerCase().trim();
+        
+        let teamsToShow = Array.from(knownTeams);
+        if(inputValue.length > 0) {
+            teamsToShow = teamsToShow.filter(team => team.toLowerCase().includes(inputValue));
+        }
+        
+        if(teamsToShow.length > 0) {
+            teamsToShow.forEach(team => {
+                const li = document.createElement('li');
+                li.textContent = team;
+                li.style.cursor = 'pointer';
+                li.style.padding = '8px';
+                li.style.color = '#fff';
+                li.addEventListener('click', function() {
+                    teamInput.value = team;
+                    dropdown.style.display = 'none';
+                });
+                dropdown.appendChild(li);
+            });
+            dropdown.style.display = 'block';
+        } else {
+            dropdown.style.display = 'none';
+        }
+    }
+    
+    window.addDriver = function() {
+        const nameInput = document.getElementById('driver-name-input');
+        const teamInput = document.getElementById('team-name-input');
+        const countrySelect = document.getElementById('driver-country-input');
+        
+        const name = nameInput ? nameInput.value.trim() : '';
+        const team = teamInput ? teamInput.value.trim() : '';
+        const code = countrySelect ? countrySelect.value : 'nl';
+        
+        if(!name || !team) {
+            alert("Please enter both driver name and team!");
+            return;
+        }
+        
+        if(!localData.drivers) localData.drivers = [];
+        
+        localData.drivers.push({ id: Date.now(), name, team, countryCode: code });
+        
+        // Add team to known teams
+        if(team) {
+            knownTeams.add(team);
+        }
+        
+        updateDriverListUI();
+        
+        // Clear inputs
+        if(nameInput) nameInput.value = '';
+        if(teamInput) teamInput.value = '';
+        if(countrySelect) {
+            // Reset to Netherlands (first option)
+            countrySelect.selectedIndex = 0;
+            const selectedOpt = countrySelect.options[0];
+            const flag = selectedOpt ? selectedOpt.getAttribute('data-flag') : 'nl';
+            const code3 = COUNTRY_CODES_3[selectedOpt ? selectedOpt.getAttribute('data-name') : 'Netherlands'] || 'NED';
+            
+            // Update the display div
+            const displayDiv = document.getElementById('country-select-display');
+            const displayText = document.getElementById('country-display-text');
+            if(displayDiv && displayText) {
+                displayDiv.style.backgroundImage = `url('https://flagcdn.com/w20/${flag}.png')`;
+                displayDiv.style.backgroundRepeat = 'no-repeat';
+                displayDiv.style.backgroundPosition = '8px center';
+                displayText.textContent = code3;
+            }
+        }
+        
+        // Update team dropdown
+        window.updateTeamDropdown();
+    }
+
+    function updateDriverListUI() {
+        const list = document.getElementById('drivers-list');
+        if(!list) return;
+        list.innerHTML = '';
+        localData.drivers.forEach((d, index) => {
+            const li = document.createElement('li');
+            li.className = 'driver-item';
+            li.innerHTML = `
+                <div class="driver-info">
+                    <img src="https://flagcdn.com/w20/${d.countryCode || 'nl'}.png" style="width:16px; margin-right: 8px;">
+                    <strong>${d.name}</strong> <span style="color: rgba(255,255,255,0.6);">(${d.team})</span>
+                </div>
+                <div class="driver-buttons">
+                    <button class="driver-edit-btn" onclick="editDriverFromList(${d.id})" title="Edit Driver">
+                        <i class="fas fa-pen"></i>
+                    </button>
+                    <button class="driver-delete-btn" onclick="deleteDriverFromList(${d.id})" title="Delete Driver">
+                        <i class="fas fa-trash"></i>
+                    </button>
+                </div>
+            `;
+            list.appendChild(li);
+        });
+    }
+    
+    window.editDriverFromList = function(driverId) {
+        const driver = localData.drivers.find(d => d.id === driverId);
+        if(!driver) return;
+        
+        // Fill the input fields with driver data
+        const nameInput = document.getElementById('driver-name-input');
+        const teamInput = document.getElementById('team-name-input');
+        const countrySelect = document.getElementById('driver-country-input');
+        const displayDiv = document.getElementById('country-select-display');
+        const displayText = document.getElementById('country-display-text');
+        
+        if(nameInput) nameInput.value = driver.name;
+        if(teamInput) teamInput.value = driver.team;
+        
+        // Set country
+        if(countrySelect) {
+            // Find the option with matching country code
+            Array.from(countrySelect.options).forEach(opt => {
+                if(opt.value === driver.countryCode) {
+                    opt.selected = true;
+                    const code3 = COUNTRY_CODES_3[opt.getAttribute('data-name')] || opt.value.toUpperCase();
+                    if(displayDiv && displayText) {
+                        displayDiv.style.backgroundImage = `url('https://flagcdn.com/w20/${driver.countryCode}.png')`;
+                        displayDiv.style.backgroundRepeat = 'no-repeat';
+                        displayDiv.style.backgroundPosition = '8px center';
+                        displayText.textContent = code3;
+                    }
+                }
+            });
+        }
+        
+        // Remove driver from list
+        localData.drivers = localData.drivers.filter(d => d.id !== driverId);
+        updateDriverListUI();
+    }
+    
+    window.deleteDriverFromList = function(driverId) {
+        if(confirm('Are you sure you want to delete this driver?')) {
+            localData.drivers = localData.drivers.filter(d => d.id !== driverId);
+            updateDriverListUI();
+        }
+    }
+
+    function raceRoundHasResultData(roundIndex) {
+        if (!localData.drivers || roundIndex < 0) return false;
+        for (let i = 0; i < localData.drivers.length; i++) {
+            const d = localData.drivers[i];
+            const key = `${d.id}_${roundIndex}`;
+            const v = localData.points && localData.points[key];
+            if (v != null && String(v).trim() !== '') return true;
+        }
+        const rl = localData.raceLabels && localData.raceLabels[roundIndex];
+        if (rl && (rl.gold || rl.silver || rl.bronze || rl.fastestLap)) return true;
+        return false;
+    }
+
+    function performDeleteRaceRound(index) {
+        if (index < 0 || !localData.races || index >= localData.races.length) return;
+        const newPoints = {};
+        Object.keys(localData.points || {}).forEach(key => {
+            const lastU = key.lastIndexOf('_');
+            if (lastU === -1) return;
+            const prefix = key.slice(0, lastU);
+            const rIdx = parseInt(key.slice(lastU + 1), 10);
+            if (isNaN(rIdx)) return;
+            if (rIdx === index) return;
+            if (rIdx < index) {
+                newPoints[key] = localData.points[key];
+            } else {
+                newPoints[`${prefix}_${rIdx - 1}`] = localData.points[key];
+            }
+        });
+        localData.points = newPoints;
+        if (localData.raceLabels) {
+            const newRl = {};
+            Object.keys(localData.raceLabels).forEach(k => {
+                const rIdx = parseInt(k, 10);
+                if (isNaN(rIdx)) return;
+                if (rIdx === index) return;
+                if (rIdx < index) newRl[rIdx] = localData.raceLabels[rIdx];
+                else newRl[rIdx - 1] = localData.raceLabels[rIdx];
+            });
+            localData.raceLabels = newRl;
+        }
+        localData.races.splice(index, 1);
+        closeDeleteRaceConfirmModal();
+        closeRaceModal();
+        pushUpdate();
+        renderDashboard();
+    }
+
+    window.requestDeleteRaceRound = function() {
+        if (editingColumnIndex < 0) return;
+        const idx = editingColumnIndex;
+        if (raceRoundHasResultData(idx)) {
+            document.getElementById('delete-race-confirm-modal').style.display = 'flex';
+        } else {
+            performDeleteRaceRound(idx);
+        }
+    };
+
+    window.confirmDeleteRaceRound = function() {
+        if (editingColumnIndex < 0) return;
+        performDeleteRaceRound(editingColumnIndex);
+    };
+
+    window.closeDeleteRaceConfirmModal = function() {
+        const m = document.getElementById('delete-race-confirm-modal');
+        if (m) m.style.display = 'none';
+    };
+
+    window.confirmAddRace = function(countryOverride, typeOverride) {
+        let country, type;
+        if(countryOverride && typeOverride) {
+            country = countryOverride; type = typeOverride;
+        } else {
+            const sel = document.getElementById('race-country-select');
+            country = sel.value;
+            const radio = document.querySelector('input[name="raceType"]:checked');
+            type = radio ? radio.value : "GP";
+        }
+        
+        if (editingColumnIndex > -1) localData.races[editingColumnIndex] = { country, type };
+        else localData.races.push({ country, type });
+        
+        closeRaceModal();
+        pushUpdate();
+    }
+
+    window.updatePoint = function(key, value) {
+        localData.points[key] = value.toUpperCase();
+        pushUpdate();
+    }
+
+    window.toggleAdminMode = function() {
+        if (isAdmin) {
+            isAdmin = false;
+            document.body.classList.remove('is-admin');
+            renderDashboard();
+        } else {
+            document.getElementById('admin-modal').style.display = 'flex';
+        }
+    }
+
+    window.verifyAdminKey = function() {
+        if (document.getElementById('admin-key-input').value === localData.adminKey) {
+            isAdmin = true;
+            document.body.classList.add('is-admin');
+            document.getElementById('admin-modal').style.display = 'none';
+            renderDashboard();
+        } else {
+            alert("Wrong Key!");
+        }
+    }
+
+    window.openRaceModal = function(index = -1) {
+        if(!isAdmin) return;
+        editingColumnIndex = index;
+        const modal = document.getElementById('new-race-modal');
+        const select = document.getElementById('race-country-select');
+        const title = modal.querySelector('h3');
+        const btn = modal.querySelector('.modal-actions button:last-child');
+
+        if(select.options.length === 0) {
+             Object.keys(F1_COUNTRIES).forEach(c => {
+                 const opt = document.createElement('option');
+                 opt.value = c; opt.innerText = c; select.appendChild(opt);
+             });
+        }
+
+        const deleteRow = document.getElementById('delete-race-row');
+        if (deleteRow) deleteRow.style.display = index === -1 ? 'none' : 'block';
+
+        if (index === -1) {
+            title.innerText = "ADD NEW RACE ROUND";
+            btn.innerText = "ADD ROUND";
+            select.value = "Bahrain";
+        } else {
+            title.innerText = "EDIT RACE ROUND";
+            btn.innerText = "SAVE CHANGES";
+            const race = localData.races[index];
+            select.value = race.country;
+            const radios = document.getElementsByName('raceType');
+            radios.forEach(r => { if(r.value === race.type) r.checked = true; });
+        }
+        modal.style.display = 'flex';
+    }
+
+    function initDriverForm() {
+        const sel = document.getElementById('driver-country-input');
+        const displayDiv = document.getElementById('country-select-display');
+        const displayText = document.getElementById('country-display-text');
+        const dropdown = document.getElementById('country-dropdown');
+        
+        if(!sel || !displayDiv || !displayText || !dropdown) {
+            console.error("Country select elements not found!");
+            return;
+        }
+        
+        // Ensure COUNTRY_CODES_3 is available
+        if(typeof COUNTRY_CODES_3 === 'undefined') {
+            console.error("COUNTRY_CODES_3 is not defined!");
+            // Fallback: create it if missing
+            window.COUNTRY_CODES_3 = { 
+                "Netherlands": "NED", "Belgium": "BEL", "Germany": "GER", "UK": "GBR", "France": "FRA", "Spain": "ESP", "Italy": "ITA", 
+                "USA": "USA", "Mexico": "MEX", "Brazil": "BRA", "Argentina": "ARG", "Canada": "CAN", "Australia": "AUS", "Japan": "JPN", 
+                "China": "CHN", "Finland": "FIN", "Denmark": "DEN", "Sweden": "SWE", "Norway": "NOR", "Poland": "POL", "Austria": "AUT", 
+                "Switzerland": "SUI", "Portugal": "POR", "Turkey": "TUR", "Thailand": "THA", "Suriname": "SUR", "Vietnam": "VIE",
+                "Monaco": "MON", "Indonesia": "IDN", "India": "IND", "South Korea": "KOR", "Russia": "RUS", "South Africa": "RSA",
+                "New Zealand": "NZL", "Ireland": "IRL", "Greece": "GRE", "Czech Republic": "CZE", "Hungary": "HUN", "Romania": "ROU",
+                "Croatia": "CRO", "Serbia": "SRB", "Bulgaria": "BUL", "Slovakia": "SVK", "Slovenia": "SLO", "Estonia": "EST", "Latvia": "LVA",
+                "Lithuania": "LTU", "Iceland": "ISL", "Malaysia": "MAS", "Singapore": "SGP", "Philippines": "PHI", "Bangladesh": "BAN",
+                "Pakistan": "PAK", "Saudi Arabia": "SAU", "UAE": "ARE", "Israel": "ISR", "Egypt": "EGY", "Morocco": "MAR", "Nigeria": "NGA",
+                "Kenya": "KEN", "Chile": "CHI", "Colombia": "COL", "Peru": "PER", "Venezuela": "VEN", "Ecuador": "ECU", "Uruguay": "URU"
+            };
+        }
+        
+        // Populate hidden select (for form submission)
+        sel.innerHTML = '';
+        let selectedCode = 'nl';
+        let selectedCode3 = 'NED';
+        
+        Object.entries(WORLD_FLAGS).sort().forEach(([name, code]) => {
+            const opt = document.createElement('option');
+            opt.value = code;
+            const code3 = COUNTRY_CODES_3[name] || code.toUpperCase();
+            opt.textContent = code3;
+            opt.setAttribute('data-flag', code);
+            opt.setAttribute('data-name', name);
+            if(name === "Netherlands") {
+                opt.selected = true;
+                selectedCode = code;
+                selectedCode3 = code3;
+            }
+            sel.appendChild(opt);
+        });
+        
+        // Update display function
+        const updateDisplay = function(code, code3) {
+            displayDiv.style.backgroundImage = `url('https://flagcdn.com/w20/${code}.png')`;
+            displayDiv.style.backgroundRepeat = 'no-repeat';
+            displayDiv.style.backgroundPosition = '8px center';
+            displayText.textContent = code3;
+        };
+        
+        // Populate custom dropdown with flags + codes
+        dropdown.innerHTML = '';
+        Object.entries(WORLD_FLAGS).sort().forEach(([name, code]) => {
+            const code3 = COUNTRY_CODES_3[name] || code.toUpperCase();
+            const li = document.createElement('li');
+            li.style.display = 'flex';
+            li.style.alignItems = 'center';
+            li.style.gap = '10px';
+            li.style.padding = '10px 15px';
+            li.style.cursor = 'pointer';
+            li.innerHTML = `
+                <img src="https://flagcdn.com/w20/${code}.png" style="width: 20px; height: 15px; flex-shrink: 0;">
+                <span>${code3}</span>
+            `;
+            li.addEventListener('click', function() {
+                sel.value = code;
+                // Update selected option
+                Array.from(sel.options).forEach(opt => {
+                    opt.selected = opt.value === code;
+                });
+                updateDisplay(code, code3);
+                dropdown.style.display = 'none';
+            });
+            dropdown.appendChild(li);
+        });
+        
+        // Toggle dropdown
+        displayDiv.addEventListener('click', function(e) {
+            e.stopPropagation();
+            if(dropdown.style.display === 'none' || dropdown.style.display === '') {
+                dropdown.style.display = 'block';
+            } else {
+                dropdown.style.display = 'none';
+            }
+        });
+        
+        // Hide dropdown when clicking outside
+        document.addEventListener('click', function(e) {
+            const wrapper = displayDiv.closest('.country-input-wrapper');
+            if(wrapper && !wrapper.contains(e.target)) {
+                dropdown.style.display = 'none';
+            }
+        });
+        
+        // Initial display
+        updateDisplay(selectedCode, selectedCode3);
+        
+        console.log("Driver form initialized, dropdown populated with", dropdown.children.length, "countries");
+    }
+
+    // --- MINI HELPERS ---
+    window.getFlagImg = code => code ? `<img src="https://flagcdn.com/w40/${code}.png" class="flag-img" alt="${code}">` : '❓';
+    window.closeRaceModal = () => {
+        document.getElementById('new-race-modal').style.display = 'none';
+        closeDeleteRaceConfirmModal();
+        editingColumnIndex = -1;
+    };
+    window.closeAdminModal = () => document.getElementById('admin-modal').style.display = 'none';
+    window.showCellDropdown = input => input.nextElementSibling.style.display = 'block';
+    window.hideCellDropdown = input => setTimeout(() => input.nextElementSibling.style.display = 'none', 200);
+    window.selectStatus = (li, val) => { 
+        const input = li.parentElement.previousElementSibling;
+        input.value = val;
+        input.dispatchEvent(new Event('change'));
+    }
+    
+    // Fullscreen Toggle Function
+    window.toggleTableFullscreen = function() {
+        const wrapper = document.querySelector('.matrix-wrapper');
+        const btn = document.getElementById('fs-toggle-btn');
+        const btnFullscreen = document.getElementById('fs-toggle-btn-fullscreen');
+        const icon = btn ? btn.querySelector('i') : null;
+        const iconFullscreen = btnFullscreen ? btnFullscreen.querySelector('i') : null;
+        
+        if(!wrapper) {
+            console.error("Matrix wrapper not found!");
+            return;
+        }
+        
+        if(wrapper.classList.contains('fullscreen-active')) {
+            // Exit fullscreen
+            wrapper.classList.remove('fullscreen-active');
+            if(btn) btn.style.display = 'flex';
+            if(btnFullscreen) btnFullscreen.style.display = 'none';
+            if(icon) {
+                icon.classList.remove('fa-compress');
+                icon.classList.add('fa-expand');
+            }
+        } else {
+            // Enter fullscreen
+            wrapper.classList.add('fullscreen-active');
+            if(btn) btn.style.display = 'none';
+            if(btnFullscreen) btnFullscreen.style.display = 'flex';
+            if(icon) {
+                icon.classList.remove('fa-expand');
+                icon.classList.add('fa-compress');
+            }
+            if(iconFullscreen) {
+                iconFullscreen.classList.remove('fa-expand');
+                iconFullscreen.classList.add('fa-compress');
+            }
+        }
+    }
+    
+    // Hamburger Menu Toggle
+    document.addEventListener('DOMContentLoaded', function() {
+        const params = new URLSearchParams(window.location.search);
+        const viewCodeParam = (params.get('view') || params.get('league') || '').trim();
+
+        if (viewCodeParam) {
+            const code = viewCodeParam.toUpperCase();
+            const leagueRef = ref(db, 'leagues/' + code);
+            get(leagueRef).then((snapshot) => {
+                if (snapshot.exists()) {
+                    currentLeagueId = code;
+                    isAdmin = false;
+                    document.body.classList.remove('is-admin');
+                    const loginOverlay = document.getElementById('login-overlay');
+                    if (loginOverlay) loginOverlay.style.display = 'none';
+                    const leagueCardMain = document.querySelector('main .league-card');
+                    if (leagueCardMain) leagueCardMain.style.display = 'none';
+                    const dash = document.getElementById('dashboard-section');
+                    if (dash) dash.style.display = 'block';
+                    listenToLeague(currentLeagueId);
+                } else {
+                    window.showErrorModal("LEAGUE NOT FOUND!\n\nPlease check the league code and try again.");
+                }
+            }).catch((error) => {
+                console.error("Error checking league:", error);
+                window.showErrorModal("LEAGUE NOT FOUND!\n\nError: " + error.message);
+            });
+        }
+
+        const btn = document.getElementById('mobileMenuBtn');
+        const menu = document.getElementById('mobileNav');
+        
+        if(btn && menu) {
+            btn.addEventListener('click', function() {
+                menu.classList.toggle('active');
+            });
+        }
+        
+        // Enter key support for login forms
+        const loginRoomInput = document.getElementById('login-room');
+        if(loginRoomInput) {
+            loginRoomInput.addEventListener('keydown', function(e) {
+                if(e.key === 'Enter' || e.keyCode === 13) {
+                    e.preventDefault();
+                    window.attemptLogin();
+                }
+            });
+        }
+        
+        const roomNameEnterInput = document.getElementById('room-name-enter');
+        const pinEnterInput = document.getElementById('pin-enter');
+        if(roomNameEnterInput) {
+            roomNameEnterInput.addEventListener('keydown', function(e) {
+                if(e.key === 'Enter' || e.keyCode === 13) {
+                    e.preventDefault();
+                    window.attemptLoginFromTab();
+                }
+            });
+        }
+        if(pinEnterInput) {
+            pinEnterInput.addEventListener('keydown', function(e) {
+                if(e.key === 'Enter' || e.keyCode === 13) {
+                    e.preventDefault();
+                    window.attemptLoginFromTab();
+                }
+            });
+        }
+        
+        // Enter key support for create form
+        const roomNameCreateInput = document.getElementById('room-name-create');
+        const pinCreateInput = document.getElementById('pin-create');
+        if(roomNameCreateInput) {
+            roomNameCreateInput.addEventListener('keydown', function(e) {
+                if(e.key === 'Enter' || e.keyCode === 13) {
+                    e.preventDefault();
+                    window.goToDriversStep();
+                }
+            });
+        }
+        if(pinCreateInput) {
+            pinCreateInput.addEventListener('keydown', function(e) {
+                if(e.key === 'Enter' || e.keyCode === 13) {
+                    e.preventDefault();
+                    window.goToDriversStep();
+                }
+            });
+        }
+        
+        // Tab switching functionality
+        const tabs = document.querySelectorAll('.league-tab');
+        const tabContents = document.querySelectorAll('.league-tab-content');
+        
+        tabs.forEach(tab => {
+            tab.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetTab = this.getAttribute('data-tab');
+                
+                // Remove active class from all tabs and hide all contents
+                tabs.forEach(t => t.classList.remove('active'));
+                tabContents.forEach(content => {
+                    content.classList.remove('active');
+                    content.style.display = 'none';
+                });
+                
+                // Add active class to clicked tab and show corresponding content
+                this.classList.add('active');
+                const targetContent = document.getElementById('tab-' + targetTab);
+                if (targetContent) {
+                    targetContent.classList.add('active');
+                    targetContent.style.display = 'block';
+                }
+            });
+        });
+        
+        // Team dropdown functionality
+        const teamInput = document.getElementById('team-name-input');
+        const teamDropdown = document.getElementById('team-dropdown');
+        const dropdownArrow = document.getElementById('dropdown-arrow');
+        
+        if(teamInput && teamDropdown) {
+            teamInput.addEventListener('input', function() {
+                window.updateTeamDropdown();
+            });
+            
+            teamInput.addEventListener('focus', function() {
+                window.updateTeamDropdown();
+            });
+            
+            // Hide dropdown when clicking outside
+            document.addEventListener('click', function(event) {
+                if(teamDropdown && teamInput && dropdownArrow) {
+                    const teamWrapper = teamInput.closest('.team-input-wrapper');
+                    if(teamWrapper && !teamWrapper.contains(event.target) && 
+                       !teamDropdown.contains(event.target) && 
+                       event.target !== dropdownArrow) {
+                        teamDropdown.style.display = 'none';
+                    }
+                }
+            });
+        }
+        
+        if(dropdownArrow && teamDropdown) {
+            dropdownArrow.addEventListener('click', function(e) {
+                e.stopPropagation();
+                if(teamDropdown.style.display === 'none' || teamDropdown.style.display === '') {
+                    window.updateTeamDropdown();
+                } else {
+                    teamDropdown.style.display = 'none';
+                }
+            });
+        }
+        
+        // Hide dashboard and main league card until user passes overlay / deep link
+        const dashboardSection = document.getElementById('dashboard-section');
+        const driversSection = document.getElementById('drivers-section');
+        const leagueCardMain = document.querySelector('main .league-card');
+
+        if (dashboardSection) dashboardSection.style.display = 'none';
+        if (driversSection) driversSection.style.display = 'none';
+        if (leagueCardMain) leagueCardMain.style.display = 'none';
+    });
+    
+    // Driver Modal Functions (simplified)
+    window.openDriverModal = function(driverId) {
+        console.log("openDriverModal called with driverId:", driverId, typeof driverId);
+        
+        // Convert to number if it's a string
+        const id = typeof driverId === 'string' ? parseInt(driverId) : driverId;
+        
+        const driver = localData.drivers.find(d => d.id == id || d.id === id);
+        if (!driver) {
+            console.error("Driver not found with id:", id, "Available drivers:", localData.drivers);
+            return;
+        }
+        
+        console.log("Found driver:", driver);
+        
+        const modal = document.getElementById('edit-driver-modal');
+        const nameInput = document.getElementById('edit-driver-name');
+        const teamInput = document.getElementById('edit-driver-team');
+        const idInput = document.getElementById('edit-driver-id');
+        
+        if (modal && nameInput && teamInput) {
+            nameInput.value = driver.name;
+            teamInput.value = driver.team;
+            if(idInput) idInput.value = id;
+            modal.style.display = 'flex';
+            console.log("Modal opened");
+        } else {
+            console.error("Modal elements not found:", {modal, nameInput, teamInput});
+        }
+    }
+    
+    window.closeDriverModal = function() {
+        document.getElementById('edit-driver-modal').style.display = 'none';
+    }
+    
+    window.saveDriverChanges = function() {
+        const driverId = parseInt(document.getElementById('edit-driver-id').value);
+        const newName = document.getElementById('edit-driver-name').value.trim();
+        const newTeam = document.getElementById('edit-driver-team').value.trim();
+        
+        if (!newName || !newTeam) {
+            alert('Please enter both driver name and team.');
+            return;
+        }
+        
+        const driver = localData.drivers.find(d => d.id === driverId);
+        if (driver) {
+            driver.name = newName;
+            driver.team = newTeam;
+            pushUpdate();
+            renderDashboard(); // Re-render to show changes
+            window.closeDriverModal();
+        }
+    }
+    
+    // Edit League Functions
+    window.openEditLeagueModal = function() {
+        if(!isAdmin) return;
+        const modal = document.getElementById('edit-league-modal');
+        const nameInput = document.getElementById('edit-league-name');
+        const pinInput = document.getElementById('edit-league-pin');
+        
+        if(modal && nameInput && pinInput) {
+            nameInput.value = localData.leagueName || '';
+            pinInput.value = localData.adminKey || '';
+            modal.style.display = 'flex';
+        }
+    }
+    
+    window.closeEditLeagueModal = function() {
+        const modal = document.getElementById('edit-league-modal');
+        if(modal) modal.style.display = 'none';
+    }
+    
+    window.saveLeagueChanges = function() {
+        const nameInput = document.getElementById('edit-league-name');
+        const pinInput = document.getElementById('edit-league-pin');
+        
+        const newName = nameInput ? nameInput.value.trim().toUpperCase() : '';
+        const newPin = pinInput ? pinInput.value : '';
+        
+        if(!newName) {
+            alert('Please enter a league name!');
+            return;
+        }
+        
+        const oldLeagueId = currentLeagueId;
+        const newLeagueId = newName;
+        
+        // If name changed, we need to move the data to a new location
+        if(oldLeagueId !== newLeagueId) {
+            // Update local data
+            localData.leagueName = newName;
+            localData.adminKey = newPin || localData.adminKey;
+            
+            // Save to new location
+            set(ref(db, 'leagues/' + newLeagueId), localData)
+                .then(() => {
+                    // Delete old location if it exists and is different
+                    if(oldLeagueId && oldLeagueId !== newLeagueId) {
+                        set(ref(db, 'leagues/' + oldLeagueId), null);
+                    }
+                    
+                    currentLeagueId = newLeagueId;
+                    
+                    // Update display
+                    const title = document.getElementById('league-display-title');
+                    if(title) title.textContent = newName;
+                    
+                    // Re-setup listener
+                    listenToLeague(newLeagueId);
+                    
+                    window.closeEditLeagueModal();
+                    alert('League name updated! New league code: ' + newLeagueId);
+                })
+                .catch(e => {
+                    console.error("Error updating league:", e);
+                    alert("Error updating league: " + e.message);
+                });
+        } else {
+            // Only PIN changed
+            localData.adminKey = newPin || localData.adminKey;
+            pushUpdate();
+            window.closeEditLeagueModal();
+            alert('League PIN updated!');
+        }
+    }
+    
+    // Team Color Modal Functions
+    window.openTeamColorModal = function(teamName) {
+        if(!isAdmin) return;
+        
+        const modal = document.getElementById('team-color-modal');
+        const teamNameEl = document.getElementById('team-color-modal-team-name');
+        const colorGrid = document.getElementById('color-picker-grid');
+        
+        if(!modal || !teamNameEl || !colorGrid) return;
+        
+        teamNameEl.textContent = teamName;
+        
+        // Clear existing colors
+        colorGrid.innerHTML = '';
+        
+        // Populate color grid
+        TEAM_COLORS.forEach(color => {
+            const colorBtn = document.createElement('button');
+            colorBtn.style.cssText = `
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background-color: ${color};
+                border: 3px solid ${localData.teamColors[teamName] === color ? '#ff2961' : 'rgba(255,255,255,0.3)'};
+                cursor: pointer;
+                transition: all 0.3s;
+                box-shadow: 0 0 10px rgba(255, 41, 97, 0.3);
+            `;
+            colorBtn.title = color;
+            colorBtn.addEventListener('click', function() {
+                selectTeamColor(teamName, color);
+            });
+            colorBtn.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.1)';
+                this.style.boxShadow = '0 0 15px rgba(255, 41, 97, 0.6)';
+            });
+            colorBtn.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+                this.style.boxShadow = '0 0 10px rgba(255, 41, 97, 0.3)';
+            });
+            colorGrid.appendChild(colorBtn);
+        });
+        
+        modal.style.display = 'flex';
+    }
+    
+    window.closeTeamColorModal = function() {
+        const modal = document.getElementById('team-color-modal');
+        if(modal) modal.style.display = 'none';
+    }
+    
+    function selectTeamColor(teamName, color) {
+        if(!localData.teamColors) localData.teamColors = {};
+        localData.teamColors[teamName] = color;
+        pushUpdate();
+        
+        // Re-render constructors standings to show new color
+        const driverScores = localData.drivers.map(driver => {
+            let total = 0;
+            Object.keys(localData.points || {}).forEach(key => {
+                if(key.startsWith(driver.id + '_')) {
+                    const val = localData.points[key].toUpperCase().trim();
+                    if(!['DNF', 'DNS', 'DSQ'].includes(val)) {
+                        total += parseInt(val) || 0;
+                    }
+                }
+            });
+            return { ...driver, total };
+        });
+        updateConstructorsStandings(driverScores);
+        
+        closeTeamColorModal();
+    }
+    
+    // Team Edit Modal Functions
+    window.openTeamEditModal = function(teamName) {
+        console.log("openTeamEditModal called with:", teamName, "isAdmin:", isAdmin);
+        if(!isAdmin) {
+            console.log("Not admin, returning");
+            return;
+        }
+        
+        const modal = document.getElementById('team-edit-modal');
+        const nameInput = document.getElementById('edit-team-name');
+        const colorGrid = document.getElementById('team-edit-color-grid');
+        
+        console.log("Modal elements:", {modal, nameInput, colorGrid});
+        if(!modal || !nameInput || !colorGrid) {
+            console.error("Missing modal elements!");
+            return;
+        }
+        
+        // Store original team name for reference
+        modal.setAttribute('data-original-team-name', teamName);
+        
+        // Set current team name
+        nameInput.value = teamName;
+        
+        // Clear and populate color grid
+        colorGrid.innerHTML = '';
+        const currentColor = localData.teamColors[teamName] || TEAM_COLORS[0];
+        
+        TEAM_COLORS.forEach(color => {
+            const colorBtn = document.createElement('button');
+            colorBtn.style.cssText = `
+                width: 50px;
+                height: 50px;
+                border-radius: 50%;
+                background-color: ${color};
+                border: 3px solid ${currentColor === color ? '#ff2961' : 'rgba(255,255,255,0.3)'};
+                cursor: pointer;
+                transition: all 0.3s;
+                box-shadow: 0 0 10px rgba(255, 41, 97, 0.3);
+            `;
+            colorBtn.title = color;
+            colorBtn.setAttribute('data-color', color);
+            colorBtn.addEventListener('click', function() {
+                // Update border on all buttons
+                colorGrid.querySelectorAll('button').forEach(btn => {
+                    btn.style.border = '3px solid rgba(255,255,255,0.3)';
+                });
+                this.style.border = '3px solid #ff2961';
+            });
+            colorBtn.addEventListener('mouseenter', function() {
+                this.style.transform = 'scale(1.1)';
+                this.style.boxShadow = '0 0 15px rgba(255, 41, 97, 0.6)';
+            });
+            colorBtn.addEventListener('mouseleave', function() {
+                this.style.transform = 'scale(1)';
+                this.style.boxShadow = '0 0 10px rgba(255, 41, 97, 0.3)';
+            });
+            colorGrid.appendChild(colorBtn);
+        });
+        
+        modal.style.display = 'flex';
+    }
+    
+    window.closeTeamEditModal = function() {
+        const modal = document.getElementById('team-edit-modal');
+        if(modal) modal.style.display = 'none';
+    }
+    
+    window.saveTeamChanges = function() {
+        console.log("saveTeamChanges called");
+        const modal = document.getElementById('team-edit-modal');
+        const nameInput = document.getElementById('edit-team-name');
+        const colorGrid = document.getElementById('team-edit-color-grid');
+        
+        if(!modal || !nameInput || !colorGrid) {
+            console.error("Missing elements in saveTeamChanges");
+            return;
+        }
+        
+        const originalTeamName = modal.getAttribute('data-original-team-name');
+        const newTeamName = nameInput.value.trim();
+        
+        console.log("Saving team changes:", {originalTeamName, newTeamName});
+        
+        if(!newTeamName) {
+            alert('Please enter a team name!');
+            return;
+        }
+        
+        // Get selected color - try multiple selectors
+        let selectedColorBtn = colorGrid.querySelector('button[style*="border: 3px solid rgb(255, 41, 97)"]');
+        if(!selectedColorBtn) {
+            selectedColorBtn = colorGrid.querySelector('button[style*="border: 3px solid #ff2961"]');
+        }
+        const newColor = selectedColorBtn ? selectedColorBtn.getAttribute('data-color') : (localData.teamColors && localData.teamColors[originalTeamName]) || TEAM_COLORS[0];
+        
+        console.log("Selected color:", newColor);
+        
+        // Update team name in all drivers
+        localData.drivers.forEach(driver => {
+            if(driver.team === originalTeamName) {
+                driver.team = newTeamName;
+            }
+        });
+        
+        // Update team colors
+        if(!localData.teamColors) localData.teamColors = {};
+        if(originalTeamName !== newTeamName) {
+            // Remove old team color
+            delete localData.teamColors[originalTeamName];
+        }
+        localData.teamColors[newTeamName] = newColor;
+        
+        console.log("Updated localData:", localData);
+        
+        // Save to Firebase
+        pushUpdate();
+        
+        // Re-render dashboard
+        renderDashboard();
+        
+        window.closeTeamEditModal();
+    }
+    
+    // Race Labels Modal Functions
+    let currentLabelRaceIndex = null;
+    let currentLabelDriverId = null;
+    
+    window.openLabelModal = function(raceIndex, driverId) {
+        if(!isAdmin) return;
+        
+        currentLabelRaceIndex = raceIndex;
+        currentLabelDriverId = driverId;
+        
+        const modal = document.getElementById('race-labels-modal');
+        const infoEl = document.getElementById('label-modal-info');
+        
+        if(!modal || !infoEl) return;
+        
+        // Initialize raceLabels if needed
+        if (!localData.raceLabels) localData.raceLabels = {};
+        if (!localData.raceLabels[raceIndex]) localData.raceLabels[raceIndex] = {};
+        
+        const raceLabels = localData.raceLabels[raceIndex] || {};
+        const driver = localData.drivers.find(d => d.id === driverId);
+        const race = localData.races[raceIndex];
+        
+        // Set info text
+        infoEl.textContent = `Race #${raceIndex + 1}: ${race ? race.country : 'Unknown'}, ${driver ? driver.name : 'Driver'}`;
+        
+        // Set current values
+        const goldCheck = document.getElementById('label-gold');
+        const silverCheck = document.getElementById('label-silver');
+        const bronzeCheck = document.getElementById('label-bronze');
+        const fastestLapCheck = document.getElementById('label-fastest-lap');
+        
+        // Reset all checkboxes
+        if(goldCheck) goldCheck.checked = false;
+        if(silverCheck) silverCheck.checked = false;
+        if(bronzeCheck) bronzeCheck.checked = false;
+        
+        // Set top 3 label
+        if(raceLabels.gold === driverId) {
+            if(goldCheck) goldCheck.checked = true;
+        } else if(raceLabels.silver === driverId) {
+            if(silverCheck) silverCheck.checked = true;
+        } else if(raceLabels.bronze === driverId) {
+            if(bronzeCheck) bronzeCheck.checked = true;
+        }
+        
+        // Set fastest lap
+        if(fastestLapCheck) {
+            fastestLapCheck.checked = raceLabels.fastestLap === driverId;
+        }
+        
+        // Add event listeners to ensure exclusivity
+        if(goldCheck) {
+            goldCheck.onchange = function() {
+                if(this.checked) {
+                    if(silverCheck) silverCheck.checked = false;
+                    if(bronzeCheck) bronzeCheck.checked = false;
+                }
+            };
+        }
+        if(silverCheck) {
+            silverCheck.onchange = function() {
+                if(this.checked) {
+                    if(goldCheck) goldCheck.checked = false;
+                    if(bronzeCheck) bronzeCheck.checked = false;
+                }
+            };
+        }
+        if(bronzeCheck) {
+            bronzeCheck.onchange = function() {
+                if(this.checked) {
+                    if(goldCheck) goldCheck.checked = false;
+                    if(silverCheck) silverCheck.checked = false;
+                }
+            };
+        }
+        
+        modal.style.display = 'flex';
+    }
+    
+    window.closeLabelModal = function() {
+        const modal = document.getElementById('race-labels-modal');
+        if(modal) modal.style.display = 'none';
+        currentLabelRaceIndex = null;
+        currentLabelDriverId = null;
+    }
+    
+    window.saveRaceLabels = function() {
+        if(currentLabelRaceIndex === null || currentLabelDriverId === null) return;
+        
+        // Initialize raceLabels if needed
+        if (!localData.raceLabels) localData.raceLabels = {};
+        if (!localData.raceLabels[currentLabelRaceIndex]) localData.raceLabels[currentLabelRaceIndex] = {};
+        
+        const raceLabels = localData.raceLabels[currentLabelRaceIndex];
+        
+        // Get selected top 3 checkboxes
+        const goldCheck = document.getElementById('label-gold');
+        const silverCheck = document.getElementById('label-silver');
+        const bronzeCheck = document.getElementById('label-bronze');
+        
+        // Remove this driver from all top 3 positions first
+        if(raceLabels.gold === currentLabelDriverId) delete raceLabels.gold;
+        if(raceLabels.silver === currentLabelDriverId) delete raceLabels.silver;
+        if(raceLabels.bronze === currentLabelDriverId) delete raceLabels.bronze;
+        
+        // Set new top 3 label based on checked checkboxes
+        if(goldCheck && goldCheck.checked) {
+            raceLabels.gold = currentLabelDriverId;
+        } else if(silverCheck && silverCheck.checked) {
+            raceLabels.silver = currentLabelDriverId;
+        } else if(bronzeCheck && bronzeCheck.checked) {
+            raceLabels.bronze = currentLabelDriverId;
+        }
+        
+        // Handle fastest lap (can coexist with top 3)
+        const fastestLapCheck = document.getElementById('label-fastest-lap');
+        if(fastestLapCheck && fastestLapCheck.checked) {
+            raceLabels.fastestLap = currentLabelDriverId;
+        } else {
+            if(raceLabels.fastestLap === currentLabelDriverId) {
+                delete raceLabels.fastestLap;
+            }
+        }
+        
+        // Save to Firebase
+        pushUpdate();
+        
+        // Re-render matrix to show updated labels
+        renderMatrix();
+        
+        closeLabelModal();
+    }
+
+</script>
+    
+    <div class="neon-divider"></div>
+    <footer>
+        <div class="footer-container">
+            <div class="footer-top">
+            <div class="footer-brand">
+                <img src="2026-pmtv-group-logo.png" alt="PinkManiacTV Group Logo" class="footer-logo-pmtv2">
+                <div class="footer-brand-content">
+                    <span class="footer-brand-text">PINKMANIAC TV</span>
+                    <p class="footer-brand-note">© 2026 PinkManiac Group. All rights reserved. PMTV Socials, PinkManiac Music, the FOLLOW THE LIGHT clothing brand, and PMTV fashion are part of the PinkManiac Group.</p>
+                </div>
+            </div>
+            <div class="footer-links">
+                <div class="footer-column">
+                    <h4>NAVIGATE</h4>
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="app/">Webapps</a></li>
+                        <li><a href="studio.html">Studio</a></li>
+                        <li><a href="racing.html">Racing</a></li>
+                        <li><a href="music.html">Music</a></li>
+                        <li><a href="merch.html">Merch</a></li>
+                        <li><a href="leagues.html">Leagues</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h4>INFO</h4>
+                    <ul>
+                        <li><a href="contact.html">Contact</a></li>
+                        <li><a href="legal.html">Legal</a></li>
+                    </ul>
+                </div>
+            </div>
+            </div>
+            <hr class="footer-divider">
+            <div class="footer-bottom">
+                <div class="social-icons">
+                    <a href="https://www.instagram.com/pinkmaniactv/" target="_blank" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+                    <a href="https://www.youtube.com/@PinkManiacTV" target="_blank" aria-label="YouTube"><i class="fab fa-youtube"></i></a>
+                    <a href="https://www.tiktok.com/@pinkmaniactv" target="_blank" aria-label="TikTok"><i class="fab fa-tiktok"></i></a>
+                    <a href="https://x.com/PinkManiacTV" target="_blank" aria-label="X (Twitter)"><i class="fa-brands fa-x-twitter"></i></a>
+                </div>
+                <p class="footer-copyright">© 2026 PinkManiacTV. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+    
+    <!-- Status Options Datalist -->
+    <datalist id="status-options">
+        <option value="DNF">
+        <option value="DNS">
+        <option value="DSQ">
+    </datalist>
+    
+    <!-- New Race Modal -->
+    <div id="new-race-modal" class="modal-overlay leagues-modal-above-fullscreen" style="display: none;">
+        <div class="modal-content league-card">
+            <h3>ADD NEW RACE ROUND</h3>
+            
+            <div class="input-group">
+                <label>Country / Circuit</label>
+                <div class="custom-select-wrapper">
+                    <select id="race-country-select" class="league-input">
+                    </select>
+                </div>
+            </div>
+
+            <div class="input-group">
+                <label>Race Type</label>
+                <div class="race-type-options">
+                    <label class="radio-label">
+                        <input type="radio" name="raceType" value="GP" checked>
+                        <span class="radio-btn">🏁 Race</span>
+                    </label>
+                    <label class="radio-label">
+                        <input type="radio" name="raceType" value="SPRINT">
+                        <span class="radio-btn">⚡ Sprint</span>
+                    </label>
+                </div>
+            </div>
+
+            <div id="delete-race-row" class="modal-delete-race-row" style="display: none;">
+                <button type="button" onclick="requestDeleteRaceRound()" class="driver-delete-btn" style="width: 100%; box-sizing: border-box;">
+                    <i class="fas fa-trash-alt"></i> DELETE THIS ROUND
+                </button>
+            </div>
+
+            <div class="modal-actions">
+                <button onclick="closeRaceModal()" class="league-btn secondary">CANCEL</button>
+                <button onclick="confirmAddRace()" class="league-btn">ADD ROUND</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="delete-race-confirm-modal" class="modal-overlay leagues-modal-above-fullscreen" style="display: none;">
+        <div class="modal-content league-card">
+            <h3>DELETE RACE ROUND?</h3>
+            <p style="color: rgba(255,255,255,0.9); margin-bottom: 20px; line-height: 1.5; text-align: center;">
+                This round has points or labels entered. Deleting it will remove all results for this round and update standings. This cannot be undone.
+            </p>
+            <div class="modal-actions">
+                <button type="button" onclick="closeDeleteRaceConfirmModal()" class="league-btn secondary">CANCEL</button>
+                <button type="button" onclick="confirmDeleteRaceRound()" class="league-btn">DELETE ROUND</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Edit Driver Modal -->
+    <div id="admin-modal" class="modal-overlay leagues-modal-above-fullscreen" style="display: none;">
+        <div class="modal-content league-card">
+            <h3>ADMIN ACCESS</h3>
+            <p>Enter the Admin Key to enable editing.</p>
+            <input type="password" id="admin-key-input" class="league-input" placeholder="Admin Key">
+            <div class="modal-actions">
+                <button onclick="closeAdminModal()" class="league-btn secondary">CANCEL</button>
+                <button onclick="verifyAdminKey()" class="league-btn">UNLOCK</button>
+            </div>
+        </div>
+    </div>
+    
+    <div id="edit-driver-modal" class="modal-overlay leagues-modal-above-fullscreen" style="display: none;">
+        <div class="modal-content league-card">
+            <h3>EDIT DRIVER</h3>
+            <input type="hidden" id="edit-driver-id">
+            
+            <div class="input-group">
+                <label>Driver Name</label>
+                <input type="text" id="edit-driver-name" class="league-input">
+            </div>
+            
+            <div class="input-group">
+                <label>Team</label>
+                <input type="text" id="edit-driver-team" class="league-input">
+            </div>
+
+            <div class="modal-actions">
+                <button onclick="closeDriverModal()" class="league-btn secondary">CANCEL</button>
+                <button onclick="saveDriverChanges()" class="league-btn">SAVE CHANGES</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Edit League Modal -->
+    <div id="edit-league-modal" class="modal-overlay leagues-modal-above-fullscreen" style="display: none;">
+        <div class="modal-content league-card">
+            <h3>EDIT LEAGUE NAME</h3>
+            
+            <div class="input-group">
+                <label>League Name (will become the League Code)</label>
+                <input type="text" id="edit-league-name" class="league-input" placeholder="LEAGUE NAME">
+            </div>
+            
+            <div class="input-group">
+                <label>PIN Code</label>
+                <input type="password" id="edit-league-pin" class="league-input" placeholder="PIN Code" maxlength="4">
+            </div>
+            
+            <p style="color: #ff2961; font-size: 12px; margin-top: 10px;">
+                ⚠️ Warning: Changing the league name will change the league code. Make sure to inform all participants!
+            </p>
+
+            <div class="modal-actions">
+                <button onclick="closeEditLeagueModal()" class="league-btn secondary">CANCEL</button>
+                <button onclick="saveLeagueChanges()" class="league-btn">SAVE CHANGES</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Team Color Modal -->
+    <div id="team-color-modal" class="modal-overlay leagues-modal-above-fullscreen" style="display: none;">
+        <div class="modal-content league-card">
+            <h3>SELECT TEAM COLOR</h3>
+            <p id="team-color-modal-team-name" style="color: #ff2961; font-weight: bold; margin-bottom: 20px; text-transform: uppercase;"></p>
+            
+            <div class="color-picker-grid" id="color-picker-grid" style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 15px; margin-bottom: 30px;">
+                <!-- Colors will be populated by JavaScript -->
+            </div>
+
+            <div class="modal-actions">
+                <button onclick="closeTeamColorModal()" class="league-btn secondary">CANCEL</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Race Labels Modal -->
+    <div id="race-labels-modal" class="modal-overlay leagues-modal-above-fullscreen" style="display: none;">
+        <div class="modal-content league-card race-labels-modal-inner">
+            <h3>MANAGE RACE LABELS</h3>
+            <p id="label-modal-info" style="color: #fff; margin-bottom: 14px;"></p>
+            
+            <div class="input-group">
+                <label style="color: #fff; margin-bottom: 10px; display: block; font-weight: bold;">Top 3 Positions</label>
+                <div style="display: flex; flex-direction: column; gap: 10px; margin-bottom: 20px;">
+                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 8px; border-radius: 4px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,41,97,0.1)'" onmouseout="this.style.background='transparent'">
+                        <input type="checkbox" name="top3-label" value="gold" id="label-gold">
+                        <span style="color: #FFD700; font-weight: bold;">Gold</span>
+                        <span style="color: rgba(255,255,255,0.7); font-size: 0.9em;">(1st Place)</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 8px; border-radius: 4px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,41,97,0.1)'" onmouseout="this.style.background='transparent'">
+                        <input type="checkbox" name="top3-label" value="silver" id="label-silver">
+                        <span style="color: #C0C0C0; font-weight: bold;">Silver</span>
+                        <span style="color: rgba(255,255,255,0.7); font-size: 0.9em;">(2nd Place)</span>
+                    </label>
+                    <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 8px; border-radius: 4px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,41,97,0.1)'" onmouseout="this.style.background='transparent'">
+                        <input type="checkbox" name="top3-label" value="bronze" id="label-bronze">
+                        <span style="color: #CD7F32; font-weight: bold;">Bronze</span>
+                        <span style="color: rgba(255,255,255,0.7); font-size: 0.9em;">(3rd Place)</span>
+                    </label>
+                </div>
+            </div>
+            
+            <div class="input-group">
+                <label style="display: flex; align-items: center; gap: 10px; cursor: pointer; padding: 8px; border-radius: 4px; transition: background 0.3s;" onmouseover="this.style.background='rgba(255,41,97,0.1)'" onmouseout="this.style.background='transparent'">
+                    <input type="checkbox" id="label-fastest-lap">
+                    <span style="color: #9D4EDD; font-weight: bold;">Fastest Lap</span>
+                </label>
+            </div>
+
+            <div class="modal-actions">
+                <button onclick="closeLabelModal()" class="league-btn secondary">CANCEL</button>
+                <button onclick="saveRaceLabels()" class="league-btn">SAVE LABELS</button>
+            </div>
+        </div>
+    </div>
+    
+    <!-- Team Edit Modal -->
+    <div id="team-edit-modal" class="modal-overlay leagues-modal-above-fullscreen" style="display: none;">
+        <div class="modal-content league-card">
+            <h3>EDIT TEAM</h3>
+            
+            <div class="input-group">
+                <label>Team Name</label>
+                <input type="text" id="edit-team-name" class="league-input" placeholder="TEAM NAME">
+            </div>
+            
+            <div class="input-group">
+                <label>Team Color</label>
+                <div class="color-picker-grid" id="team-edit-color-grid" style="display: grid; grid-template-columns: repeat(6, 1fr); gap: 15px; margin-bottom: 20px;">
+                    <!-- Colors will be populated by JavaScript -->
+                </div>
+            </div>
+
+            <div class="modal-actions">
+                <button onclick="closeTeamEditModal()" class="league-btn secondary">CANCEL</button>
+                <button onclick="saveTeamChanges()" class="league-btn">SAVE CHANGES</button>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

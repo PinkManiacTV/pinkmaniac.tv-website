@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+    <title>Stream Lab — PM APP</title>
+    <meta name="description" content="Place rocks, build dams, and play with a winding pixel stream.">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png?v=2">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="stream-v2.css?v=sdv-ui-29">
+</head>
+<body class="app-page play-page">
+    <header class="header header--app play-header">
+        <nav class="app-header-nav" aria-label="Site navigation">
+            <a href="https://pinkmaniac.tv/" class="app-header-link">PMTV HOME</a>
+            <span class="app-header-divider" aria-hidden="true"></span>
+            <a href="https://pinkmaniac.tv/app" class="app-header-link">PM APP HOME</a>
+        </nav>
+    </header>
+
+    <main class="play-main">
+        <div class="play-layout">
+            <header class="play-intro">
+                <p class="play-blurb">
+                    A 2D creek flow and stream simulation based on fun times on holidays.<br>
+                    <span class="play-tags">#streamlab #riversimulation #creek #stream #2dsimulation</span>
+                </p>
+                <span class="play-brand-kicker">PM APP</span>
+                <div class="play-title-sign">
+                    <div class="play-title-sign-inner">
+                        <h1 class="play-brand-title">Stream Lab</h1>
+                    </div>
+                </div>
+                <p id="play-tip" class="play-tip" role="status">Dam the creek, dig a sneaky detour, and watch the water figure it out.</p>
+            </header>
+
+            <div class="play-canvas-wrap" aria-label="Water playfield">
+                <canvas id="play-canvas" aria-label="Interactive stream field"></canvas>
+                <div id="play-toast" class="play-toast" role="status" aria-live="polite"></div>
+            </div>
+
+            <aside class="play-sidebar" aria-label="Controls">
+                <div class="play-stats">
+                    <span id="stat-rocks" class="play-stat" title="Rocks placed">0 / 50</span>
+                </div>
+                <p class="play-sidebar-hint">Right-click a rock to pluck it out.</p>
+
+                <section class="play-panel" aria-label="Mode">
+                    <h2 class="play-panel-title">Mode</h2>
+                    <div
+                        id="play-shifter"
+                        class="play-dial"
+                        role="radiogroup"
+                        aria-label="Tool mode dial"
+                        data-mode="rock"
+                        data-pos="0"
+                    >
+                        <div class="play-dial-labels">
+                            <button type="button" class="play-dial-label is-active" data-mode="rock" role="radio" aria-checked="true">
+                                Place<br>rocks
+                            </button>
+                            <button type="button" class="play-dial-label" data-mode="remove" role="radio" aria-checked="false">
+                                Remove<br>rocks
+                            </button>
+                            <button type="button" class="play-dial-label" data-mode="dig" role="radio" aria-checked="false">
+                                Dig
+                            </button>
+                        </div>
+                        <div class="play-dial-face" id="play-dial-face" aria-hidden="true">
+                            <span class="play-dial-tick" data-mode="rock" style="--tick: -52deg"></span>
+                            <span class="play-dial-tick" data-mode="remove" style="--tick: 0deg"></span>
+                            <span class="play-dial-tick" data-mode="dig" style="--tick: 52deg"></span>
+                            <div class="play-dial-knob" id="play-dial-knob">
+                                <span class="play-dial-pointer" aria-hidden="true"></span>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="play-rock-tray" aria-label="Rock sizes">
+                        <button
+                            type="button"
+                            id="dock-rock-chip-large"
+                            class="play-rock-chip is-selected"
+                            data-rock-size="large"
+                            title="Large rock — drag onto field"
+                            aria-label="Large rock"
+                            aria-pressed="true"
+                        >
+                            <canvas class="play-rock-chip-canvas" width="56" height="56" aria-hidden="true"></canvas>
+                        </button>
+                        <button
+                            type="button"
+                            id="dock-rock-chip-small"
+                            class="play-rock-chip"
+                            data-rock-size="small"
+                            title="Small rock — drag onto field"
+                            aria-label="Small rock"
+                            aria-pressed="false"
+                        >
+                            <canvas class="play-rock-chip-canvas" width="56" height="56" aria-hidden="true"></canvas>
+                        </button>
+                    </div>
+                </section>
+
+                <section class="play-panel" aria-label="Actions">
+                    <div class="play-reset-group">
+                        <button type="button" id="btn-reset-rocks" class="play-reset-btn">Clear rocks</button>
+                        <button type="button" id="btn-reset-digs" class="play-reset-btn">Clear digs</button>
+                        <button type="button" id="btn-reset-all" class="play-reset-btn play-reset-btn--hot">Start over</button>
+                    </div>
+                </section>
+            </aside>
+        </div>
+    </main>
+
+    <script src="stream-engine.js?v=sdv-ui-29"></script>
+    <script src="stream-v2.js?v=sdv-ui-29"></script>
+</body>
+</html>

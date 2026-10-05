@@ -1,0 +1,469 @@
+.pl-page {
+    padding-top: 52px;
+}
+
+.pl-main {
+    max-width: 1100px;
+    margin: 0 auto;
+    padding: 16px 18px 40px;
+}
+
+.pl-header {
+    text-align: center;
+    margin-bottom: 24px;
+}
+
+.pl-title {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 8px;
+}
+
+.pl-intro {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(0.85rem, 2.2vw, 0.95rem);
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.5;
+    max-width: 640px;
+    margin: 0 auto;
+}
+
+.pl-toolbar {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+    margin-bottom: 28px;
+    padding: 16px;
+    border: 2px solid rgba(255, 255, 255, 0.22);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.03);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.06);
+}
+
+.pl-search-wrap {
+    position: relative;
+    display: block;
+}
+
+.pl-search-icon {
+    position: absolute;
+    left: 14px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: rgba(255, 255, 255, 0.45);
+    pointer-events: none;
+}
+
+.pl-search {
+    width: 100%;
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.95rem;
+    color: #fff;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    border-radius: 4px;
+    padding: 12px 14px 12px 40px;
+    outline: none;
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pl-search::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+}
+
+.pl-search:focus {
+    border-color: rgba(255, 255, 255, 0.55);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.15);
+}
+
+.pl-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.pl-filter-btn {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: 0.75rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 8px 14px;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    border-radius: 4px;
+    background: transparent;
+    color: rgba(255, 255, 255, 0.75);
+    cursor: pointer;
+    transition: background 0.2s ease, box-shadow 0.2s ease, color 0.2s ease;
+}
+
+.pl-filter-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    color: #fff;
+}
+
+.pl-filter-btn.is-active {
+    border-color: #fff;
+    background: rgba(255, 255, 255, 0.12);
+    color: #fff;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.15);
+}
+
+.pl-section {
+    margin-bottom: 40px;
+}
+
+.pl-section-title {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.5rem, 4.5vw, 2rem);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    margin-bottom: 8px;
+    text-align: center;
+}
+
+.pl-section-desc {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(0.9rem, 2.2vw, 1rem);
+    color: rgba(255, 255, 255, 0.55);
+    margin-bottom: 20px;
+    text-align: center;
+    max-width: 520px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.pl-tiles-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.pl-list-item {
+    display: flex;
+    align-items: stretch;
+    gap: 20px;
+    padding: 14px 0;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.pl-list-item:last-child {
+    border-bottom: none;
+}
+
+.pl-tile {
+    flex: 0 0 min(380px, 46%);
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 18px;
+    text-align: left;
+    padding: 18px 20px;
+    border: 2px solid rgba(255, 255, 255, 0.22);
+    border-radius: 6px;
+    background: rgba(255, 255, 255, 0.03);
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.06);
+    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pl-tile-body {
+    flex: 1;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.pl-item-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 58px;
+    height: 58px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    font-size: 1.3rem;
+    color: #ffffff;
+    flex-shrink: 0;
+}
+
+.pl-item-icon--writing {
+    background: radial-gradient(circle at 50% 40%, rgba(232, 184, 74, 0.32), rgba(167, 139, 250, 0.2) 60%, rgba(0, 0, 0, 0.2));
+    border-color: rgba(196, 181, 253, 0.55);
+    color: #e8c96a;
+    box-shadow:
+        0 0 16px rgba(167, 139, 250, 0.22),
+        0 0 8px rgba(232, 184, 74, 0.15);
+}
+
+.pl-item-icon--prompting {
+    background: radial-gradient(circle at 50% 40%, rgba(56, 189, 248, 0.35), rgba(99, 102, 241, 0.22) 60%, rgba(0, 0, 0, 0.2));
+    border-color: rgba(56, 189, 248, 0.55);
+    color: #67e8f9;
+    box-shadow:
+        0 0 16px rgba(56, 189, 248, 0.28),
+        0 0 8px rgba(99, 102, 241, 0.18);
+}
+
+.pl-item-icon--context {
+    background: radial-gradient(circle at 40% 35%, rgba(134, 239, 172, 0.38), rgba(74, 222, 128, 0.22) 55%, rgba(0, 0, 0, 0.2));
+    border-color: rgba(134, 239, 172, 0.6);
+    color: #86efac;
+    box-shadow:
+        0 0 16px rgba(74, 222, 128, 0.32),
+        0 0 8px rgba(134, 239, 172, 0.22);
+}
+
+.pl-tile-title {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: 1rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    line-height: 1.3;
+    margin: 0;
+}
+
+.pl-tile-actions {
+    display: flex;
+    gap: 8px;
+    width: 100%;
+}
+
+.pl-list-details {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 10px;
+    min-width: 0;
+    padding: 4px 0;
+}
+
+.pl-tile-badge {
+    align-self: flex-start;
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 4px 8px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+    color: rgba(255, 255, 255, 0.7);
+    white-space: nowrap;
+}
+
+.pl-list-desc {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.65);
+    line-height: 1.55;
+    margin: 0;
+}
+
+.pl-btn {
+    flex: 1;
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 10px 12px;
+    border: 1px solid rgba(255, 255, 255, 0.45);
+    border-radius: 4px;
+    background: transparent;
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.2s ease, box-shadow 0.2s ease;
+}
+
+.pl-btn:hover {
+    background: rgba(255, 255, 255, 0.08);
+    box-shadow: 0 0 12px rgba(255, 255, 255, 0.2);
+}
+
+.pl-btn--primary {
+    border-color: #fff;
+    box-shadow: 0 0 10px rgba(255, 255, 255, 0.12);
+}
+
+.pl-btn.is-copied {
+    background: rgba(255, 255, 255, 0.15);
+    box-shadow: 0 0 14px rgba(255, 255, 255, 0.25);
+}
+
+.pl-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 10000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.pl-modal[hidden] {
+    display: none;
+}
+
+.pl-modal-backdrop {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.82);
+    backdrop-filter: blur(4px);
+}
+
+.pl-modal-dialog {
+    position: relative;
+    z-index: 1;
+    display: flex;
+    flex-direction: column;
+    width: min(720px, 100%);
+    max-height: min(85vh, 820px);
+    border: 2px solid rgba(255, 255, 255, 0.35);
+    border-radius: 8px;
+    background: #0a0a0a;
+    box-shadow: 0 0 40px rgba(255, 255, 255, 0.18), 0 24px 48px rgba(0, 0, 0, 0.6);
+    animation: pl-modal-in 0.22s ease;
+}
+
+@keyframes pl-modal-in {
+    from {
+        opacity: 0;
+        transform: scale(0.96) translateY(8px);
+    }
+    to {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+    }
+}
+
+.pl-modal-header {
+    padding: 22px 24px 16px;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.pl-modal-heading {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 12px;
+}
+
+.pl-modal-title {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.1rem, 3vw, 1.35rem);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    line-height: 1.35;
+}
+
+.pl-modal-badge {
+    flex-shrink: 0;
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 0.65rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    padding: 5px 10px;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    border-radius: 3px;
+    color: rgba(255, 255, 255, 0.75);
+    white-space: nowrap;
+}
+
+.pl-modal-body {
+    flex: 1;
+    overflow-y: auto;
+    padding: 20px 24px;
+    font-family: 'Consolas', 'Courier New', monospace;
+    font-size: clamp(0.85rem, 2.2vw, 0.95rem);
+    line-height: 1.65;
+    color: rgba(255, 255, 255, 0.9);
+    white-space: pre-wrap;
+    word-break: break-word;
+}
+
+.pl-modal-footer {
+    display: flex;
+    gap: 10px;
+    padding: 16px 24px 22px;
+    border-top: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.pl-modal-footer .pl-btn {
+    flex: 1;
+    max-width: 200px;
+}
+
+.pl-page.pl-modal-open {
+    overflow: hidden;
+}
+
+.pl-empty {
+    font-family: 'Poppins', sans-serif;
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.5);
+    text-align: center;
+    padding: 24px;
+    border: 1px dashed rgba(255, 255, 255, 0.2);
+    border-radius: 6px;
+}
+
+.visually-hidden {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+@media (max-width: 640px) {
+    .pl-list-item {
+        flex-direction: column;
+        gap: 12px;
+        padding: 16px 0;
+    }
+
+    .pl-tile {
+        flex: none;
+        width: 100%;
+    }
+
+    .pl-tile-actions {
+        flex-direction: column;
+    }
+
+    .pl-toolbar {
+        padding: 12px;
+    }
+
+    .pl-modal {
+        padding: 12px;
+    }
+
+    .pl-modal-header,
+    .pl-modal-body,
+    .pl-modal-footer {
+        padding-left: 16px;
+        padding-right: 16px;
+    }
+
+    .pl-modal-footer {
+        flex-direction: column;
+    }
+
+    .pl-modal-footer .pl-btn {
+        max-width: none;
+    }
+}

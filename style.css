@@ -1,0 +1,3913 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    overflow-x: hidden;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+html {
+    height: 100%;
+    scrollbar-gutter: stable;
+}
+
+body {
+    background-color: #000000;
+    color: #ffffff;
+    padding-top: 100px;
+    font-family: 'Poppins', sans-serif;
+    min-height: 100vh;
+    padding-top: 80px;
+}
+
+body.splash-active {
+    overflow: hidden;
+}
+
+/* --- BASIS HEADER (Desktop & Mobiel) --- */
+.header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 80px;
+    background-color: #000;
+    border-bottom: 2px solid #ff2961;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    box-sizing: border-box;
+    z-index: 9999;
+}
+
+/* Linkerkant: HOME */
+.header-left {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #fff;
+    text-decoration: none;
+    font-size: 16px;
+    width: 80px; /* Vaste breedte voor balans */
+    display: inline-block;
+    transition: transform 0.25s ease;
+}
+
+.header-left:hover {
+    transform: scale(1.04);
+}
+
+/* Midden: LOGO (Absoluut gecentreerd) */
+.header-center {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.header-logo {
+    height: 50px;
+    width: auto;
+    display: block;
+    transition: transform 0.25s ease;
+}
+
+.header-center:hover .header-logo {
+    transform: scale(1.04);
+}
+
+/* Rechterkant: Container */
+.header-right {
+    width: 80px; /* Even breed als links voor balans */
+    display: flex;
+    justify-content: flex-end;
+}
+
+/* --- DESKTOP SPECIFIEK (hamburger verschijnt wanneer nav te krap wordt) --- */
+@media (min-width: 901px) {
+    .hamburger-btn, .mobile-nav-overlay {
+        display: none !important; /* Verberg mobiele dingen */
+    }
+    
+    .desktop-nav {
+        display: flex;
+        gap: 14px;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+    
+    .desktop-nav a {
+        font-family: 'Chakra Petch', sans-serif;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #fff;
+        text-decoration: none;
+        display: inline-block;
+        transition: transform 0.25s ease;
+    }
+
+    .desktop-nav a:hover {
+        transform: scale(1.04);
+    }
+    
+    /* Op desktop layout aanpassen: Home - Logo - Menu */
+    .header {
+        justify-content: center;
+        gap: 30px;
+    }
+    
+    .header-left {
+        width: auto;
+        order: 1;
+    }
+    
+    .header-center {
+        position: static;
+        transform: none;
+        order: 2;
+    }
+    
+    .header-right {
+        width: auto;
+        order: 3;
+    }
+}
+
+/* --- MOBILE/TABLET SPECIFIEK (hamburger wanneer scherm te smal) --- */
+@media (max-width: 900px) {
+    .desktop-nav {
+        display: none !important;
+    }
+    
+    /* Hamburger Knop Styling */
+    .hamburger-btn {
+        background: transparent; /* Geen achtergrond */
+        border: 2px solid #ff2961 !important; /* De roze neon rand */
+        border-radius: 4px; /* Iets afgeronde hoekjes */
+        cursor: pointer;
+        padding: 4px 8px; /* Ruimte om het icoontje heen */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease; /* Soepel effect bij hover */
+    }
+    
+    /* Optioneel: Maak hem vol roze als je erop klikt of hovert */
+    .hamburger-btn:hover {
+        background: rgba(255, 41, 97, 0.2);
+        box-shadow: 0 0 10px #ff2961; /* Neon glow effect */
+        transform: scale(1.04);
+    }
+    
+    /* Het Uitklap Menu */
+    .mobile-nav-overlay {
+        display: none; /* Standaard weg */
+        position: fixed;
+        top: 80px;
+        left: 0;
+        width: 100%;
+        background: #000;
+        flex-direction: column;
+        border-bottom: 2px solid #ff2961;
+        padding: 20px 0;
+    }
+    
+    .mobile-nav-overlay.active {
+        display: flex !important;
+    }
+    
+    .mobile-nav-overlay a {
+        font-family: 'Chakra Petch', sans-serif;
+        font-weight: 700;
+        text-transform: uppercase;
+        color: #fff;
+        text-decoration: none;
+        padding: 15px;
+        text-align: center;
+        font-size: 18px;
+        border-bottom: 1px solid #333;
+        transition: transform 0.25s ease;
+    }
+
+    .mobile-nav-overlay a:hover {
+        transform: scale(1.03);
+    }
+}
+
+
+
+.container {
+    max-width: 800px;
+    width: 100%;
+    margin: 0 auto;
+    padding: 60px clamp(24px, 5vw, 40px);
+    display: flex;
+    flex-direction: column;
+    box-sizing: border-box;
+}
+
+.home-page .container {
+    margin-top: 20px;
+}
+
+/* Fade In Animation */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Pulsing Glow Animation - White for Logo */
+@keyframes pulse {
+    0%, 100% {
+        filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 10px rgba(255, 255, 255, 0.6)) drop-shadow(0 0 15px rgba(255, 255, 255, 0.4));
+    }
+    50% {
+        filter: drop-shadow(0 0 7px rgba(255, 255, 255, 1)) drop-shadow(0 0 15px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 22px rgba(255, 255, 255, 0.6));
+    }
+}
+
+@keyframes fadeInWord {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Header with Logo */
+/* Page Header (for logo on pages like studio.html) */
+.page-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.logo {
+    width: 150px;
+    height: auto;
+    filter: drop-shadow(0 0 5px rgba(255, 255, 255, 0.8)) drop-shadow(0 0 10px rgba(255, 255, 255, 0.6)) drop-shadow(0 0 15px rgba(255, 255, 255, 0.4));
+    animation: pulse 3s ease-in-out infinite 1.5s;
+}
+
+.home-page .page-header .logo {
+    height: 350px;
+    width: auto;
+    max-width: 90vw;
+}
+
+.home-page.splash-active .page-header .logo {
+    opacity: 0;
+    animation: fadeInScale 0.4s ease-out forwards 0.5s;
+}
+
+.home-page.splash-active .page-header,
+.home-page.splash-active .main-text {
+    position: relative;
+    z-index: 10000;
+}
+
+.home-reveal {
+    transition: opacity 0.5s ease;
+}
+
+.home-page.splash-active .home-reveal {
+    opacity: 0;
+    pointer-events: none;
+}
+
+.home-page.splash-active .header.home-reveal {
+    visibility: hidden;
+}
+
+.home-page.splash-active main > .home-reveal,
+.home-page.splash-active > .neon-divider.home-reveal,
+.home-page.splash-active > footer.home-reveal {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    visibility: hidden;
+}
+
+.home-page.splash-reveal .page-header,
+.home-page.splash-reveal .main-text {
+    position: relative;
+    z-index: 10000;
+}
+
+.home-page.splash-reveal .home-reveal {
+    opacity: 1;
+}
+
+/* Music page: logo 3x groter */
+.music-page .page-header .logo {
+    width: 450px;
+    max-width: 100%;
+}
+
+.merch-page .page-header.merch-logo-header {
+    margin-bottom: 8px;
+}
+
+.merch-logo-duo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: clamp(16px, 4vw, 32px);
+    width: 100%;
+    max-height: 250px;
+}
+
+.merch-page .merch-logo {
+    height: clamp(100px, 30vw, 250px);
+    max-height: 250px;
+    width: auto;
+    max-width: min(40vw, 250px);
+    filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.4))
+            drop-shadow(0 0 6px rgba(255, 255, 255, 0.22))
+            drop-shadow(0 0 9px rgba(255, 255, 255, 0.12));
+    animation: merch-logo-pulse 3s ease-in-out infinite 1.5s;
+}
+
+.merch-logo-slash {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    height: clamp(100px, 30vw, 250px);
+    max-height: 250px;
+    font-size: clamp(88px, 26vw, 220px);
+    color: #ffffff;
+    line-height: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    overflow: hidden;
+    text-shadow: 0 0 3px rgba(255, 255, 255, 0.4),
+                 0 0 6px rgba(255, 255, 255, 0.22),
+                 0 0 9px rgba(255, 255, 255, 0.12);
+    animation: merch-slash-pulse 3s ease-in-out infinite 1.5s;
+    user-select: none;
+}
+
+@keyframes merch-logo-pulse {
+    0%, 100% {
+        filter: drop-shadow(0 0 3px rgba(255, 255, 255, 0.4))
+                drop-shadow(0 0 6px rgba(255, 255, 255, 0.22))
+                drop-shadow(0 0 9px rgba(255, 255, 255, 0.12));
+    }
+    50% {
+        filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.48))
+                drop-shadow(0 0 7px rgba(255, 255, 255, 0.28))
+                drop-shadow(0 0 11px rgba(255, 255, 255, 0.16));
+    }
+}
+
+@keyframes merch-slash-pulse {
+    0%, 100% {
+        text-shadow: 0 0 3px rgba(255, 255, 255, 0.4),
+                     0 0 6px rgba(255, 255, 255, 0.22),
+                     0 0 9px rgba(255, 255, 255, 0.12);
+    }
+    50% {
+        text-shadow: 0 0 4px rgba(255, 255, 255, 0.48),
+                     0 0 7px rgba(255, 255, 255, 0.28),
+                     0 0 11px rgba(255, 255, 255, 0.16);
+    }
+}
+
+.merch-page .contact-content {
+    padding-top: 0;
+    gap: var(--merch-gap);
+}
+
+.merch-page .contact-content .section-title {
+    margin-top: 0;
+}
+
+/* Main Text */
+.main-text {
+    text-align: center;
+}
+
+.main-text h1 {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+}
+
+.main-text h1 span {
+    display: inline-block;
+}
+
+.home-page.splash-active .main-text h1 span {
+    opacity: 0;
+}
+
+.home-page.splash-active .main-text h1 .word-1 {
+    animation: fadeInScale 0.4s ease-out forwards 1s;
+}
+
+.home-page.splash-active .main-text h1 .word-2 {
+    animation: fadeInScale 0.4s ease-out forwards 1.5s;
+}
+
+.home-page.splash-active .main-text h1 .word-3 {
+    animation: fadeInScale 0.4s ease-out forwards 2s;
+}
+
+/* Neon Line */
+.neon-line {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    border: none;
+    height: 4px;
+    background: #ff2961;
+    box-shadow: 0 0 10px #ff2961;
+    margin-top: 40px;
+    margin-bottom: 60px;
+}
+
+/* Home welcome block */
+.home-welcome {
+    max-width: 720px;
+    margin: 0 auto;
+    padding: 0 18px;
+    text-align: center;
+}
+
+.home-welcome-logo {
+    width: min(320px, 78vw);
+    height: auto;
+    margin: 0 auto 28px;
+    display: block;
+}
+
+.home-welcome-title {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.6rem, 5vw, 2.4rem);
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 24px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.35);
+}
+
+.home-welcome-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(0.9rem, 2.2vw, 1.05rem);
+    color: rgba(255, 255, 255, 0.82);
+    line-height: 1.65;
+}
+
+.home-welcome-text p {
+    margin-bottom: 16px;
+}
+
+.home-welcome-text p:last-child {
+    margin-bottom: 0;
+}
+
+.home-welcome-signoff {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.1rem, 3vw, 1.35rem);
+    letter-spacing: 0.2em;
+    color: #ffffff;
+    margin-top: 8px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
+}
+
+/* Neon Divider - Reusable class */
+.neon-divider {
+    width: 100vw;
+    position: relative;
+    left: 50%;
+    right: 50%;
+    margin-left: -50vw;
+    margin-right: -50vw;
+    border: none;
+    height: 4px;
+    background: #ff2961;
+    box-shadow: 0 0 10px #ff2961;
+    margin-top: 30px;
+    margin-bottom: 30px;
+}
+
+/* Content Sections */
+.content-section {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+}
+
+.section-title {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 900;
+    font-size: clamp(3.6rem, 12vw, 5rem);
+    text-transform: uppercase;
+    letter-spacing: 0.15em;
+    color: #ffffff;
+    text-shadow: 6px 6px 0px #ff2961;
+    text-align: center;
+    margin-bottom: 10px;
+}
+
+/* List Items */
+.list-item {
+    display: flex;
+    align-items: center;
+    gap: 25px;
+    width: 100%;
+    padding: 20px 0;
+    overflow: visible;
+}
+
+.item-image {
+    width: 90px;
+    height: 90px;
+    object-fit: contain;
+    flex-shrink: 0;
+    align-self: center;
+    transform: scale(1.0);
+    overflow: visible;
+}
+
+/* Round Crop for Red Bull */
+.round-crop {
+    width: 90px;
+    height: 90px;
+    border-radius: 50%;
+    overflow: hidden;
+    flex-shrink: 0;
+}
+
+.round-crop img {
+    transform: scale(1.2);
+    object-fit: cover;
+    width: 100%;
+    height: 100%;
+}
+
+/* Specific image styles */
+.item-image[src="gereed3d.png"] {
+    border: 2px solid white;
+    border-radius: 50%;
+}
+
+.item-image[src="music.png"],
+.item-image[src="racing.png"],
+.item-image[src="studio.png"],
+.item-image[src="logoFTL.png"] {
+    transform: scale(1.35);
+}
+
+.item-image[src="socials.png"],
+.item-image[src="lego.png"],
+.item-image[src="gereed3d.png"],
+.item-image[src="drivers.png"] {
+    transform: scale(1.0);
+}
+
+.item-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.item-title {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.2rem, 4vw, 1.3rem);
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0;
+}
+
+.item-text {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.6;
+    margin: 0;
+}
+
+/* Hele beschrijving klikbaar maar zelfde kleur als overige brand-teksten */
+.item-text .item-text-whole {
+    color: inherit;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.item-text .item-text-whole:hover {
+    color: #ff2961;
+}
+
+.item-link {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    color: #ff2961;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+}
+
+.item-link:hover {
+    color: #fe64ca;
+    text-shadow: 0 0 10px rgba(255, 41, 97, 0.5);
+}
+
+/* Text Links */
+.text-link {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}
+
+/* Social Media Links in PINKMANIACTV Socials */
+.list-item:has(img[src="socials.png"]) .text-link {
+    color: #ff80bf;
+    transition: color 0.3s ease;
+}
+
+.list-item:has(img[src="socials.png"]) .text-link:hover {
+    color: #ffffff;
+}
+
+/* Sub-items under PMTV Studio */
+.studio-sub-items {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    margin-left: 90px;
+    margin-top: -30px !important;
+    margin-bottom: 60px;
+    gap: 20px !important;
+    padding-top: 0 !important;
+}
+
+/* Verberg de sub-items op de homepage voor IEDEREEN (Desktop & Mobile) */
+.home-page .studio-sub-items {
+    display: none !important;
+}
+
+/* Remove bottom padding from PMTV Studio list-item */
+.list-item:has(img[src="studio.png"]) {
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+
+/* Force text margin to 0 for PMTV Studio */
+.list-item:has(img[src*="studio.png"]) p {
+    margin-bottom: 0 !important;
+    margin-top: 0 !important;
+}
+
+.sub-item {
+    display: flex;
+    align-items: center;
+    text-align: left;
+    gap: 15px;
+    width: 100%;
+    max-width: 600px;
+    overflow: visible;
+}
+
+.sub-item-image {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    object-fit: cover;
+    flex-shrink: 0;
+}
+
+.sub-item-image[src="pdfm.png"] {
+    transform: scale(1.3);
+}
+
+.sub-item-image[src="makerworld.png"] {
+    transform: scale(1.0);
+}
+
+.sub-image-link {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    display: inline-block;
+    transition: transform 0.25s ease;
+}
+
+.sub-image-link:hover {
+    transform: scale(1.04);
+}
+
+.sub-item-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.sub-item-title {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1rem, 3vw, 1.2rem);
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin: 0;
+}
+
+.sub-item-text {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: clamp(0.85rem, 2.2vw, 0.95rem);
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.5;
+    margin: 0;
+}
+
+.sub-item-link {
+    text-decoration: none;
+    color: #ff80bf;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.sub-item-link:hover {
+    color: #ffffff;
+}
+
+.highlight-link {
+    color: #ff80bf;
+}
+
+/* Title Links */
+.title-link {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    display: inline-block;
+    transition: transform 0.25s ease;
+}
+
+.title-link:hover {
+    transform: scale(1.04);
+}
+
+/* Image Links */
+.image-link {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    display: inline-block;
+    transition: transform 0.25s ease;
+}
+
+.image-link:hover {
+    transform: scale(1.04);
+}
+
+/* Studio Page Styles */
+.studio-section {
+    width: 100%;
+    margin-bottom: 60px;
+}
+
+.studio-section-subtitle {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+    color: #ff80bf;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin-bottom: 8px;
+    margin-top: 0;
+}
+
+.studio-section-title {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.2rem, 4vw, 1.3rem);
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 25px;
+}
+
+.studio-section-title--large {
+    font-size: clamp(2.4rem, 8vw, 2.6rem);
+    letter-spacing: 0.08em;
+    margin-bottom: 25px;
+}
+
+.studio-link {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition: color 0.3s ease;
+}
+
+.studio-link:hover {
+    color: #ff2961;
+}
+
+/* F1 Event Container */
+.f1-event-container {
+    width: 100%;
+    max-width: 600px;
+}
+
+.next-race-title {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.3rem, 3vw, 1.6rem);
+    color: #ffffff;
+    margin-bottom: 10px;
+    margin-top: 0;
+}
+
+.f1-event-container .f1-gp-country-title {
+    color: #ff2961;
+    text-shadow: 0 0 12px rgba(255, 41, 97, 0.45);
+    margin-top: 0.2em;
+    margin-bottom: 8px;
+}
+
+.f1-event-container .f1-gp-country-title:empty {
+    display: none;
+}
+
+.highlight-pink {
+    color: #ff2961;
+}
+
+.race-date-location {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    color: rgba(255, 255, 255, 0.7);
+    margin-bottom: 25px;
+}
+
+.table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 25px;
+}
+
+.f1-schedule-table {
+    width: 100%;
+    background-color: #000000;
+    color: #ffffff;
+    border-collapse: collapse;
+    font-family: 'Poppins', sans-serif;
+}
+
+.f1-schedule-table thead {
+    background-color: rgba(255, 41, 97, 0.1);
+}
+
+.f1-schedule-table th {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    color: #ff2961;
+    padding: 12px 8px;
+    text-align: left;
+    border-bottom: 2px solid #ff2961;
+    text-transform: uppercase;
+    font-size: clamp(0.8rem, 1.8vw, 0.95rem);
+    letter-spacing: 0.05em;
+}
+
+.f1-schedule-table td {
+    font-family: 'Poppins', sans-serif;
+    padding: 10px 8px;
+    border-bottom: 1px solid rgba(255, 41, 97, 0.2);
+    font-size: clamp(0.75rem, 1.8vw, 0.9rem);
+}
+
+.local-time-cell {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 600;
+}
+
+.f1-schedule-table tbody tr:last-child td {
+    border-bottom: none;
+}
+
+.session-highlight {
+    color: #ff80bf;
+    font-weight: 600;
+}
+
+.race-highlight {
+    color: #ffffff;
+    font-weight: 700;
+    text-shadow: 0 0 10px rgba(255, 41, 97, 0.8);
+}
+
+.official-schedule-link {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(0.85rem, 2vw, 0.95rem);
+    color: rgba(255, 255, 255, 0.6);
+    text-decoration: none;
+    transition: color 0.3s ease;
+    display: inline-block;
+    margin-top: 10px;
+}
+
+.official-schedule-link:hover {
+    color: #ff2961;
+}
+
+.image-gallery {
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 20px;
+}
+
+/* Container: Naast elkaar centreren */
+.makerworld-circles-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 25px;
+    flex-wrap: wrap;
+    margin-top: 30px;
+    margin-bottom: 40px;
+    width: 100%;
+}
+
+/* De Link-cirkel (De wrapper) */
+.mw-circle-link {
+    display: block;
+    width: 140px;
+    height: 140px;
+    border-radius: 50%;
+    border: 3px solid #ff2961;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(255, 41, 97, 0.3);
+    background-color: #000;
+}
+
+/* Het plaatje zelf */
+.mw-circle-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+/* Hover Effecten */
+.mw-circle-link:hover {
+    border-color: #ffffff;
+    box-shadow: 0 0 30px rgba(255, 41, 97, 0.8);
+    transform: translateY(-5px);
+}
+
+.mw-circle-link:hover .mw-circle-img {
+    transform: scale(1.1);
+}
+
+.mw-more-link {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: 24px;
+    color: #ff2961;
+    text-decoration: none;
+    margin-left: 10px;
+    transition: all 0.3s ease;
+    text-shadow: 0 0 5px rgba(255, 41, 97, 0.5);
+}
+
+.mw-more-link:hover {
+    color: #ffffff;
+    text-shadow: 0 0 15px rgba(255, 41, 97, 0.8);
+    transform: scale(1.1);
+}
+
+.gallery-item {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+    transition: transform 0.3s ease;
+}
+
+.gallery-item:hover {
+    transform: scale(1.05);
+}
+
+.placeholder-image {
+    width: 200px;
+    height: 200px;
+    background-color: #1a1a1a;
+    border: 2px solid #ff2961;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.studio-description {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: clamp(0.9rem, 2.5vw, 1rem);
+    color: #ffffff;
+    line-height: 1.6;
+    margin-bottom: 30px;
+}
+
+.studio-description p {
+    margin-bottom: 15px;
+    color: #ffffff;
+}
+
+.studio-description h4 {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.1rem, 3vw, 1.3rem);
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+
+.studio-description ul {
+    margin-left: 20px;
+    margin-bottom: 20px;
+    list-style-type: disc;
+}
+
+.studio-description li {
+    margin-bottom: 10px;
+    color: #ffffff;
+}
+
+.studio-description strong {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.studio-banner-link {
+    display: block;
+    margin-top: 20px;
+    transition: transform 0.25s ease;
+}
+
+.studio-banner-link:hover {
+    transform: scale(1.02);
+}
+
+.studio-banner {
+    width: 100%;
+    max-width: 800px;
+    height: auto;
+    border-radius: 8px;
+    display: block;
+}
+
+.studio-apps-cta {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 20px;
+}
+
+.studio-apps-cta-text {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.6;
+    margin: 0;
+}
+
+.studio-apps-cta .cta-button {
+    padding: 30px 72px;
+    font-size: clamp(1.5rem, 4.5vw, 2.1rem);
+    letter-spacing: 0.14em;
+    min-width: 340px;
+    max-width: 520px;
+    width: 100%;
+    text-align: center;
+    background-color: transparent;
+    color: #ffffff;
+    border: 4px solid #ffffff;
+    box-shadow: 0 0 15px rgba(255, 255, 255, 0.35), 0 0 30px rgba(255, 255, 255, 0.15);
+}
+
+.studio-apps-cta .cta-button:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+    color: #ffffff;
+    border-color: #ffffff;
+    box-shadow: 0 0 22px rgba(255, 255, 255, 0.55), 0 0 40px rgba(255, 255, 255, 0.25);
+    transform: translateY(-2px);
+}
+
+/* PM APP page, strak wit/zwart thema */
+.app-page {
+    --app-line: 2px;
+    padding-top: 52px;
+}
+
+.app-page .header--app {
+    height: 52px;
+    padding: 0 18px;
+    justify-content: center;
+    align-items: center;
+    border-bottom: var(--app-line) solid rgba(255, 255, 255, 0.35);
+    box-shadow: 0 1px 10px rgba(255, 255, 255, 0.12);
+}
+
+.app-page .app-header-nav {
+    display: flex;
+    align-items: center;
+    gap: clamp(16px, 4vw, 28px);
+}
+
+.app-page .app-header-divider {
+    width: var(--app-line);
+    height: 20px;
+    background: rgba(255, 255, 255, 0.45);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.35);
+    flex-shrink: 0;
+}
+
+.app-page .app-header-link {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    color: #ffffff;
+    text-decoration: none;
+    font-size: clamp(12px, 2.5vw, 14px);
+    letter-spacing: 0.06em;
+    transition: opacity 0.25s ease, text-shadow 0.25s ease;
+}
+
+.app-page .app-header-link:hover {
+    opacity: 0.85;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.45);
+}
+
+.app-page .neon-divider {
+    height: var(--app-line);
+    background: rgba(255, 255, 255, 0.35);
+    box-shadow: 0 0 8px rgba(255, 255, 255, 0.35), 0 0 18px rgba(255, 255, 255, 0.15);
+}
+
+.app-page .footer-divider {
+    border-top: var(--app-line) solid rgba(255, 255, 255, 0.35);
+}
+
+.app-page .app-tile {
+    border-width: var(--app-line);
+}
+
+.app-page .app-tile-icon {
+    border-width: var(--app-line);
+}
+
+.app-page .app-tile-badge {
+    border-width: var(--app-line);
+}
+
+.app-page .section-title {
+    text-shadow: none;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    font-size: clamp(1.8rem, 7vw, 3.2rem);
+}
+
+.app-page .app-hero-logo {
+    width: min(420px, 92vw);
+    height: auto;
+    animation: none;
+    filter: drop-shadow(0 0 8px rgba(255, 255, 255, 0.55))
+            drop-shadow(0 0 22px rgba(255, 255, 255, 0.28));
+}
+
+.app-page footer .footer-column h4 {
+    color: #ffffff;
+}
+
+.app-page .footer-column a:hover {
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.app-page .social-icons a:hover {
+    color: #ffffff;
+    text-shadow: none;
+}
+
+.app-page .container {
+    max-width: 960px;
+}
+
+.app-tiles-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 24px;
+    width: 100%;
+}
+
+.app-tile {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    padding: 36px 28px;
+    min-height: 240px;
+    background: rgba(255, 255, 255, 0.03);
+    border: 1px solid rgba(255, 255, 255, 0.22);
+    border-radius: 6px;
+    text-decoration: none;
+    color: inherit;
+    transition: all 0.25s ease;
+    box-shadow: none;
+}
+
+.app-tile-badge {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    width: 68px;
+    height: 68px;
+    padding: 8px 6px;
+    font-family: 'Chakra Petch', sans-serif;
+    font-size: 0.58rem;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: rgba(255, 255, 255, 0.75);
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.28);
+    border-radius: 6px;
+    line-height: 1.1;
+    pointer-events: none;
+    box-sizing: border-box;
+}
+
+.app-tile-badge i {
+    font-size: 1.7rem;
+    color: rgba(255, 255, 255, 0.65);
+}
+
+.app-tile-badge--v2 {
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    gap: 0;
+    font-size: 0.82rem;
+    letter-spacing: 0.08em;
+    color: #ffe27a;
+    background: linear-gradient(180deg, #6a5210 0%, #2a1e04 100%);
+    border-color: #f0d060;
+    box-shadow:
+        0 0 8px rgba(240, 208, 96, 0.7),
+        0 0 20px rgba(232, 196, 74, 0.35),
+        inset 0 1px 0 rgba(255, 236, 180, 0.55);
+}
+
+a.app-tile:hover {
+    border-color: rgba(255, 255, 255, 0.55);
+    background: rgba(255, 255, 255, 0.06);
+    transform: translateY(-3px);
+}
+
+.app-tile-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 72px;
+    height: 72px;
+    border-radius: 50%;
+    border: 1px solid rgba(255, 255, 255, 0.35);
+    margin-bottom: 20px;
+    font-size: 1.75rem;
+    color: #ffffff;
+    box-shadow: none;
+}
+
+.app-tile-icon-svg {
+    width: 1.15em;
+    height: 1.15em;
+    display: block;
+}
+
+.app-tile-icon-svg--meander {
+    width: 1.55em;
+    height: 1.55em;
+}
+
+.app-tile-title {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.1rem, 3vw, 1.35rem);
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 12px;
+}
+
+.app-tile-text {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: clamp(0.85rem, 2.2vw, 0.95rem);
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.5;
+    margin: 0;
+}
+
+.app-tile--placeholder {
+    opacity: 0.55;
+    border-style: dashed;
+}
+
+.app-tile--meander .app-tile-icon {
+    background: radial-gradient(circle at 35% 35%, rgba(92, 184, 92, 0.35), rgba(45, 140, 240, 0.22) 55%, rgba(0, 0, 0, 0.2));
+    border-color: rgba(77, 166, 255, 0.55);
+    color: #7ec8ff;
+    box-shadow:
+        0 0 16px rgba(77, 166, 255, 0.28),
+        0 0 8px rgba(92, 184, 92, 0.18);
+}
+
+.app-tile--meander .app-tile-badge {
+    color: rgba(255, 236, 179, 0.9);
+    background: rgba(40, 32, 0, 0.75);
+    border-color: rgba(232, 196, 74, 0.45);
+    box-shadow: 0 0 10px rgba(232, 196, 74, 0.12);
+}
+
+.app-tile--meander .app-tile-badge i {
+    color: rgba(232, 196, 74, 0.85);
+}
+
+a.app-tile--meander:hover {
+    border-color: rgba(77, 166, 255, 0.5);
+    background: rgba(45, 140, 240, 0.06);
+    box-shadow: 0 0 20px rgba(77, 166, 255, 0.15), 0 0 10px rgba(92, 184, 92, 0.1);
+}
+
+.app-tile--proli .app-tile-icon {
+    background: radial-gradient(circle at 50% 40%, rgba(232, 184, 74, 0.32), rgba(167, 139, 250, 0.2) 60%, rgba(0, 0, 0, 0.2));
+    border-color: rgba(196, 181, 253, 0.55);
+    color: #e8c96a;
+    box-shadow:
+        0 0 16px rgba(167, 139, 250, 0.22),
+        0 0 8px rgba(232, 184, 74, 0.15);
+}
+
+a.app-tile--proli:hover {
+    border-color: rgba(196, 181, 253, 0.5);
+    background: rgba(167, 139, 250, 0.06);
+    box-shadow: 0 0 20px rgba(167, 139, 250, 0.14), 0 0 10px rgba(232, 184, 74, 0.1);
+}
+
+.app-tile--beat .app-tile-icon {
+    background: radial-gradient(circle at 35% 30%, rgba(57, 255, 20, 0.45), rgba(196, 181, 253, 0.35) 55%, rgba(0, 0, 0, 0.25));
+    border-color: rgba(57, 255, 20, 0.65);
+    color: #39ff14;
+    box-shadow:
+        0 0 16px rgba(57, 255, 20, 0.35),
+        0 0 8px rgba(196, 181, 253, 0.28);
+}
+
+a.app-tile--beat:hover {
+    border-color: rgba(57, 255, 20, 0.55);
+    background: rgba(196, 181, 253, 0.08);
+    box-shadow: 0 0 20px rgba(57, 255, 20, 0.2), 0 0 10px rgba(196, 181, 253, 0.18);
+}
+
+.app-tile--hellen .app-tile-icon {
+    background: radial-gradient(circle at 35% 30%, rgba(255, 255, 255, 0.75), rgba(255, 40, 40, 0.45) 55%, rgba(255, 255, 255, 0.08));
+    border-color: rgba(255, 60, 60, 0.75);
+    color: #ff2020;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.95), 0 0 18px rgba(255, 255, 255, 0.55);
+    box-shadow:
+        0 0 16px rgba(255, 40, 40, 0.4),
+        0 0 10px rgba(255, 255, 255, 0.28);
+}
+
+a.app-tile--hellen:hover {
+    border-color: rgba(255, 60, 60, 0.65);
+    background: rgba(255, 40, 40, 0.08);
+    box-shadow: 0 0 22px rgba(255, 40, 40, 0.25), 0 0 12px rgba(255, 255, 255, 0.14);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    /* 1. Reset de html/body nogmaals hard */
+    html, body {
+        overflow-x: hidden !important;
+        width: 100% !important;
+        position: relative;
+    }
+
+    .container {
+        padding: 40px 15px;
+        padding-left: 10px;
+        padding-right: 10px;
+        width: 100%;
+        overflow-x: hidden;
+        box-sizing: border-box;
+    }
+    
+    .placeholder-image {
+        width: 150px;
+        height: 150px;
+    }
+    
+    .image-gallery {
+        gap: 15px;
+    }
+
+    .content-section {
+        gap: 30px;
+    }
+
+    .list-item {
+        gap: 20px;
+        padding: 15px 0;
+        margin-left: 0 !important;
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    .item-image {
+        width: 80px;
+        height: 80px;
+        max-width: 100% !important;
+    }
+
+    .img-wrapper {
+        width: 80px;
+        height: 80px;
+    }
+
+    /* 2. Fix de 'inspring' marges van de sub-items */
+    .studio-sub-items {
+        margin-left: 55px !important;
+        width: calc(100% - 55px) !important;
+        box-sizing: border-box !important;
+    }
+
+    .sub-item-content {
+        margin-left: 0 !important;
+        padding-left: 15px !important;
+        padding-right: 15px !important;
+        width: 100% !important;
+        box-sizing: border-box !important;
+    }
+
+    /* 3. Zorg dat afbeeldingen niet uitbreken */
+    img {
+        max-width: 100% !important;
+        height: auto;
+    }
+
+    /* 5. Neon lijnen temmen - Full Bleed */
+    .neon-divider {
+        width: 100vw !important;
+        position: relative !important;
+        left: 50% !important;
+        right: 50% !important;
+        margin-left: -50vw !important;
+        margin-right: -50vw !important;
+        box-sizing: border-box !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .list-item {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        gap: 15px;
+    }
+
+    .item-content {
+        text-align: center;
+    }
+}
+
+/* Contact Page Styles */
+.contact-content {
+    text-align: center;
+    padding: 80px 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.contact-text {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    color: rgba(255, 255, 255, 0.85);
+}
+
+.contact-link {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    color: #ff2961;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.contact-link:hover {
+    color: #fe64ca;
+}
+
+/* Legal Page Styles */
+.legal-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.legal-content details {
+    margin-bottom: 30px;
+    border: 2px solid rgba(255, 41, 97, 0.3);
+    border-radius: 8px;
+    padding: 15px;
+    background-color: rgba(0, 0, 0, 0.3);
+}
+
+.legal-content summary {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.1rem, 2.5vw, 1.3rem);
+    color: #ff2961;
+    cursor: pointer;
+    padding: 10px;
+    list-style: none;
+    transition: color 0.3s ease;
+}
+
+.legal-content summary:hover {
+    color: #ffffff;
+}
+
+.legal-content summary::-webkit-details-marker {
+    display: none;
+}
+
+.legal-content summary::before {
+    content: '+ ';
+    margin-right: 8px;
+    font-weight: 700;
+}
+
+.legal-content details[open] summary::before {
+    content: '− ';
+}
+
+.legal-text {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 41, 97, 0.2);
+}
+
+.legal-text p {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.8;
+    margin-bottom: 15px;
+}
+
+.legal-content-body {
+    margin-top: 20px;
+    padding-top: 20px;
+    border-top: 1px solid rgba(255, 41, 97, 0.2);
+}
+
+.legal-content-body p {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.8;
+    margin-bottom: 15px;
+}
+
+.legal-content-body h3 {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.2rem, 3vw, 1.4rem);
+    color: #ff2961;
+    margin-top: 30px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.legal-content-body h3:first-of-type {
+    margin-top: 0;
+}
+
+.legal-content-body ul {
+    margin-left: 20px;
+    margin-bottom: 20px;
+    padding-left: 20px;
+}
+
+.legal-content-body li {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    color: rgba(255, 255, 255, 0.9);
+    line-height: 1.8;
+    margin-bottom: 10px;
+}
+
+.legal-content-body strong {
+    color: #ffffff;
+    font-weight: 600;
+}
+
+.legal-content-body a {
+    color: #ff2961;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.legal-content-body a:hover {
+    color: #ff80bf;
+}
+
+/* Footer Styles */
+footer {
+    background-color: #0a0a0a;
+    padding: 60px 20px 30px;
+    margin-top: 80px;
+}
+
+.footer-container {
+    max-width: 850px;
+    margin: 0 auto;
+}
+
+body.no-scroll {
+    overflow: hidden !important;
+    height: 100vh;
+}
+
+.footer-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    flex-wrap: nowrap;
+    gap: 40px;
+    margin-bottom: 40px;
+}
+
+.footer-brand {
+    display: flex;
+    align-items: flex-start;
+    gap: 15px;
+}
+
+.footer-logo-pmtv2 {
+    width: 105px;
+    height: auto;
+    display: block;
+    flex-shrink: 0;
+}
+
+.footer-brand-content {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.footer-brand-text {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.2rem, 3vw, 1.5rem);
+    color: #ffffff;
+}
+
+.footer-brand-note {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(0.75rem, 1.6vw, 0.85rem);
+    color: rgba(255, 255, 255, 0.6);
+    line-height: 1.5;
+    margin: 0;
+    max-width: 520px;
+}
+
+.footer-links {
+    display: flex;
+    gap: 60px;
+    flex-wrap: nowrap;
+    margin-left: auto;
+    flex-shrink: 0;
+}
+
+.footer-column h4 {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    color: #ff2961;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.footer-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.footer-column li {
+    margin-bottom: 10px;
+}
+
+.footer-column a {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    color: #ffffff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.footer-column a:hover {
+    color: #ff2961;
+}
+
+.footer-divider {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    margin: 40px 0;
+}
+
+.footer-bottom {
+    text-align: center;
+}
+
+.social-icons {
+    display: flex;
+    justify-content: center;
+    gap: 25px;
+    margin-bottom: 25px;
+}
+
+.social-icons a {
+    color: #ffffff;
+    font-size: 24px;
+    transition: all 0.3s ease;
+    text-decoration: none;
+}
+
+.social-icons a:hover {
+    color: #ff2961;
+    text-shadow: 0 0 15px rgba(255, 41, 97, 0.8);
+    transform: scale(1.1);
+}
+
+.footer-copyright {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(0.85rem, 2vw, 0.95rem);
+    color: rgba(255, 255, 255, 0.6);
+}
+
+@media (max-width: 768px) {
+    .footer-top {
+        flex-direction: column;
+        gap: 30px;
+    }
+    
+    .footer-links {
+        gap: 40px;
+        width: 100%;
+    }
+    
+    .footer-column {
+        flex: 1 1 150px;
+    }
+}
+
+/* De container die ze naast elkaar zet */
+.merch-gallery-row {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    flex-wrap: wrap;
+    margin-top: 20px;
+    margin-bottom: 30px;
+    width: 100%;
+}
+
+/* De stijl voor de individuele plaatjes */
+.merch-gallery-img {
+    width: 45%;
+    max-width: 220px;
+    height: auto;
+    border: 3px solid #ff2961;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(255, 41, 97, 0.5);
+    object-fit: cover;
+    transition: transform 0.3s ease;
+}
+
+.merch-page {
+    --merch-content-width: min(90vw, 800px);
+    --merch-gap: 10px;
+    --merch-tile-h: clamp(150px, 20vw, 210px);
+    --merch-tile-gap: 24px;
+    overflow-x: clip;
+}
+
+/* Full-bleed merch foto-band (marquee) */
+.merch-page .merch-marquee {
+    --merch-fade: clamp(40px, 10vw, 120px);
+    position: relative;
+    width: 100vw;
+    margin-left: calc(50% - 50vw);
+    margin-right: calc(50% - 50vw);
+    padding: 10px 0;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+.merch-page .merch-marquee::before,
+.merch-page .merch-marquee::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    width: var(--merch-fade);
+    z-index: 2;
+    pointer-events: none;
+}
+
+.merch-page .merch-marquee::before {
+    left: 0;
+    background: linear-gradient(to right, #000 0%, rgba(0, 0, 0, 0.75) 35%, transparent 100%);
+}
+
+.merch-page .merch-marquee::after {
+    right: 0;
+    background: linear-gradient(to left, #000 0%, rgba(0, 0, 0, 0.75) 35%, transparent 100%);
+}
+
+.merch-page .merch-marquee__desktop {
+    display: flex;
+    flex-direction: column;
+    gap: calc(var(--merch-tile-gap) + 4px);
+}
+
+.merch-page .merch-marquee__mobile {
+    display: none;
+}
+
+.merch-page .merch-marquee__row {
+    overflow: hidden;
+    width: 100%;
+    padding: 12px 0;
+}
+
+.merch-page .merch-marquee__track {
+    display: flex;
+    width: max-content;
+    will-change: transform;
+}
+
+/* Duur wordt via JS gezet (~1 schermbreedte / 10s); fallback hieronder */
+.merch-page .merch-marquee__track--ltr {
+    animation: merch-marquee-scroll 36s linear infinite;
+}
+
+.merch-page .merch-marquee__track--rtl {
+    animation: merch-marquee-scroll 40s linear infinite reverse;
+}
+
+.merch-page .merch-marquee__group {
+    display: flex;
+    align-items: stretch;
+    gap: var(--merch-tile-gap);
+    padding-right: var(--merch-tile-gap);
+    flex-shrink: 0;
+}
+
+.merch-page .merch-marquee__item {
+    margin: 0;
+    height: var(--merch-tile-h);
+    flex-shrink: 0;
+    border-radius: 6px;
+    background: #111;
+    /* Geen overflow:hidden — anders wordt de glow weggeknipt */
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.45),
+        0 0 8px rgba(255, 255, 255, 0.4),
+        0 0 18px rgba(255, 255, 255, 0.28),
+        0 0 32px rgba(255, 255, 255, 0.16);
+}
+
+.merch-page .merch-marquee__item img {
+    display: block;
+    height: 100%;
+    width: auto;
+    max-width: none;
+    border-radius: 6px;
+    object-fit: cover;
+    object-position: center;
+    user-select: none;
+    -webkit-user-drag: none;
+    pointer-events: none;
+    box-shadow:
+        0 0 0 1px rgba(255, 255, 255, 0.35),
+        0 0 14px rgba(255, 255, 255, 0.25);
+}
+
+.merch-page .merch-marquee__item--logo {
+    background: #000;
+    min-width: calc(var(--merch-tile-h) * 1.35);
+}
+
+.merch-page .merch-marquee__item--logo img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    padding: 14px 22px;
+    box-sizing: border-box;
+    box-shadow: none;
+}
+
+@keyframes merch-marquee-scroll {
+    from {
+        transform: translateX(0);
+    }
+    to {
+        transform: translateX(-50%);
+    }
+}
+
+@media (max-width: 768px) {
+    .merch-page {
+        --merch-tile-h: clamp(130px, 38vw, 170px);
+        --merch-tile-gap: 20px;
+    }
+
+    .merch-page .merch-marquee__desktop {
+        display: none;
+    }
+
+    .merch-page .merch-marquee__mobile {
+        display: block;
+    }
+}
+
+/* Splash Screen */
+#splash-screen {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    z-index: 9999;
+    transition: opacity 0.5s ease;
+}
+
+#splash-screen.fade-out {
+    opacity: 0;
+    pointer-events: none;
+}
+
+/* Keyframe Animations */
+@keyframes fadeInScale {
+    0% {
+        opacity: 0;
+        transform: scale(0.8);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+/* ============================================
+   CUSTOM CHAMPIONSHIPS / LEAGUES PAGE STYLES
+   ============================================ */
+
+/* League Page Title */
+.league-page-title {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2.5rem, 8vw, 4.5rem);
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-align: center;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px rgba(255, 255, 255, 0.8), 0 0 20px rgba(255, 255, 255, 0.6), 0 0 30px rgba(255, 255, 255, 0.4);
+}
+
+.league-page-subtitle {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: clamp(1rem, 2.5vw, 1.2rem);
+    color: rgba(255, 255, 255, 0.85);
+    text-align: center;
+    margin-bottom: 60px;
+}
+
+/* League Card */
+.league-card {
+    max-width: 500px;
+    width: 100%;
+    margin: 0 auto;
+    background-color: #000000;
+    border: 2px solid #ff2961;
+    border-radius: 8px;
+    padding: 0;
+    box-shadow: 0 0 20px rgba(255, 41, 97, 0.3);
+}
+
+/* League Tabs */
+.league-tabs {
+    display: flex;
+    border-bottom: 2px solid #ff2961;
+}
+
+.league-tab {
+    flex: 1;
+    padding: 15px 20px;
+    background-color: transparent;
+    border: none;
+    border-right: 1px solid rgba(255, 41, 97, 0.3);
+    color: rgba(255, 255, 255, 0.6);
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.league-tab:last-child {
+    border-right: none;
+}
+
+.league-tab:hover {
+    color: rgba(255, 255, 255, 0.9);
+    background-color: rgba(255, 41, 97, 0.1);
+}
+
+.league-tab.active {
+    color: #ffffff;
+    background-color: rgba(255, 41, 97, 0.2);
+    border-bottom: 3px solid #ff2961;
+}
+
+/* League Tab Content */
+.league-tab-content {
+    padding: 30px;
+    display: none;
+}
+
+.league-tab-content.active {
+    display: block !important;
+}
+
+/* League Form */
+.league-form {
+    display: flex;
+    flex-direction: column;
+    gap: 25px;
+}
+
+/* League Input Fields */
+.league-input {
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #ff2961;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(1rem, 2vw, 1.1rem);
+    padding: 12px 0;
+    padding-left: 12px;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.league-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.league-input:focus {
+    border-bottom-color: #ffffff;
+    box-shadow: 0 2px 0 rgba(255, 41, 97, 0.5);
+}
+
+/* League Button */
+.league-btn {
+    background-color: #ff2961;
+    color: #ffffff;
+    border: none;
+    padding: 15px 30px;
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1rem, 2.2vw, 1.2rem);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(255, 41, 97, 0.4);
+    margin-top: 10px;
+}
+
+.league-btn:hover {
+    background-color: #fe64ca;
+    box-shadow: 0 0 25px rgba(255, 41, 97, 0.8);
+    transform: translateY(-2px);
+}
+
+.league-btn:active {
+    transform: translateY(0);
+}
+
+/* League Checkbox */
+.league-checkbox-wrapper {
+    margin: 10px 0;
+}
+
+.league-checkbox-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    color: rgba(255, 255, 255, 0.9);
+    gap: 12px;
+}
+
+.league-checkbox {
+    display: none;
+}
+
+.league-checkbox-custom {
+    width: 24px;
+    height: 24px;
+    border: 2px solid #ff2961;
+    border-radius: 4px;
+    background-color: transparent;
+    position: relative;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.league-checkbox:checked + .league-checkbox-custom {
+    background-color: #ff2961;
+    border-color: #ff2961;
+    box-shadow: 0 0 10px rgba(255, 41, 97, 0.5);
+}
+
+.league-checkbox:checked + .league-checkbox-custom::after {
+    content: '';
+    position: absolute;
+    left: 7px;
+    top: 3px;
+    width: 6px;
+    height: 12px;
+    border: solid #ffffff;
+    border-width: 0 2px 2px 0;
+    transform: rotate(45deg);
+}
+
+.league-checkbox-label:hover .league-checkbox-custom {
+    border-color: #ffffff;
+    box-shadow: 0 0 8px rgba(255, 41, 97, 0.6);
+}
+
+.league-checkbox-text {
+    user-select: none;
+}
+
+/* League Select Dropdown */
+.league-select-wrapper {
+    position: relative;
+}
+
+.league-select {
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #ff2961;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(1rem, 2vw, 1.1rem);
+    padding: 12px 0;
+    padding-right: 30px;
+    outline: none;
+    cursor: pointer;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    transition: all 0.3s ease;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ff2961' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right center;
+    background-size: 12px;
+}
+
+.league-select:hover {
+    border-bottom-color: rgba(255, 255, 255, 0.8);
+}
+
+.league-select:focus {
+    border-bottom-color: #ffffff;
+    box-shadow: 0 2px 0 rgba(255, 41, 97, 0.5);
+}
+
+.league-select option {
+    background-color: #000000;
+    color: #ffffff;
+    padding: 10px;
+}
+
+/* Racing CTA Block */
+.racing-cta-block {
+    background-color: #111;
+    border-left: 4px solid #ff2961;
+    padding: 30px;
+    margin-bottom: 40px;
+    border-radius: 4px;
+}
+
+.racing-cta-block h3 {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.3rem, 3vw, 1.6rem);
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 15px;
+}
+
+.racing-cta-block p {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    color: rgba(255, 255, 255, 0.85);
+    line-height: 1.6;
+    margin-bottom: 20px;
+}
+
+.cta-button {
+    display: inline-block;
+    background-color: #ff2961;
+    color: #ffffff;
+    padding: 12px 30px;
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-decoration: none;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 15px rgba(255, 41, 97, 0.4);
+}
+
+.cta-button:hover {
+    background-color: #fe64ca;
+    box-shadow: 0 0 25px rgba(255, 41, 97, 0.8);
+    transform: translateY(-2px);
+}
+
+.racing-cta-block .cta-button-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    align-items: center;
+}
+
+/* Public league links under VIEW */
+.leagues-cta-view {
+    margin-bottom: 20px;
+}
+
+.leagues-cta-view-heading {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #ff2961;
+    margin-bottom: 10px;
+    line-height: 1.25;
+}
+
+.public-leagues-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 16px;
+}
+
+.public-leagues-list li {
+    margin: 0;
+}
+
+.public-league-link {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 8px 16px;
+    border: 2px solid rgba(255, 41, 97, 0.6);
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    display: inline-block;
+}
+
+.public-league-link:hover {
+    color: #fe64ca;
+    border-color: #ff2961;
+    box-shadow: 0 0 12px rgba(255, 41, 97, 0.35);
+}
+
+.racing-cta-block .cta-button.cta-button--secondary {
+    background-color: transparent;
+    color: #ff2961;
+    border: 2px solid #ff2961;
+    box-shadow: none;
+}
+
+.racing-cta-block .cta-button.cta-button--secondary:hover {
+    background-color: rgba(255, 41, 97, 0.12);
+    color: #fe64ca;
+    border-color: #fe64ca;
+    box-shadow: 0 0 15px rgba(255, 41, 97, 0.35);
+    transform: translateY(-2px);
+}
+
+/* Drivers Section */
+.drivers-section {
+    max-width: 600px;
+    width: 100%;
+    margin: 40px auto 0;
+}
+
+.drivers-section-title {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-align: center;
+    margin-bottom: 30px;
+    text-shadow: 0 0 10px rgba(255, 41, 97, 0.8);
+}
+
+/* Drivers Input Row */
+.drivers-input-row {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    align-items: flex-end;
+}
+
+.driver-input {
+    flex: 1;
+    background-color: transparent;
+    border: none;
+    border-bottom: 2px solid #ff2961;
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    padding: 12px 0;
+    outline: none;
+    transition: all 0.3s ease;
+}
+
+.driver-input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+}
+
+.driver-input:focus {
+    border-bottom-color: #ffffff;
+    box-shadow: 0 2px 0 rgba(255, 41, 97, 0.5);
+}
+
+/* Team Input Wrapper (for dropdown positioning) */
+.team-input-wrapper {
+    flex: 1;
+    position: relative;
+}
+
+/* Dropdown Arrow */
+.dropdown-arrow {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #ff2961;
+    cursor: pointer;
+    pointer-events: auto;
+    font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+    transition: all 0.3s ease;
+    z-index: 10;
+}
+
+.dropdown-arrow:hover {
+    color: #ffffff;
+    transform: translateY(-50%) scale(1.1);
+}
+
+/* Custom Dropdown */
+.custom-dropdown {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #000;
+    border: 1px solid #ff2961;
+    border-radius: 4px;
+    list-style: none;
+    padding: 0;
+    margin: 5px 0 0 0;
+    z-index: 1000;
+    max-height: 200px;
+    overflow-y: auto;
+    display: none;
+    box-shadow: 0 4px 15px rgba(255, 41, 97, 0.3);
+}
+
+.custom-dropdown li {
+    color: #ffffff;
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+}
+
+.custom-dropdown li:hover {
+    background-color: #ff2961;
+    color: #000000;
+}
+
+.custom-dropdown li:first-child {
+    border-radius: 4px 4px 0 0;
+}
+
+.custom-dropdown li:last-child {
+    border-radius: 0 0 4px 4px;
+}
+
+.driver-add-btn {
+    background-color: #ff2961;
+    color: #ffffff;
+    border: none;
+    padding: 12px 20px;
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(255, 41, 97, 0.4);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    white-space: nowrap;
+}
+
+.driver-add-btn:hover {
+    background-color: #fe64ca;
+    box-shadow: 0 0 20px rgba(255, 41, 97, 0.8);
+    transform: translateY(-2px);
+}
+
+.driver-add-btn:active {
+    transform: translateY(0);
+}
+
+/* Drivers List */
+.drivers-list {
+    list-style: none;
+    padding: 0;
+    margin: 0 0 30px 0;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.driver-item {
+    background-color: rgba(255, 41, 97, 0.1);
+    border: 2px solid #ff2961;
+    border-radius: 6px;
+    padding: 15px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    transition: all 0.3s ease;
+}
+
+.driver-item:hover {
+    background-color: rgba(255, 41, 97, 0.15);
+    box-shadow: 0 0 15px rgba(255, 41, 97, 0.3);
+}
+
+.driver-info {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    flex: 1;
+}
+
+.driver-name-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.driver-name {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1rem, 2.2vw, 1.2rem);
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.driver-team {
+    font-family: 'Poppins', sans-serif;
+    font-weight: 400;
+    font-size: clamp(0.85rem, 2vw, 0.95rem);
+    color: rgba(255, 255, 255, 0.6);
+}
+
+.driver-buttons {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.driver-edit-btn {
+    background-color: transparent;
+    border: 1px solid #ffa500;
+    color: #ffa500;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+}
+
+.driver-edit-btn:hover {
+    background-color: #ffa500;
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(255, 165, 0, 0.6);
+    border-color: #ffa500;
+}
+
+.driver-delete-btn {
+    background-color: transparent;
+    border: 1px solid #ff2961;
+    color: #ff2961;
+    padding: 8px 12px;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+}
+
+.driver-delete-btn:hover {
+    background-color: #ff2961;
+    color: #ffffff;
+    box-shadow: 0 0 10px rgba(255, 41, 97, 0.5);
+}
+
+.finish-btn {
+    width: 100%;
+    margin-top: 20px;
+}
+
+/* Dashboard Section */
+.dashboard-section {
+    max-width: 900px;
+    width: 100%;
+    margin: 40px auto 0;
+    padding-right: clamp(8px, 2vw, 20px);
+    box-sizing: border-box;
+}
+
+.dashboard-title {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(2rem, 6vw, 3rem);
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-align: center;
+    margin-bottom: 40px;
+    text-shadow: 0 0 10px rgba(255, 41, 97, 0.8);
+}
+
+/* Standings Table */
+.standings-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 40px;
+}
+
+.standings-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: #000000;
+    border: 2px solid #ff2961;
+    border-radius: 8px;
+    overflow: hidden;
+    table-layout: fixed;
+}
+
+.standings-table thead {
+    background-color: rgba(255, 41, 97, 0.2);
+}
+
+.standings-table th {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(0.9rem, 2vw, 1.1rem);
+    color: #ff2961;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 15px 20px;
+    text-align: left;
+    border-bottom: 2px solid #ff2961;
+}
+
+.standings-table th:first-child {
+    width: 60px;
+    text-align: center;
+}
+
+.standings-table th:nth-child(2) {
+    width: 35%;
+    text-align: left;
+}
+
+.standings-table th:nth-child(3) {
+    width: 35%;
+    text-align: left;
+}
+
+.standings-table th:last-child {
+    width: 30%;
+    min-width: 120px;
+    text-align: right;
+}
+
+.standings-table td:first-child {
+    text-align: center;
+    width: 60px;
+}
+
+.standings-table td:nth-child(2) {
+    text-align: left;
+    width: 35%;
+}
+
+.standings-table td:nth-child(3) {
+    text-align: left;
+    width: 35%;
+}
+
+.standings-table td:last-child {
+    text-align: right;
+    width: 30%;
+    min-width: 120px;
+}
+
+.standings-row {
+    border-bottom: 1px solid rgba(255, 41, 97, 0.2);
+    transition: all 0.3s ease;
+}
+
+.standings-row:hover {
+    background-color: rgba(255, 41, 97, 0.1);
+}
+
+.standings-row:last-child {
+    border-bottom: none;
+}
+
+.standings-table td {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    color: #ffffff;
+    padding: 15px 20px;
+    vertical-align: middle;
+}
+
+.pos-cell {
+    text-align: center;
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.driver-cell {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #ffffff;
+    white-space: nowrap;
+}
+
+.driver-cell img {
+    vertical-align: middle;
+    margin-right: 8px;
+}
+
+.team-cell {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.points-cell {
+    text-align: right;
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1rem, 2.2vw, 1.2rem);
+    color: #ff2961;
+}
+
+/* Constructors Championship Table */
+#constructors-table th:first-child {
+    width: 50px;
+    text-align: center;
+}
+
+#constructors-table th:nth-child(2) {
+    width: auto;
+    text-align: left;
+}
+
+#constructors-table th:last-child {
+    width: 100px;
+    text-align: right;
+}
+
+.constructors-row {
+    border-bottom: 1px solid rgba(255, 41, 97, 0.2);
+    transition: all 0.3s ease;
+}
+
+.constructors-row:hover {
+    background-color: rgba(255, 41, 97, 0.1);
+}
+
+.constructors-row:last-child {
+    border-bottom: none;
+}
+
+#constructors-table td {
+    padding: 12px 20px;
+}
+
+#constructors-table td:first-child {
+    text-align: center;
+}
+
+#constructors-table td:last-child {
+    text-align: right;
+}
+
+/* Team Color Dot */
+.team-color-dot {
+    display: inline-block;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    margin-right: 10px;
+    vertical-align: middle;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    flex-shrink: 0;
+}
+
+.team-cell-with-color {
+    display: flex;
+    align-items: center;
+    white-space: nowrap;
+    color: #ffffff !important;
+}
+
+#constructors-table .team-cell-with-color {
+    color: #ffffff !important;
+}
+
+#constructors-table .team-cell-with-color span:not(.team-color-dot) {
+    color: #ffffff !important;
+}
+
+.team-color-editable {
+    transition: all 0.3s ease;
+}
+
+.team-color-editable:hover {
+    background-color: rgba(255, 41, 97, 0.1);
+    border-radius: 4px;
+}
+
+/* Color Picker Grid */
+.color-picker-grid {
+    display: grid;
+    grid-template-columns: repeat(6, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.color-picker-grid button {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+    cursor: pointer;
+    transition: all 0.3s;
+    box-shadow: 0 0 10px rgba(255, 41, 97, 0.3);
+    padding: 0;
+}
+
+.color-picker-grid button:hover {
+    transform: scale(1.1);
+    box-shadow: 0 0 15px rgba(255, 41, 97, 0.6);
+}
+
+/* Section Title (for Race Results) */
+.section-title {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.8rem, 5vw, 2.5rem);
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-align: center;
+    margin-top: 60px;
+    margin-bottom: 30px;
+    text-shadow: 0 0 10px rgba(255, 41, 97, 0.8);
+}
+
+/* Races Container */
+#races-container {
+    margin-bottom: 30px;
+}
+
+/* Race Round Card */
+.race-round-card {
+    background-color: #000000;
+    border: 2px solid #ff2961;
+    border-radius: 8px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 0 20px rgba(255, 41, 97, 0.3);
+}
+
+.race-round-card h3 {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.3rem, 3vw, 1.6rem);
+    color: #ff2961;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 20px;
+    text-shadow: 0 0 10px rgba(255, 41, 97, 0.5);
+}
+
+/* Race Table Wrapper */
+.race-table-wrapper {
+    width: 100%;
+    overflow-x: auto;
+}
+
+/* Race Results Table */
+.race-results-table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: transparent;
+}
+
+.race-results-table thead {
+    background-color: rgba(255, 41, 97, 0.15);
+}
+
+.race-results-table th {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(0.85rem, 1.8vw, 1rem);
+    color: #ff2961;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 12px 15px;
+    text-align: left;
+    border-bottom: 2px solid #ff2961;
+}
+
+.race-results-table th:first-child {
+    width: auto;
+    text-align: left;
+}
+
+.race-results-table th:last-child {
+    width: 100px;
+    text-align: right;
+}
+
+.race-results-table tbody tr {
+    border-bottom: 1px solid rgba(255, 41, 97, 0.2);
+    transition: all 0.3s ease;
+}
+
+.race-results-table tbody tr:nth-child(even) {
+    background-color: rgba(255, 41, 97, 0.03);
+}
+
+.race-results-table tbody tr:nth-child(odd) {
+    background-color: transparent;
+}
+
+.race-results-table tbody tr:hover {
+    background-color: rgba(255, 41, 97, 0.1);
+}
+
+.race-results-table tbody tr:last-child {
+    border-bottom: none;
+}
+
+.race-results-table td {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(0.85rem, 1.8vw, 0.95rem);
+    color: #ffffff;
+    padding: 12px 15px;
+}
+
+.race-results-table td:first-child {
+    text-align: left;
+}
+
+/* Points Input Cell */
+.points-input-cell {
+    padding: 8px 15px !important;
+    text-align: center;
+}
+
+/* Points Cell Wrapper */
+.points-cell-wrapper {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+}
+
+/* Label Borders for Top 3 */
+.points-input.label-gold,
+.points-display.label-gold {
+    border: 2px solid #FFD700 !important;
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+}
+
+.points-input.label-silver,
+.points-display.label-silver {
+    border: 2px solid #C0C0C0 !important;
+    box-shadow: 0 0 8px rgba(192, 192, 192, 0.5);
+}
+
+.points-input.label-bronze,
+.points-display.label-bronze {
+    border: 2px solid #CD7F32 !important;
+    box-shadow: 0 0 8px rgba(205, 127, 50, 0.5);
+}
+
+/* Purple text for Fastest Lap */
+.points-input.label-fastest-lap,
+.points-display.label-fastest-lap {
+    color: #9D4EDD !important;
+    font-weight: bold;
+}
+
+/* Combined styles (Top 3 + Fastest Lap) */
+.points-input.label-gold.label-fastest-lap,
+.points-display.label-gold.label-fastest-lap {
+    border: 2px solid #FFD700 !important;
+    box-shadow: 0 0 8px rgba(255, 215, 0, 0.5);
+    color: #9D4EDD !important;
+    font-weight: bold;
+}
+
+.points-input.label-silver.label-fastest-lap,
+.points-display.label-silver.label-fastest-lap {
+    border: 2px solid #C0C0C0 !important;
+    box-shadow: 0 0 8px rgba(192, 192, 192, 0.5);
+    color: #9D4EDD !important;
+    font-weight: bold;
+}
+
+.points-input.label-bronze.label-fastest-lap,
+.points-display.label-bronze.label-fastest-lap {
+    border: 2px solid #CD7F32 !important;
+    box-shadow: 0 0 8px rgba(205, 127, 50, 0.5);
+    color: #9D4EDD !important;
+    font-weight: bold;
+}
+
+.label-edit-btn {
+    position: absolute;
+    top: 2px;
+    right: 2px;
+    background: transparent;
+    border: 1px solid rgba(255, 41, 97, 0.5);
+    color: #ff2961;
+    width: 20px;
+    height: 20px;
+    border-radius: 3px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    opacity: 0;
+    transition: all 0.3s;
+    padding: 0;
+}
+
+.points-cell-wrapper:hover .label-edit-btn {
+    opacity: 1;
+}
+
+.label-edit-btn:hover {
+    background: rgba(255, 41, 97, 0.2);
+    border-color: #ff2961;
+}
+
+/* Points Input Field (Text input with datalist) */
+.points-input {
+    background-color: transparent;
+    border: 1px solid #ff2961;
+    border-radius: 4px;
+    color: #ffffff;
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 6px 10px;
+    width: 100%;
+    text-align: center;
+    outline: none;
+    transition: all 0.3s ease;
+    text-transform: uppercase;
+}
+
+.points-input::placeholder {
+    color: rgba(255, 255, 255, 0.4);
+    text-transform: none;
+}
+
+.points-input:hover {
+    border-color: rgba(255, 255, 255, 0.8);
+    box-shadow: 0 0 8px rgba(255, 41, 97, 0.5);
+}
+
+.points-input:focus {
+    border-color: #ffffff;
+    box-shadow: 0 0 10px rgba(255, 41, 97, 0.7);
+}
+
+/* Points Display (non-admin view) */
+.points-display {
+    color: #ffffff;
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: bold;
+    font-size: 14px;
+    padding: 6px 10px;
+    text-align: center;
+    border-radius: 4px;
+    border: 1px solid transparent;
+    transition: all 0.3s ease;
+}
+
+/* Flag Image */
+.flag-img {
+    width: 24px;
+    height: auto;
+    display: block;
+    margin: 0 auto 2px auto;
+}
+
+.flag-img-small {
+    width: 20px;
+    height: auto;
+    display: inline-block;
+    vertical-align: middle;
+    flex-shrink: 0;
+}
+
+.driver-country-select {
+    width: auto;
+    margin-right: 10px;
+    min-width: 150px;
+}
+
+.neon-text-large {
+    font-size: 32px;
+    color: #fff;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    text-align: center;
+    text-shadow: 0 0 10px #ff2961;
+}
+
+.race-results-table td:first-child {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #ffffff;
+    user-select: none;
+}
+
+.race-results-table td:nth-child(2) {
+    color: rgba(255, 255, 255, 0.7);
+    user-select: none;
+}
+
+.race-results-table td:last-child {
+    text-align: center;
+}
+
+.race-results-table td:last-child {
+    text-align: right;
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    color: #ff2961;
+}
+
+/* Add Race Button */
+#add-race-btn {
+    width: 100%;
+    margin-top: 20px;
+    margin-bottom: 40px;
+}
+
+/* Matrix Wrapper */
+.matrix-wrapper {
+    position: relative; /* Zodat de knop absoluut kan zijn t.o.v. de wrapper */
+    overflow-x: auto;
+    margin-top: 20px;
+    border: 1px solid #ff2961;
+    border-radius: 8px;
+    background-color: #000000;
+}
+
+/* Fullscreen Toggle Button */
+.fullscreen-toggle {
+    position: relative;
+    background: #000;
+    border: 3px solid #ff2961;
+    color: #ff2961;
+    width: 44px;
+    height: 44px;
+    border-radius: 6px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.3s;
+    flex-shrink: 0;
+    font-size: 1.1rem;
+    box-shadow: 0 0 8px rgba(255, 41, 97, 0.2);
+}
+
+.fullscreen-toggle:hover {
+    background: #ff2961;
+    color: #000;
+    box-shadow: 0 0 12px rgba(255, 41, 97, 0.5);
+}
+
+/* De Wrapper in FULLSCREEN modus */
+.matrix-wrapper.fullscreen-active {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: #000;
+    z-index: 99999;
+    padding: clamp(24px, 5vw, 50px);
+    margin: 0;
+    border-radius: 0;
+    border: none;
+    overflow: hidden;
+    box-sizing: border-box;
+}
+
+/* Fullscreen close button - visible only in fullscreen mode */
+.fullscreen-close-btn {
+    position: fixed !important;
+    top: clamp(16px, 3vw, 24px) !important;
+    right: clamp(50px, 10vw, 70px) !important;
+    z-index: 100000 !important;
+    display: none;
+}
+
+.matrix-wrapper.fullscreen-active .fullscreen-close-btn {
+    display: flex !important;
+}
+
+/* Zorg dat de tabel scrollbaar blijft in fullscreen */
+.matrix-wrapper.fullscreen-active table {
+    height: 100%;
+    display: block;
+    overflow: auto;
+}
+
+/* Neon Table */
+.neon-table {
+    width: 100%;
+    border-collapse: collapse;
+    background: #000;
+    color: #fff;
+}
+
+.neon-table th,
+.neon-table td {
+    padding: 5px;
+    text-align: center;
+    border-bottom: 1px solid rgba(255, 41, 97, 0.3);
+    border-right: 1px solid rgba(255, 41, 97, 0.3);
+    min-width: 60px;
+}
+
+.neon-table th {
+    background-color: rgba(255, 41, 97, 0.2);
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(0.85rem, 1.8vw, 1rem);
+    color: #ff2961;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.neon-table tbody tr:nth-child(even) {
+    background-color: rgba(255, 41, 97, 0.03);
+}
+
+.neon-table tbody tr:hover {
+    background-color: rgba(255, 41, 97, 0.1);
+}
+
+/* Sticky Column (Driver Names) */
+.sticky-col {
+    position: sticky;
+    left: 0;
+    background-color: #000 !important;
+    z-index: 5;
+    isolation: isolate;
+    border-right: 2px solid #ff2961;
+    font-weight: bold;
+    text-align: left !important;
+    padding: 6px 12px 6px 15px !important;
+    min-width: 180px;
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    color: #ffffff;
+}
+
+.neon-table thead .sticky-col {
+    background-color: #1a0509 !important;
+    color: #ffffff;
+    z-index: 6;
+}
+
+.neon-table tbody .sticky-col {
+    background-color: #000 !important;
+}
+
+.neon-table tbody tr:nth-child(even) .sticky-col {
+    background-color: #050203 !important;
+}
+
+/* Driver Info in Matrix Table - Compact 2-line layout */
+.neon-table .driver-info-matrix {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+    line-height: 1.2;
+}
+
+.neon-table .driver-line1 {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    white-space: nowrap;
+}
+
+.neon-table .driver-rank {
+    color: #ffffff;
+    font-weight: 700;
+    min-width: 1.2em;
+}
+
+.neon-table .driver-name-text {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(0.75rem, 1.5vw, 0.9rem);
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.neon-table .driver-line2 {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-style: italic;
+    font-weight: 400;
+}
+
+.neon-table .driver-team-text {
+    font-family: 'Poppins', sans-serif;
+    font-size: clamp(0.7rem, 1.4vw, 0.8rem);
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.neon-table .driver-line2 .team-color-dot {
+    width: 10px;
+    height: 10px;
+    margin-right: 0;
+    flex-shrink: 0;
+}
+
+/* Modal Overlay */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+/* Leagues (race matrix): modals must sit above pseudo-fullscreen wrapper (99999) and its close control (100000) */
+.modal-overlay.leagues-modal-above-fullscreen {
+    z-index: 100101;
+}
+
+.modal-content {
+    max-width: 500px;
+    width: 90%;
+    padding: 30px;
+}
+
+.modal-content h3 {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.3rem, 3vw, 1.6rem);
+    color: #ffffff;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.input-group {
+    margin-bottom: 25px;
+}
+
+.input-group label {
+    display: block;
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: clamp(0.95rem, 2vw, 1.1rem);
+    color: rgba(255, 255, 255, 0.9);
+    margin-bottom: 10px;
+}
+
+.custom-select-wrapper {
+    position: relative;
+}
+
+.custom-select-wrapper .league-input {
+    width: 100%;
+    padding-right: 30px;
+}
+
+.race-type-options {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.radio-label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+}
+
+.radio-label input[type="radio"] {
+    display: none;
+}
+
+.radio-btn {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: transparent;
+    border: 2px solid #ff2961;
+    border-radius: 4px;
+    color: rgba(255, 255, 255, 0.7);
+    font-family: 'Poppins', sans-serif;
+    font-weight: 600;
+    font-size: clamp(0.9rem, 2vw, 1rem);
+    transition: all 0.3s ease;
+    user-select: none;
+}
+
+.radio-label input[type="radio"]:checked + .radio-btn {
+    background-color: #ff2961;
+    color: #ffffff;
+    box-shadow: 0 0 15px rgba(255, 41, 97, 0.5);
+}
+
+.radio-btn:hover {
+    border-color: #ffffff;
+    color: #ffffff;
+}
+
+.modal-delete-race-row {
+    margin-top: 24px;
+    margin-bottom: 4px;
+}
+
+/* Match race modal primary/secondary buttons (Chakra Petch, uppercase) */
+.modal-delete-race-row .driver-delete-btn {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1rem, 2.2vw, 1.2rem);
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    padding: 12px 20px;
+}
+
+/* Race labels modal: compact panel */
+#race-labels-modal .race-labels-modal-inner {
+    max-width: min(380px, 92vw);
+    padding: 22px 22px 26px;
+}
+
+#race-labels-modal .race-labels-modal-inner h3 {
+    margin-bottom: 14px;
+    font-size: clamp(1.05rem, 2.6vw, 1.35rem);
+}
+
+#race-labels-modal .race-labels-modal-inner .modal-actions {
+    margin-top: 20px;
+}
+
+.modal-actions {
+    display: flex;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.modal-actions .league-btn {
+    flex: 1;
+}
+
+.league-btn.secondary {
+    background-color: transparent;
+    border: 2px solid #ff2961;
+    color: #ff2961;
+}
+
+.league-btn.secondary:hover {
+    background-color: rgba(255, 41, 97, 0.2);
+    color: #ffffff;
+}
+
+/* Race Header - 4 lines: nr, vlag, landcode, label */
+.race-header {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+    cursor: pointer;
+    padding: 4px 2px;
+}
+
+.race-round-number {
+    font-size: clamp(15px, 1.5vw, 17px);
+    color: #ffffff;
+    font-weight: bold;
+    font-family: 'Chakra Petch', sans-serif;
+    line-height: 1.2;
+}
+
+.race-flag {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.race-flag img {
+    width: 20px;
+    height: auto;
+}
+
+.race-code {
+    font-weight: bold;
+    font-size: 12px;
+    color: #fff;
+    font-family: 'Chakra Petch', sans-serif;
+    letter-spacing: 0.05em;
+}
+
+.race-meta-row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    justify-content: center;
+}
+
+.race-round {
+    font-family: 'Chakra Petch', sans-serif;
+    font-weight: 700;
+    font-size: clamp(0.8rem, 1.6vw, 0.95rem);
+    color: #ffffff;
+}
+
+.race-type {
+    font-size: 10px;
+    font-weight: bold;
+    padding: 2px 6px;
+    border-radius: 3px;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.race-type.GP {
+    background: #333;
+    color: #fff;
+}
+
+.race-type.SPRINT {
+    background: #ff2961;
+    color: #fff;
+}
+
+.race-type.TBD {
+    background: #666;
+    color: #fff;
+}
+
+/* Dropdown Styling */
+select.league-input {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: #000;
+    color: #fff;
+    border: 1px solid #ff2961;
+    padding: 10px;
+    border-radius: 4px;
+    width: 100%;
+    cursor: pointer;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='12' viewBox='0 0 12 12'%3E%3Cpath fill='%23ff2961' d='M6 9L1 4h10z'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 12px;
+    padding-right: 35px;
+}
+
+select.league-input option {
+    background-color: #000;
+    color: #fff;
+    padding: 10px;
+}
+
+/* Race Header Hover & Edit */
+/* Race Header Hover */
+.race-header:hover {
+    background: rgba(255, 41, 97, 0.1);
+    border-radius: 4px;
+}
+
+.edit-icon {
+    font-size: 10px;
+    color: #333;
+    transition: color 0.3s;
+}
+
+.race-header:hover .edit-icon {
+    color: #ff2961;
+}
+
+/* Edit Icon Small (in Standings) */
+.edit-icon-small {
+    font-size: 10px;
+    color: #333;
+    margin-left: 8px;
+    cursor: pointer;
+    transition: color 0.3s;
+    opacity: 0;
+}
+
+tr:hover .edit-icon-small {
+    color: #ff2961;
+    opacity: 1;
+}
+
+/* Custom Combo Box in Matrix */
+.custom-combobox {
+    position: relative;
+    width: 100%;
+}
+
+.points-cell-wrapper .custom-combobox {
+    width: 100%;
+}
+
+.cell-dropdown-list {
+    display: none;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: 100%;
+    background: #000;
+    border: 1px solid #ff2961;
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    z-index: 100;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    border-radius: 4px;
+    overflow: hidden;
+}
+
+.cell-dropdown-list li {
+    padding: 8px 10px;
+    color: #fff;
+    font-size: 12px;
+    font-weight: bold;
+    cursor: pointer;
+    border-bottom: 1px solid rgba(255, 41, 97, 0.3);
+    transition: all 0.2s ease;
+    font-family: 'Chakra Petch', sans-serif;
+    text-transform: uppercase;
+}
+
+.cell-dropdown-list li:last-child {
+    border-bottom: none;
+}
+
+.cell-dropdown-list li:hover {
+    background: #ff2961;
+    color: #000;
+}
+
+/* Responsive adjustments for leagues page */
+@media (max-width: 768px) {
+    .league-card {
+        margin: 0 15px;
+    }
+    
+    .league-tab {
+        padding: 12px 15px;
+        font-size: clamp(0.8rem, 1.8vw, 0.95rem);
+    }
+    
+    .league-tab-content {
+        padding: 20px;
+    }
+    
+    .racing-cta-block {
+        padding: 20px;
+        margin-bottom: 30px;
+    }
+    
+    .drivers-section {
+        margin: 30px 15px 0;
+    }
+    
+    .drivers-input-row {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .driver-add-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    .driver-item {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .driver-buttons {
+        align-self: flex-end;
+        width: 100%;
+        justify-content: flex-end;
+    }
+    
+    .team-input-wrapper {
+        width: 100%;
+    }
+    
+    .custom-dropdown {
+        position: relative;
+        margin-top: 10px;
+    }
+    
+    .dashboard-section {
+        margin: 30px 15px 0;
+    }
+    
+    .standings-table {
+        font-size: clamp(0.8rem, 1.8vw, 0.95rem);
+    }
+    
+    .standings-table th,
+    .standings-table td {
+        padding: 10px 12px;
+    }
+    
+    .standings-table th:first-child {
+        width: 50px;
+    }
+    
+    .standings-table th:last-child {
+        width: 100px;
+    }
+    
+    .section-title {
+        margin-top: 40px;
+        margin-bottom: 20px;
+    }
+    
+    .race-round-card {
+        padding: 20px;
+        margin-bottom: 20px;
+    }
+    
+    .race-results-table th,
+    .race-results-table td {
+        padding: 10px 12px;
+    }
+    
+    #add-race-btn {
+        margin-bottom: 30px;
+    }
+}
+
+/* Login Card Styling */
+.login-card {
+    background: #000;
+    border: 2px solid #ff2961;
+    border-radius: 8px;
+    padding: 40px;
+    box-shadow: 0 0 20px rgba(255, 41, 97, 0.3);
+}
+
+/* Admin Only Elements */
+body:not(.is-admin) .admin-only {
+    display: none !important;
+}
+
+/* Disable inputs for viewers (but allow in login modals and league-inputs) */
+body:not(.is-admin) input:not(.league-input):not(#login-room):not(#login-pass):not(#admin-key-input):not(#edit-driver-name):not(#edit-driver-team):not(#race-country-select):not(.meander-range):not(.meander-v2-range):not(.stream-range):not(.play-range):not(.beat-range),
+body:not(.is-admin) select:not(.league-input):not(#driver-country-input):not(#race-country-select):not(.beat-select) {
+    pointer-events: none;
+    background: transparent;
+    border: none;
+    color: #fff;
+    cursor: default;
+}
+
+/* Allow inputs in modals to work */
+.modal-overlay input.league-input,
+.modal-overlay select.league-input,
+.modal-overlay input[type="text"],
+.modal-overlay input[type="password"] {
+    pointer-events: auto !important;
+    background: #000 !important;
+    border: 1px solid #ff2961 !important;
+    color: #fff !important;
+    cursor: text !important;
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+}
+
+/* Ensure all modal inputs have proper padding */
+.modal-overlay input,
+.modal-overlay select {
+    padding-left: 15px !important;
+    padding-right: 15px !important;
+}
+
+/* League Header Wrapper */
+.league-header-wrapper {
+    display: flex;
+    flex-direction: row;       /* Zeker weten dat ze naast elkaar staan */
+    align-items: center;       /* Dit is cruciaal voor verticale centrering */
+    justify-content: center;   /* In het midden van de pagina */
+    gap: 15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    line-height: 1;            /* Voorkomt dat teksthoogte de uitlijning verpest */
+}
+
+.league-header-wrapper h1 {
+    margin: 0;
+    padding: 0;
+    display: inline-block;     /* Zorgt dat hij zich gedraagt als een blokje */
+    vertical-align: middle;
+}
+
+.admin-lock-icon {
+    font-size: 24px;
+    display: flex;             /* Flexbox in het icoon helpt ook */
+    align-items: center;
+    height: 100%;              /* Pak dezelfde hoogte */
+    margin-top: -4px;          /* Kleiner tweakje om hem visueel perfect te krijgen */
+    color: #666;
+    cursor: pointer;
+    transition: color 0.3s, transform 0.3s;
+}
+
+.admin-lock-icon:hover {
+    color: #fff;
+    transform: scale(1.1);
+}
+
+/* Als admin is ingelogd, maak slotje roze */
+body.is-admin .admin-lock-icon {
+    color: #ff2961;
+}

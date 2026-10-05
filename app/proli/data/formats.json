@@ -1,0 +1,23 @@
+[
+  {
+    "id": "task-brief-format",
+    "title": "Task brief format",
+    "description": "Define a clear assignment before the AI starts. Fill in the brackets.",
+    "category": "Writing",
+    "body": "# Task brief\n\n## Goal\n[What should the final output achieve?]\n\n## Audience\n[Who will read or use this?]\n\n## Tone\n[e.g. professional, direct, friendly]\n\n## Language\n[e.g. English, Dutch]\n\n## Length\n[e.g. max 500 words, one page]\n\n## Must include\n- [Required point 1]\n- [Required point 2]\n\n## Must avoid\n- [e.g. jargon, filler, unsupported claims]\n\n## Deliverable\n[Describe the exact output format: email, report, list, etc.]"
+  },
+  {
+    "id": "output-refinement-format",
+    "title": "Output refinement format",
+    "description": "Paste AI output and specify what to improve in the next version.",
+    "category": "Writing",
+    "body": "# Output refinement\n\nReview the text below and produce an improved version.\n\n## What works\n- [Keep this aspect]\n\n## What to change\n- [Specific issue 1]\n- [Specific issue 2]\n\n## Rules for the revision\n- Keep the core message and facts.\n- Do not add new information unless I ask for it.\n- Apply the same language as the original.\n\n## Text to revise\n[PASTE THE AI OUTPUT HERE]"
+  },
+  {
+    "id": "expert-role-format",
+    "title": "Expert role format",
+    "description": "Set a clear role, task, and boundaries before the AI responds.",
+    "category": "Prompting",
+    "body": "# Role and task\n\n## Role\nYou are [ROLE: e.g. an experienced copywriter, a patient teacher, a critical editor].\n\n## Task\n[Describe exactly what you want done.]\n\n## Context\n[Relevant background the AI needs to know.]\n\n## Output format\n[How the answer should be structured: bullets, paragraphs, steps, etc.]\n\n## Boundaries\n- Do not [constraint 1].\n- Always [requirement 1].\n- If information is missing, ask before assuming."
+  }
+]

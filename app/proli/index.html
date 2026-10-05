@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PM Prompt Library - PM APP</title>
+    <meta name="description" content="Copy-ready AI prompts and reusable formats. Browse, preview, and copy in one click.">
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon.png?v=2">
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?v=2">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@700&family=Poppins:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="../../style.css">
+    <link rel="stylesheet" href="prompt-library.css?v=6">
+</head>
+<body class="app-page pl-page">
+    <header class="header header--app">
+        <nav class="app-header-nav" aria-label="Site navigation">
+            <a href="https://pinkmaniac.tv/" class="app-header-link">PMTV HOME</a>
+            <span class="app-header-divider" aria-hidden="true"></span>
+            <a href="https://pinkmaniac.tv/app" class="app-header-link">PM APP HOME</a>
+        </nav>
+    </header>
+
+    <main class="pl-main">
+        <header class="pl-header">
+            <h1 class="pl-title">PM Prompt Library</h1>
+            <p class="pl-intro">Browse reusable formats and ready-made prompts. Copy with one click or open a preview to read the full text.</p>
+        </header>
+
+        <div class="pl-toolbar" role="search">
+            <label class="pl-search-wrap">
+                <span class="visually-hidden">Search prompts and formats</span>
+                <i class="fa-solid fa-magnifying-glass pl-search-icon" aria-hidden="true"></i>
+                <input type="search" id="pl-search" class="pl-search" placeholder="Search by title, description, or category…" autocomplete="off">
+            </label>
+            <div class="pl-filters" id="pl-filters" role="group" aria-label="Category filters"></div>
+        </div>
+
+        <div class="neon-divider"></div>
+        <section class="pl-section" aria-labelledby="pl-formats-heading">
+            <h2 class="pl-section-title" id="pl-formats-heading">Formats</h2>
+            <p class="pl-section-desc">Templates to copy and fill in yourself.</p>
+            <div class="pl-tiles-grid" id="pl-formats-grid"></div>
+            <p class="pl-empty" id="pl-formats-empty" hidden>No formats match your search.</p>
+        </section>
+
+        <div class="neon-divider"></div>
+        <section class="pl-section" aria-labelledby="pl-prompts-heading">
+            <h2 class="pl-section-title" id="pl-prompts-heading">Prompts</h2>
+            <p class="pl-section-desc">Ready-to-use prompts. Copy and paste into your AI tool.</p>
+            <div class="pl-tiles-grid" id="pl-prompts-grid"></div>
+            <p class="pl-empty" id="pl-prompts-empty" hidden>No prompts match your search.</p>
+        </section>
+    </main>
+
+    <div class="pl-modal" id="pl-modal" hidden aria-hidden="true">
+        <div class="pl-modal-backdrop" id="pl-modal-backdrop"></div>
+        <div class="pl-modal-dialog" role="dialog" aria-modal="true" aria-labelledby="pl-modal-title">
+            <header class="pl-modal-header">
+                <div class="pl-modal-heading">
+                    <h2 class="pl-modal-title" id="pl-modal-title"></h2>
+                    <span class="pl-modal-badge" id="pl-modal-badge"></span>
+                </div>
+            </header>
+            <div class="pl-modal-body" id="pl-modal-body"></div>
+            <footer class="pl-modal-footer">
+                <button type="button" class="pl-btn pl-btn--primary" id="pl-modal-copy">Copy</button>
+                <button type="button" class="pl-btn" id="pl-modal-close">Close</button>
+            </footer>
+        </div>
+    </div>
+
+    <script src="data/prompt-data.js?v=5"></script>
+    <script src="prompt-library.js?v=6"></script>
+</body>
+</html>
