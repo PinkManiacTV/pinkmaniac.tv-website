@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Meander Simulator — PM APP</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Chakra+Petch:wght@600;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body class="app-page meander-page">
+  <header class="header header--app">
+    <nav class="app-header-nav" aria-label="Main navigation">
+      <a href="https://pinkmaniac.tv/" class="app-header-link">PMTV HOME</a>
+      <span class="app-header-divider" aria-hidden="true"></span>
+      <a href="https://pinkmaniac.tv/app" class="app-header-link">PM APP HOME</a>
+    </nav>
+  </header>
+
+  <main class="meander-main">
+    <header class="meander-header">
+      <h1 class="meander-title">Meander Simulator</h1>
+      <p class="meander-intro">
+        Watch a river channel migrate, cut off oxbow loops, and build point bars over time.
+        Based on the Howard &amp; Knutson (1984) kinematic meander model.
+      </p>
+    </header>
+
+    <div class="meander-layout">
+      <aside class="meander-controls">
+        <div class="meander-actions">
+          <button type="button" id="btn-play" class="meander-icon-btn meander-icon-btn--primary" aria-label="Play">
+            <i class="fa-solid fa-play" aria-hidden="true"></i>
+          </button>
+          <button type="button" id="btn-pause" class="meander-icon-btn" aria-label="Pause" disabled>
+            <i class="fa-solid fa-pause" aria-hidden="true"></i>
+          </button>
+          <button type="button" id="btn-reset" class="meander-icon-btn" aria-label="Reset">
+            <i class="fa-solid fa-rotate-right" aria-hidden="true"></i>
+          </button>
+          <button type="button" id="btn-fullscreen" class="meander-icon-btn" aria-label="Fullscreen" title="Toggle fullscreen">
+            <i class="fa-solid fa-expand" aria-hidden="true"></i>
+          </button>
+        </div>
+
+        <div class="meander-monitor">
+          <span class="meander-monitor-label">Simulation</span>
+          <span id="status" class="meander-monitor-value">Ready to start</span>
+        </div>
+      </aside>
+
+      <div id="sim-fullscreen" class="meander-stage-glow">
+        <section class="meander-stage">
+          <div id="canvas-wrap" class="canvas-wrap">
+            <canvas id="canvas"></canvas>
+          </div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <script src="js/meander-engine.js"></script>
+  <script src="js/meander-renderer.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

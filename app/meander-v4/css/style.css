@@ -1,0 +1,292 @@
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --pm-bg: #000000;
+  --pm-sim-bg-start: #8bedde;
+  --pm-sim-bg-end: #8dfa8b;
+  --pm-line: rgba(255, 255, 255, 0.22);
+  --pm-line-strong: rgba(255, 255, 255, 0.45);
+  --pm-text-muted: rgba(255, 255, 255, 0.55);
+  --pm-panel: rgba(255, 255, 255, 0.03);
+  --pm-glow-a: 139, 237, 222;
+  --pm-glow-b: 141, 250, 139;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  overflow-x: clip;
+}
+
+body.app-page {
+  background: var(--pm-bg);
+  color: #fff;
+  font-family: 'Poppins', sans-serif;
+  min-height: 100vh;
+  padding-top: 52px;
+}
+
+/* PM APP header — matches pinkmaniac.tv/app */
+.header.header--app {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 52px;
+  padding: 0 18px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: #000;
+  border-bottom: 2px solid rgba(255, 255, 255, 0.35);
+  box-shadow: 0 1px 10px rgba(255, 255, 255, 0.12);
+  z-index: 9999;
+}
+
+.app-header-nav {
+  display: flex;
+  align-items: center;
+  gap: clamp(16px, 4vw, 28px);
+}
+
+.app-header-divider {
+  width: 2px;
+  height: 20px;
+  background: rgba(255, 255, 255, 0.45);
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.35);
+  flex-shrink: 0;
+}
+
+.app-header-link {
+  font-family: 'Chakra Petch', sans-serif;
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #fff;
+  text-decoration: none;
+  font-size: clamp(12px, 2.5vw, 14px);
+  letter-spacing: 0.06em;
+  transition: opacity 0.25s ease, text-shadow 0.25s ease;
+}
+
+.app-header-link:hover {
+  opacity: 0.85;
+  text-shadow: 0 0 10px rgba(255, 255, 255, 0.45);
+}
+
+.meander-main {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 16px 18px 48px;
+  overflow: visible;
+}
+
+.meander-header {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.meander-title {
+  font-family: 'Chakra Petch', sans-serif;
+  font-weight: 700;
+  font-size: clamp(1.4rem, 4vw, 2rem);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  margin: 0 0 10px;
+}
+
+.meander-intro {
+  font-size: clamp(0.85rem, 2.2vw, 0.95rem);
+  color: var(--pm-text-muted);
+  line-height: 1.55;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+.meander-layout {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+  overflow: visible;
+}
+
+.meander-controls {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  width: 100%;
+  max-width: 520px;
+  padding: 16px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 6px;
+  background: var(--pm-panel);
+}
+
+.meander-stage-glow {
+  position: relative;
+  width: 100%;
+  padding: 18px 14px;
+  overflow: visible;
+}
+
+.meander-stage-glow::before {
+  content: '';
+  position: absolute;
+  inset: 18px 14px;
+  border-radius: 6px;
+  pointer-events: none;
+  z-index: 0;
+  box-shadow:
+    0 0 9px 2px rgba(var(--pm-glow-a), 0.55),
+    0 0 21px 6px rgba(var(--pm-glow-b), 0.35),
+    0 0 40px 14px rgba(var(--pm-glow-a), 0.2),
+    0 0 65px 24px rgba(var(--pm-glow-b), 0.1);
+}
+
+.meander-stage {
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+  background: linear-gradient(to bottom right, var(--pm-sim-bg-start), var(--pm-sim-bg-end));
+  box-shadow:
+    0 0 8px 1px rgba(var(--pm-glow-a), 0.6),
+    0 0 18px 5px rgba(var(--pm-glow-b), 0.38);
+}
+
+#sim-fullscreen:fullscreen,
+#sim-fullscreen:-webkit-full-screen {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  align-items: stretch;
+  justify-content: stretch;
+  background: #000;
+}
+
+#sim-fullscreen:fullscreen::before,
+#sim-fullscreen:-webkit-full-screen::before {
+  display: none;
+}
+
+#sim-fullscreen:fullscreen .meander-stage,
+#sim-fullscreen:-webkit-full-screen .meander-stage {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  border-radius: 0;
+  box-shadow: none;
+}
+
+#sim-fullscreen:fullscreen .canvas-wrap,
+#sim-fullscreen:-webkit-full-screen .canvas-wrap {
+  flex: 1;
+  display: flex;
+  min-height: 0;
+}
+
+#sim-fullscreen:fullscreen #canvas,
+#sim-fullscreen:-webkit-full-screen #canvas {
+  flex: 1;
+  width: 100% !important;
+  height: 100% !important;
+  max-height: none;
+}
+
+.canvas-wrap {
+  width: 100%;
+  background: linear-gradient(to bottom right, var(--pm-sim-bg-start), var(--pm-sim-bg-end));
+}
+
+#canvas {
+  display: block;
+  width: 100%;
+}
+
+.meander-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+}
+
+.meander-icon-btn {
+  width: 48px;
+  height: 48px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: 1px solid rgba(255, 255, 255, 0.45);
+  border-radius: 4px;
+  background: rgba(255, 255, 255, 0.03);
+  color: #fff;
+  font-size: 1.05rem;
+  cursor: pointer;
+  transition: box-shadow 0.2s ease, background 0.2s ease, border-color 0.2s ease;
+}
+
+.meander-icon-btn .fa-play {
+  margin-left: 2px;
+}
+
+.meander-icon-btn:hover:not(:disabled) {
+  border-color: rgba(var(--pm-glow-a), 0.85);
+  background: rgba(var(--pm-glow-a), 0.12);
+  box-shadow:
+    0 0 12px rgba(var(--pm-glow-a), 0.4),
+    0 0 18px rgba(var(--pm-glow-b), 0.28);
+}
+
+.meander-icon-btn:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+.meander-icon-btn--primary {
+  border-color: rgba(var(--pm-glow-a), 0.65);
+  box-shadow:
+    0 0 10px rgba(var(--pm-glow-a), 0.25),
+    0 0 14px rgba(var(--pm-glow-b), 0.15);
+}
+
+.meander-icon-btn.is-active {
+  border-color: rgba(var(--pm-glow-b), 0.9);
+  background: rgba(var(--pm-glow-b), 0.14);
+  box-shadow:
+    0 0 14px rgba(var(--pm-glow-a), 0.45),
+    0 0 20px rgba(var(--pm-glow-b), 0.35);
+}
+
+.meander-monitor {
+  padding: 12px;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 4px;
+  background: rgba(0, 0, 0, 0.35);
+  text-align: center;
+}
+
+.meander-monitor-label {
+  display: block;
+  font-family: 'Chakra Petch', sans-serif;
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: rgba(255, 255, 255, 0.5);
+  margin-bottom: 6px;
+}
+
+.meander-monitor-value {
+  display: block;
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
