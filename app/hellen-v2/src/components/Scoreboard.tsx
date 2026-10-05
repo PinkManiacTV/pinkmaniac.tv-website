@@ -34,8 +34,8 @@ export function Scoreboard({
   const cols = players.length <= 4 ? 4 : players.length <= 6 ? 6 : 8
 
   return (
-    <div className="panel relative w-full px-2 py-1">
-      <div className="mb-2.5 flex h-8 items-center gap-1.5">
+    <div className="panel relative w-full px-2 pt-1.5 pb-1">
+      <div className="mb-3 flex items-center gap-1.5 pb-1">
         <p className="min-w-0 flex-1 truncate font-body text-base leading-none text-ink sm:text-lg">
           {`${t('round')} ${Math.min(roundIndex + 1, Math.max(totalRounds, 1))}/${totalRounds || '—'}${
             cardsThisRound > 0
@@ -144,7 +144,7 @@ export function Scoreboard({
                 active ? 'bg-beige-dark/70' : 'bg-transparent',
               ].join(' ')}
             >
-              <BotPortrait id={p.portrait} size={32} active={active} />
+              <BotPortrait id={p.portrait} size={players.length >= 7 ? 26 : 30} active={active} />
               <span className="mt-0.5 max-w-full truncate font-body text-sm leading-none text-ink">
                 {p.name}
               </span>
@@ -158,18 +158,18 @@ export function Scoreboard({
       </div>
 
       {expanded && (
-        <div className="absolute top-full right-0 left-0 z-50 mt-1 max-h-[70dvh] overflow-auto rounded-xl border-[3px] border-wood-dark bg-beige-light p-1.5 shadow-[0_8px_0_rgba(58,46,31,0.25)]">
+        <div className="absolute top-full right-0 left-0 z-[70] mt-1 max-h-[70dvh] overflow-auto rounded-xl border-[3px] border-wood-dark bg-beige-light p-1.5 shadow-[0_8px_0_rgba(58,46,31,0.25)]">
           <p className="mb-1 text-center font-body text-lg leading-none text-ink">{t('perRound')}</p>
           {roundHistory.length === 0 ? (
             <p className="py-1 text-center font-body text-base text-ink-soft">{t('noRounds')}</p>
           ) : (
-            <table className="w-full min-w-[260px] border-collapse text-center font-body text-base leading-tight">
+            <table className="w-full table-fixed border-collapse text-center font-body text-base leading-tight">
               <thead>
                 <tr className="text-ink-soft">
-                  <th className="w-10 px-0.5 py-0.5 font-normal" />
+                  <th className="w-7 px-0.5 py-0.5 font-normal" />
                   {players.map((p) => (
-                    <th key={p.id} className="px-0.5 py-0.5 font-normal">
-                      {p.name.slice(0, 6)}
+                    <th key={p.id} className="truncate px-0.5 py-0.5 font-normal whitespace-nowrap">
+                      {p.name}
                     </th>
                   ))}
                 </tr>
@@ -177,7 +177,7 @@ export function Scoreboard({
               <tbody>
                 {roundHistory.map((r, row) => (
                   <tr key={r.roundIndex}>
-                    <td className="px-0.5 py-1 font-body text-2xl leading-none text-ink">
+                    <td className="px-0.5 py-0.5 font-body text-lg leading-none text-ink">
                       {r.cardsThisRound}
                     </td>
                     {players.map((p) => {
@@ -186,17 +186,17 @@ export function Scoreboard({
                         .slice(0, row + 1)
                         .reduce((sum, entry) => sum + (entry.roundScores[p.id] ?? 0), 0)
                       return (
-                        <td key={p.id} className="px-0.5 py-0.5">
+                        <td key={p.id} className="px-0.5 py-0.5 align-top">
                           <div
                             className={[
-                              'rounded px-0.5 py-0.5 leading-none',
+                              'flex h-9 flex-col items-center justify-center rounded px-0.5',
                               exact ? 'bg-[#c8e6b8]' : 'bg-[#f0c4c0]',
                             ].join(' ')}
                           >
-                            <div className="text-sm text-ink">
-                              {r.tricksWon[p.id]}/{r.predictions[p.id]}{' '}
-                              <span className="font-bold">{total}</span>
-                            </div>
+                            <span className="text-xs leading-none text-ink">
+                              {r.tricksWon[p.id]}/{r.predictions[p.id]}
+                            </span>
+                            <span className="text-sm font-bold leading-none text-ink">{total}</span>
                           </div>
                         </td>
                       )
@@ -204,13 +204,13 @@ export function Scoreboard({
                   </tr>
                 ))}
                 <tr>
-                  <td className="px-0.5 py-1.5 font-body text-lg leading-none text-ink">
+                  <td className="px-0.5 py-1 font-body text-base leading-none text-ink">
                     {t('total')}
                   </td>
                   {players.map((p) => (
                     <td
                       key={p.id}
-                      className="px-0.5 py-1.5 font-body text-2xl font-bold leading-none text-ink"
+                      className="px-0.5 py-1 font-body text-lg font-bold leading-none text-ink"
                     >
                       {p.score}
                     </td>

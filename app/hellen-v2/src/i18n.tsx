@@ -74,6 +74,7 @@ const STRINGS = {
     roundDone: 'Round over — check the scores.',
     lastRoundDone: 'Last round done — check the scores.',
     firstPredictor: 'Predicts first',
+    yourTurnHint: 'Your turn…',
   },
   nl: {
     studio: 'PinkManiac Studio',
@@ -143,6 +144,7 @@ const STRINGS = {
     roundDone: 'Ronde klaar — bekijk de scores.',
     lastRoundDone: 'Laatste ronde klaar — bekijk de scores.',
     firstPredictor: 'Begint met voorspellen',
+    yourTurnHint: 'Jij bent aan de beurt…',
   },
 } as const
 

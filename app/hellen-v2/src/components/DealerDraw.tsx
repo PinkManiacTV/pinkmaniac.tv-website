@@ -55,7 +55,7 @@ export function DealerDraw({ players, cards, winner, message, onConfirm }: Props
             <div
               key={p.id}
               className={[
-                'panel flex min-h-0 flex-col items-center justify-start overflow-visible px-1.5 py-1.5 transition-all duration-300',
+                'panel flex min-h-0 flex-col items-center justify-start overflow-hidden px-2 py-2 transition-all duration-300',
                 isWinner ? 'winner-glow ring-2 ring-terracotta scale-[1.03]' : '',
               ].join(' ')}
             >
@@ -63,13 +63,13 @@ export function DealerDraw({ players, cards, winner, message, onConfirm }: Props
               <span className="relative z-10 mt-1 max-w-full shrink-0 truncate px-0.5 text-center font-body text-base leading-tight text-ink">
                 {p.name}
               </span>
-              <div className="relative z-0 mt-1.5 flex h-[4.6rem] shrink-0 items-center justify-center">
+              <div className="relative z-0 mt-1.5 flex min-h-0 w-full flex-1 items-center justify-center overflow-hidden">
                 {showCard && cards[i] ? (
                   <div className="animate-deal-fly">
                     <CardView card={cards[i]} small />
                   </div>
                 ) : (
-                  <div className="h-[4.5rem] w-12 rounded-md border-[3px] border-dashed border-wood-dark/40 bg-beige-dark/30" />
+                  <div className="h-16 w-11 rounded-md border-[3px] border-dashed border-wood-dark/40 bg-beige-dark/30" />
                 )}
               </div>
             </div>
